@@ -1,0 +1,30 @@
+{
+  "name": "network-gui",
+  "version": "0.1.0",
+  "description": "A desktop application for showing network topology and transmission data",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "",
+  "keywords": [
+    "network",
+    "topology",
+    "charts",
+    "logs",
+    "transmission"
+  ],
+  "tags": [
+    "desktop",
+    "electron",
+    "bootstrap"
+  ],
+  "author": "James Ng",
+  "license": "CC0-1.0",
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "electron": "^1.4.1"
+  }
+}
