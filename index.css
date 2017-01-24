@@ -18,14 +18,14 @@ html, body, .container-fluid {
   margin: 10px 10px 0px 0px;
   padding: 0px;
 }
+.media-control {
+  padding-top: 10px;
+}
 #ex1Slider {
   margin: 0px 10px;
 }
 #ex1Slider .slider-selection {
   background: #BABABA;
-}
-span {
-  margin: 15px 0px 0px 10px;
 }
 #cy {
   height: 100%;
