@@ -85,17 +85,54 @@ function highlightPointOnCharts(){
 }
 
 var cy = cytoscape({
-    container: $('#cy')
+    container: $('#cy'),
+    elements: [
+        // nodes
+        { data: { id: 'a' } },
+        { data: { id: 'b' } },
+        { data: { id: 'c' } },
+        { data: { id: 'd' } },
+        { data: { id: 'e' } },
+        { data: { id: 'f' } },
+        // edges
+        {
+            data: {
+                id: 'ab',
+                source: 'a',
+                target: 'b'
+            }
+        },
+        {
+            data: {
+                id: 'cd',
+                source: 'c',
+                target: 'd'
+            }
+        },
+        {
+            data: {
+                id: 'ef',
+                source: 'e',
+                target: 'f'
+            }
+        },
+        {
+            data: {
+                id: 'ac',
+                source: 'a',
+                target: 'd'
+            }
+        },
+        {
+            data: {
+                id: 'be',
+                source: 'b',
+                target: 'e'
+            }
+        }
+    ],
+    layout: { name: "random" }
 });
-
-var eles = cy.add([
-    { group: "nodes", data: { id: "n0" }, position: { x: 100, y: 100 } },
-    { group: "nodes", data: { id: "n1" }, position: { x: 200, y: 200 } },
-    { group: "nodes", data: { id: "n2" }, position: { x: 100, y: 200 } },
-    { group: "edges", data: { id: "e0", source: "n0", target: "n1" } },
-    { group: "edges", data: { id: "e1", source: "n0", target: "n2" } },
-    { group: "edges", data: { id: "e2", source: "n1", target: "n2" } }
-]);
 
 var cpuCanvas = document.getElementById("cpu-chart");
 cpuCanvas.width = parseInt($('#well1').css('width'), 10);
