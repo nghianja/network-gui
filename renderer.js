@@ -4,6 +4,18 @@
 
 const {ipcRenderer} = require('electron')
 
-ipcRenderer.on('readFile', (event, arg) => {
-  console.log(arg);
+ipcRenderer.on('readTopo', (event, arg) => {
+  console.log("Topology File: " + arg);
+})
+ipcRenderer.on('readBots', (event, arg) => {
+  console.log("Bots Log: " + arg);
+})
+ipcRenderer.on('readBotControl', (event, arg) => {
+  console.log("Bot Control Log: " + arg);
+})
+ipcRenderer.on('readServers', (event, arg) => {
+  console.log("Servers Log: " + arg);
+})
+ipcRenderer.on('readSwitches', (event, arg) => {
+  console.log("Switches Log: " + arg);
 })
