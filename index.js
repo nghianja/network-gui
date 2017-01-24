@@ -19,8 +19,21 @@ $('#playPauseButton').on('click', function () {
     } else {
         isPlaying = true;
         $('#playPauseIcon').removeClass('glyphicon-play').addClass('glyphicon-pause');
+        playbackTicker();
     }
 });
+function playbackTicker() {
+    if (isPlaying && pointIndex < 9) {
+        pointIndex++;
+        $('#ex1').slider('setValue', pointIndex);
+        $("#ex1SliderVal").text(pointIndex);
+        highlightPointOnCharts();
+        window.setTimeout(playbackTicker, 500);
+    } else if (isPlaying && pointIndex >= 9) {
+        isPlaying = false;
+        $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
+    }
+}
 
 // slider
 $('#ex1').slider({
@@ -55,11 +68,11 @@ function highlightPointOnCharts(){
     //Get point object and change the radius/color
     var cpuPoint = cpuMeta.data[pointIndex];
     cpuPoint.custom = cpuPoint.custom || {};
-    cpuPoint.custom.backgroundColor = "rgba(0,0,225,1)";
+    cpuPoint.custom.backgroundColor = "#000";
     cpuPoint.custom.radius = 7;
     var networkPoint = networkMeta.data[pointIndex];
     networkPoint.custom = networkPoint.custom || {};
-    networkPoint.custom.backgroundColor = "rgba(0,0,225,1)";
+    networkPoint.custom.backgroundColor = "#000";
     networkPoint.custom.radius = 7;
 
     // first parameter to update is the animation duration.
