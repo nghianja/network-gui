@@ -167,6 +167,19 @@ var cy = cytoscape({
     ],
     layout: { name: "random" }
 });
+cy.on('mouseover', 'node', function(event) {
+    var node = event.cyTarget;
+    node.qtip({
+         content: 'id: ' + this.id(),
+         show: {
+            event: event.type,
+            ready: true
+         },
+         hide: {
+            event: 'mouseout unfocus'
+         }
+    }, event);
+});
 
 var cpuCanvas = document.getElementById("cpu-chart");
 cpuCanvas.width = parseInt($('#well1').css('width'), 10);
