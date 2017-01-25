@@ -129,6 +129,20 @@ var cy = cytoscape({
                 source: 'b',
                 target: 'e'
             }
+        },
+        {
+            data: {
+                id: 'ce',
+                source: 'c',
+                target: 'e'
+            }
+        },
+        {
+            data: {
+                id: 'df',
+                source: 'd',
+                target: 'f'
+            }
         }
     ],
     layout: { name: "random" }
