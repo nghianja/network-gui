@@ -50,6 +50,12 @@ $(document).ready(function() {
     highlightNetworkLoad();
     highlightPointOnCharts();
 });
+$("#ex1").on("slide", function(slideEvt) {
+    $("#ex1SliderVal").text(slideEvt.value);
+    pointIndex = slideEvt.value;
+    highlightNetworkLoad();
+    highlightPointOnCharts();
+});
 $("#ex1").on("slideStop", function(slideEvt) {
     $("#ex1SliderVal").text(slideEvt.value);
     pointIndex = slideEvt.value;
