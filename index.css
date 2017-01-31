@@ -31,3 +31,6 @@ html, body, .container-fluid {
   height: 100%;
   display: block;
 }
+.scrollable-column {
+  overflow-y: scroll;
+}
