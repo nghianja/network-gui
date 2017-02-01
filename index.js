@@ -1,74 +1,27 @@
 // load dummy data
-require('./data_topology');
-require('./data_cpu');
-require('./data_network');
+require('./data_nodes');
 
-// buttons
-$('#startButton').on('click', function () {
-    pointIndex = 0;
-    $('#ex1').slider('setValue', pointIndex);
-    $("#ex1SliderVal").text(pointIndex);
-    highlightNetworkLoad();
-    highlightPointOnCharts();
-});
-$('#endButton').on('click', function () {
-    pointIndex = 9;
-    $('#ex1').slider('setValue', pointIndex);
-    $("#ex1SliderVal").text(pointIndex);
-    highlightNetworkLoad();
-    highlightPointOnCharts();
-});
-var isPlaying = false;
-$('#playPauseButton').on('click', function () {
-    if (isPlaying) {
-        isPlaying = false;
-        $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
-    } else {
-        isPlaying = true;
-        $('#playPauseIcon').removeClass('glyphicon-play').addClass('glyphicon-pause');
-        playbackTicker();
-    }
-});
-function playbackTicker() {
-    if (isPlaying && pointIndex < 9) {
-        pointIndex++;
-        $('#ex1').slider('setValue', pointIndex);
-        $("#ex1SliderVal").text(pointIndex);
-        highlightNetworkLoad();
-        highlightPointOnCharts();
-        window.setTimeout(playbackTicker, 500);
-    } else if (isPlaying && pointIndex >= 9) {
-        isPlaying = false;
-        $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
-    }
-}
-
-// slider
-$('#ex1').slider({
-    formatter: function(value) {
-        return 'Current time: ' + value;
-    }
-});
+// vars
 var previousIndex = 0;
 var pointIndex = 0;
-$(document).ready(function() {
-    highlightNetworkLoad();
-    highlightPointOnCharts();
-});
-$("#ex1").on("slide", function(slideEvt) {
-    $("#ex1SliderVal").text(slideEvt.value);
-    pointIndex = slideEvt.value;
-    highlightNetworkLoad();
-    highlightPointOnCharts();
-});
-$("#ex1").on("slideStop", function(slideEvt) {
-    $("#ex1SliderVal").text(slideEvt.value);
-    pointIndex = slideEvt.value;
-    highlightNetworkLoad();
-    highlightPointOnCharts();
-});
+var currentNode = 0;
 
-function highlightPointOnCharts(){
+// update and highlight functions
+function update() {
+    updateHighlights();
+    updateLabels();
+}
+
+function updateHighlights() {
+    highlightPointOnCharts();
+    highlightNetworkLoad();
+}
+
+function updateLabels() {
+    $("#currentTimeLabel").text(pointIndex);
+}
+
+function highlightPointOnCharts() {
     var cpuMeta = cpuChart.getDatasetMeta(0);
     var networkMeta = networkChart.getDatasetMeta(0);
 
@@ -101,18 +54,71 @@ function highlightPointOnCharts(){
     previousIndex = pointIndex;
 }
 function highlightNetworkLoad() {
-    if (cpuData[pointIndex] > 50) {
+    if (cpuData[currentNode][pointIndex] > 50) {
         cy.nodes().style({ 'background-color':'red' });
     } else {
         cy.nodes().style({ 'background-color':'green' });
     }
-    if (networkData[pointIndex] > 50) {
+    if (networkData[currentNode][pointIndex] > 50) {
         cy.edges().style({ 'line-color':'red' });
     } else {
         cy.edges().style({ 'line-color':'green' });
     }
 }
 
+// button functions
+$('#startButton').on('click', function () {
+    pointIndex = 0;
+    $('#ex1').slider('setValue', pointIndex);
+    update();
+});
+$('#endButton').on('click', function () {
+    pointIndex = 9;
+    $('#ex1').slider('setValue', pointIndex);
+    update();
+});
+var isPlaying = false;
+$('#playPauseButton').on('click', function () {
+    if (isPlaying) {
+        isPlaying = false;
+        $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
+    } else {
+        isPlaying = true;
+        $('#playPauseIcon').removeClass('glyphicon-play').addClass('glyphicon-pause');
+        playbackTicker();
+    }
+});
+function playbackTicker() {
+    if (isPlaying && pointIndex < 9) {
+        pointIndex++;
+        $('#ex1').slider('setValue', pointIndex);
+        update();
+        window.setTimeout(playbackTicker, 500);
+    } else if (isPlaying && pointIndex >= 9) {
+        isPlaying = false;
+        $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
+    }
+}
+
+// slider
+$('#ex1').slider({
+    formatter: function(value) {
+        return 'Current time: ' + value;
+    }
+});
+$(document).ready(function() {
+    update();
+});
+$("#ex1").on("slide", function(slideEvt) {
+    pointIndex = slideEvt.value;
+    update();
+});
+$("#ex1").on("slideStop", function(slideEvt) {
+    pointIndex = slideEvt.value;
+    update();
+});
+
+// topology
 var cy = cytoscape({
     container: $('#cy'),
     elements: dataset,
@@ -132,6 +138,7 @@ cy.on('mouseover', 'node', function(event) {
     }, event);
 });
 
+// cpu chart
 var cpuCanvas = document.getElementById("cpu-chart");
 cpuCanvas.width = parseInt($('#well1').css('width'), 10);
 cpuCanvas.height = parseInt($('#well1').css('height'), 10);
@@ -158,12 +165,13 @@ var cpuChart = new Chart(cpuCanvas, {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: cpuData,
+            data: cpuData[currentNode],
             spanGaps: false,
         }]
     }
 });
 
+// network chart
 var networkCanvas = document.getElementById("network-chart");
 networkCanvas.width = parseInt($('#well2').css('width'), 10);
 networkCanvas.height = parseInt($('#well2').css('height'), 10);
@@ -190,7 +198,7 @@ var networkChart = new Chart(networkCanvas, {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: networkData,
+            data: networkData[currentNode],
             spanGaps: false,
         }]
     }
