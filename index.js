@@ -7,6 +7,32 @@ var pointIndex = 0;
 var currentNode = 0;
 
 // update and highlight functions
+function updateCurrentNode(id) {
+    if (id == 'a') {
+        currentNode = 0;
+    } else if (id == 'b') {
+        currentNode = 1;
+    } else if (id == 'c') {
+        currentNode = 2;
+    } else if (id == 'd') {
+        currentNode = 3;
+    } else if (id == 'e') {
+        currentNode = 4;
+    } else if (id == 'f') {
+        currentNode = 5;
+    }
+    $("#currentNodeLabel").text(id);
+    updateDataSources();
+    update();
+}
+
+function updateDataSources() {
+    cpuChart.data.datasets[0].data = cpuData[currentNode];
+    networkChart.data.datasets[0].data = networkData[currentNode];
+    cpuChart.update(0);
+    networkChart.update(0);
+}
+
 function update() {
     updateHighlights();
     updateLabels();
@@ -137,6 +163,9 @@ cy.on('mouseover', 'node', function(event) {
          }
     }, event);
 });
+cy.on('click', 'node', function() {
+    updateCurrentNode(this.id());
+});
 
 // cpu chart
 var cpuCanvas = document.getElementById("cpu-chart");
@@ -166,7 +195,7 @@ var cpuChart = new Chart(cpuCanvas, {
             pointRadius: 1,
             pointHitRadius: 10,
             data: cpuData[currentNode],
-            spanGaps: false,
+            spanGaps: false
         }]
     }
 });
@@ -199,7 +228,7 @@ var networkChart = new Chart(networkCanvas, {
             pointRadius: 1,
             pointHitRadius: 10,
             data: networkData[currentNode],
-            spanGaps: false,
+            spanGaps: false
         }]
     }
 });
