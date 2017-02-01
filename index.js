@@ -138,7 +138,7 @@ cpuCanvas.height = parseInt($('#well1').css('height'), 10);
 var cpuChart = new Chart(cpuCanvas, {
     type: 'line',
     data: {
-        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        labels: cpuLabels,
         datasets: [{
             label: "CPU Usage",
             fill: true,
@@ -170,7 +170,7 @@ networkCanvas.height = parseInt($('#well2').css('height'), 10);
 var networkChart = new Chart(networkCanvas, {
     type: 'line',
     data: {
-        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        labels: networkLabels,
         datasets: [{
             label: "Network Usage",
             fill: true,
