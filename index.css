@@ -34,3 +34,6 @@ html, body, .container-fluid {
 .scrollable-column {
   overflow-y: scroll;
 }
+.no-visibility {
+  display: none;
+}
