@@ -117,7 +117,14 @@ $('#playPauseButton').on('click', function () {
     } else {
         isPlaying = true;
         $('#playPauseIcon').removeClass('glyphicon-play').addClass('glyphicon-pause');
-        playbackTicker();
+        if (pointIndex == 9) {
+            pointIndex = 0;
+            $('#ex1').slider('setValue', pointIndex);
+            update();
+            window.setTimeout(playbackTicker, 500);
+        } else {
+            playbackTicker();
+        }
     }
 });
 function playbackTicker() {
