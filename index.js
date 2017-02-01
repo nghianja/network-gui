@@ -1,3 +1,8 @@
+// load dummy data
+require('./topology');
+require('./cpu');
+require('./network');
+
 // buttons
 $('#startButton').on('click', function () {
     pointIndex = 0;
@@ -96,8 +101,6 @@ function highlightPointOnCharts(){
     previousIndex = pointIndex;
 }
 function highlightNetworkLoad() {
-    var cpuData = [10, 65, 59, 80, 20, 81, 56, 55, 30, 40];
-    var networkData = [50, 50, 50, 50, 40, 30, 70, 90, 100, 100];
     if (cpuData[pointIndex] > 50) {
         cy.nodes().style({ 'background-color':'red' });
     } else {
@@ -110,7 +113,6 @@ function highlightNetworkLoad() {
     }
 }
 
-require('./network');
 var cy = cytoscape({
     container: $('#cy'),
     elements: dataset,
@@ -156,7 +158,7 @@ var cpuChart = new Chart(cpuCanvas, {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [10, 65, 59, 80, 20, 81, 56, 55, 30, 40],
+            data: cpuData,
             spanGaps: false,
         }]
     }
@@ -188,7 +190,7 @@ var networkChart = new Chart(networkCanvas, {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [50, 50, 50, 50, 40, 30, 70, 90, 100, 100],
+            data: networkData,
             spanGaps: false,
         }]
     }
