@@ -7,6 +7,10 @@ var pointIndex = 0;
 var currentNode = 0;
 
 // update and highlight functions
+$(document).ready(function() {
+    updateCurrentNode('overall');
+});
+
 function updateCurrentNode(id) {
     if (id == 'a') {
         currentNode = 0;
@@ -20,6 +24,8 @@ function updateCurrentNode(id) {
         currentNode = 4;
     } else if (id == 'f') {
         currentNode = 5;
+    } else if (id == 'overall') {
+        currentNode = 6;
     }
     $("#currentNodeLabel").text(id);
     updateDataSources();
@@ -132,9 +138,6 @@ $('#ex1').slider({
         return 'Current time: ' + value;
     }
 });
-$(document).ready(function() {
-    update();
-});
 $("#ex1").on("slide", function(slideEvt) {
     pointIndex = slideEvt.value;
     update();
@@ -163,8 +166,13 @@ cy.on('mouseover', 'node', function(event) {
          }
     }, event);
 });
-cy.on('click', 'node', function() {
-    updateCurrentNode(this.id());
+cy.on('click', function(event) {
+    var node = event.cyTarget;
+    if (node === cy) {
+        updateCurrentNode('overall');
+    } else {
+        updateCurrentNode(node.id());
+    }
 });
 
 // cpu chart
