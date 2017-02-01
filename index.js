@@ -1,7 +1,7 @@
 // load dummy data
-require('./topology');
-require('./cpu');
-require('./network');
+require('./data_topology');
+require('./data_cpu');
+require('./data_network');
 
 // buttons
 $('#startButton').on('click', function () {
