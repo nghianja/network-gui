@@ -30,6 +30,7 @@ function updateCurrentNode(id) {
     $("#currentNodeLabel").text(id);
     updateDataSources();
     update();
+    showPortCharts();
 }
 
 function updateDataSources() {
@@ -115,6 +116,22 @@ function highlightNetworkLoad() {
         } else {
             cy.edges().style({ 'line-color':'gray' });
             cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
+        }
+    }
+}
+
+function showPortCharts() {
+    if (currentNode == 0) {
+        for (i = 1; i <= 4; i++) {
+            if (i <= throughputData[currentNode].length) {
+                $('#placeholder-row' + i).removeClass("no-visibility");
+            } else {
+                $('#placeholder-row' + i).addClass("no-visibility");
+            }
+        }
+    } else {
+        for (i = 1; i <= 4; i++) {
+            $('#placeholder-row' + i).addClass("no-visibility");
         }
     }
 }
@@ -281,5 +298,88 @@ var networkChart = new Chart(networkCanvas, {
             data: networkData[currentNode],
             spanGaps: false
         }]
+    }
+});
+
+// port charts
+var portCanvas1 = document.getElementById("port-chart1");
+portCanvas1.width = parseInt($('#well3').css('width'), 10);
+portCanvas1.height = parseInt($('#well3').css('height'), 10);
+var portChart1 = new Chart(portCanvas1, {
+    type: "line",
+    data: {
+        labels: timestampLabels,
+        datasets: [
+            {
+                label: "Throughput",
+                fill: false,
+                yAxisID: "y-axis-0",
+                data: throughputData_a[0]
+            },
+            {
+                label: "Latency",
+                fill: false,
+                yAxisID: "y-axis-0",
+                data: latencyData_a[0]
+            },
+            {
+                label: "Drop Packets",
+                fill: false,
+                yAxisID: "y-axis-1",
+                data: dropPacketData_a[0]
+            }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                position: "left",
+                "id": "y-axis-0"
+            }, {
+                position: "right",
+                "id": "y-axis-1"
+            }]
+        }
+    }
+});
+
+var portCanvas2 = document.getElementById("port-chart2");
+portCanvas2.width = parseInt($('#well4').css('width'), 10);
+portCanvas2.height = parseInt($('#well4').css('height'), 10);
+var portChart1 = new Chart(portCanvas2, {
+    type: "line",
+    data: {
+        labels: timestampLabels,
+        datasets: [
+            {
+                label: "Throughput",
+                fill: false,
+                yAxisID: "y-axis-0",
+                data: throughputData_a[1]
+            },
+            {
+                label: "Latency",
+                fill: false,
+                yAxisID: "y-axis-0",
+                data: latencyData_a[1]
+            },
+            {
+                label: "Drop Packets",
+                fill: false,
+                yAxisID: "y-axis-1",
+                data: dropPacketData_a[1]
+            }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                position: "left",
+                "id": "y-axis-0"
+            }, {
+                position: "right",
+                "id": "y-axis-1"
+            }]
+        }
     }
 });
