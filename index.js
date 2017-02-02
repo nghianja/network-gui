@@ -179,7 +179,22 @@ $("#ex1").on("slideStop", function(slideEvt) {
 var cy = cytoscape({
     container: $('#cy'),
     elements: dataset,
-    layout: { name: "random" }
+    layout: { name: "random" },
+    style: [
+        {
+            selector: 'node',
+            style: {
+                'label': 'data(label)'
+            }
+        },
+        {
+            selector: '.bottom-center',
+            style: {
+                'text-valign': 'bottom',
+                'text-halign': 'center'
+            }
+        }
+    ]
 });
 cy.on('mouseover', 'node', function(event) {
     var node = event.cyTarget;
