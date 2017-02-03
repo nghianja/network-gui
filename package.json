@@ -19,7 +19,7 @@
     "electron",
     "bootstrap"
   ],
-  "author": "James Ng",
+  "author": "James Ng, Joshua Lee",
   "license": "CC0-1.0",
   "dependencies": {
     

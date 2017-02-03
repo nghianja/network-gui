@@ -38,6 +38,18 @@ function updateDataSources() {
     networkChart.data.datasets[0].data = networkData[currentNode];
     cpuChart.update(0);
     networkChart.update(0);
+    /*
+    if (currentNode < throughputData.length) {
+        portChart1.data.datasets[0].data = throughputData[currentNode];
+        portChart1.data.datasets[1].data = latencyData[currentNode];
+        portChart1.data.datasets[2].data = dropPacketData[currentNode];
+        portChart2.data.datasets[0].data = throughputData[currentNode];
+        portChart2.data.datasets[1].data = latencyData[currentNode];
+        portChart2.data.datasets[2].data = dropPacketData[currentNode];
+        portChart1.update(0);
+        portChart2.update(0);
+    }
+    */
 }
 
 function update() {
@@ -121,7 +133,7 @@ function highlightNetworkLoad() {
 }
 
 function showPortCharts() {
-    if (currentNode == 0) {
+    if (currentNode == 0 || currentNode == 1) {
         for (i = 1; i <= 4; i++) {
             if (i <= throughputData[currentNode].length) {
                 $('#placeholder-row' + i).removeClass("no-visibility");
@@ -196,20 +208,15 @@ $("#ex1").on("slideStop", function(slideEvt) {
 var cy = cytoscape({
     container: $('#cy'),
     elements: dataset,
-    layout: { name: "random" },
+    layout: { name: "random", avoidOverlap: true },
     style: [
         {
             selector: 'node',
-            style: {
-                'label': 'data(label)'
-            }
+            style: { 'label': 'data(label)' }
         },
         {
             selector: '.bottom-center',
-            style: {
-                'text-valign': 'bottom',
-                'text-halign': 'center'
-            }
+            style: { 'text-valign': 'bottom', 'text-halign': 'center' }
         }
     ]
 });
