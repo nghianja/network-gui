@@ -208,6 +208,19 @@ var cy = cytoscape({
         {
             selector: '.bottom-center',
             style: { 'text-valign': 'bottom', 'text-halign': 'center' }
+        },
+        {
+            // add background image, id should be same as the one define in data_topology
+            selector: '#c',
+            style: {
+                'height': 80,
+                'width': 80,
+                'background-fit': 'cover',
+                'border-color': '#000',
+                'border-width': 3,
+                'border-opacity': 0.5,
+                'background-image': 'images/switch.png'
+            }
         }
     ]
 });
