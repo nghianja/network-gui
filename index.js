@@ -74,21 +74,21 @@ function highlightPointOnCharts() {
     var cpuOldPoint = cpuMeta.data[previousIndex];
     cpuOldPoint.custom = cpuOldPoint.custom || {};
     cpuOldPoint.custom.backgroundColor = "#fff";
-    cpuOldPoint.custom.radius = 1;
+    cpuOldPoint.custom.radius = 3;
     var networkOldPoint = networkMeta.data[previousIndex];
     networkOldPoint.custom = networkOldPoint.custom || {};
     networkOldPoint.custom.backgroundColor = "#fff";
-    networkOldPoint.custom.radius = 1;
+    networkOldPoint.custom.radius = 3;
 
     //Get point object and change the radius/color
     var cpuPoint = cpuMeta.data[pointIndex];
     cpuPoint.custom = cpuPoint.custom || {};
-    cpuPoint.custom.backgroundColor = "#000";
-    cpuPoint.custom.radius = 7;
+    cpuPoint.custom.backgroundColor = "#828282";
+    cpuPoint.custom.radius = 5;
     var networkPoint = networkMeta.data[pointIndex];
     networkPoint.custom = networkPoint.custom || {};
-    networkPoint.custom.backgroundColor = "#000";
-    networkPoint.custom.radius = 7;
+    networkPoint.custom.backgroundColor = "#828282";
+    networkPoint.custom.radius = 5;
 
     // first parameter to update is the animation duration.
     // if none is specified, the config animation duration
@@ -267,7 +267,7 @@ var cpuChart = new Chart(cpuCanvas, {
             pointHoverBackgroundColor: "rgba(75,192,192,1)",
             pointHoverBorderColor: "rgba(220,220,220,1)",
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointRadius: 3,
             pointHitRadius: 10,
             data: cpuData[currentNode],
             spanGaps: false
@@ -293,14 +293,14 @@ var networkChart = new Chart(networkCanvas, {
             borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,192,192,1)",
+            pointBorderColor: "rgba(214,83,92,1)",
             pointBackgroundColor: "#fff",
             pointBorderWidth: 1,
             pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBackgroundColor: "rgba(214,83,92,1)",
             pointHoverBorderColor: "rgba(220,220,220,1)",
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointRadius: 3,
             pointHitRadius: 10,
             data: networkData[currentNode],
             spanGaps: false
@@ -318,26 +318,36 @@ var portChart1 = new Chart(portCanvas1, {
         labels: timestampLabels,
         datasets: [
             {
-                label: "Throughput",
+                label: "Throughput (Gbps)",
                 fill: false,
                 yAxisID: "y-axis-0",
-                data: throughputData_a[0]
+                data: throughputData_a[0],
+                backgroundColor: "rgba(93,195,76,0.4)",
+                borderColor: "rgba(93,195,76,1)"
             },
             {
-                label: "Latency",
+                label: "Latency (ms)",
                 fill: false,
                 yAxisID: "y-axis-0",
-                data: latencyData_a[0]
+                data: latencyData_a[0],
+                backgroundColor: "rgba(220,160,85,0.4)",
+                borderColor: "rgba(220,160,85,1)"
             },
             {
-                label: "Drop Packets",
+                label: "% of Dropped Packets",
                 fill: false,
                 yAxisID: "y-axis-1",
-                data: dropPacketData_a[0]
+                data: dropPacketData_a[0],
+                backgroundColor: "rgba(141,75,193,0.4)",
+                borderColor: "rgba(141,75,193,1)"
             }
         ]
     },
     options: {
+        title: {
+            display: true,
+            text: 'Port 1'
+        },
         scales: {
             yAxes: [{
                 position: "left",
@@ -359,26 +369,36 @@ var portChart1 = new Chart(portCanvas2, {
         labels: timestampLabels,
         datasets: [
             {
-                label: "Throughput",
+                label: "Throughput (Gbps)",
                 fill: false,
                 yAxisID: "y-axis-0",
-                data: throughputData_a[1]
+                data: throughputData_a[1],
+                backgroundColor: "rgba(93,195,76,0.4)",
+                borderColor: "rgba(93,195,76,1)"
             },
             {
-                label: "Latency",
+                label: "Latency (ms)",
                 fill: false,
                 yAxisID: "y-axis-0",
-                data: latencyData_a[1]
+                data: latencyData_a[1],
+                backgroundColor: "rgba(220,160,85,0.4)",
+                borderColor: "rgba(220,160,85,1)"
             },
             {
-                label: "Drop Packets",
+                label: "% of Dropped Packets",
                 fill: false,
                 yAxisID: "y-axis-1",
-                data: dropPacketData_a[1]
+                data: dropPacketData_a[1],
+                backgroundColor: "rgba(141,75,193,0.4)",
+                borderColor: "rgba(141,75,193,1)"
             }
         ]
     },
     options: {
+        title: {
+            display: true,
+            text: 'Port 2'
+        },
         scales: {
             yAxes: [{
                 position: "left",
