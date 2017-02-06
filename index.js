@@ -38,18 +38,16 @@ function updateDataSources() {
     networkChart.data.datasets[0].data = networkData[currentNode];
     cpuChart.update(0);
     networkChart.update(0);
-    /*
     if (currentNode < throughputData.length) {
-        portChart1.data.datasets[0].data = throughputData[currentNode];
-        portChart1.data.datasets[1].data = latencyData[currentNode];
-        portChart1.data.datasets[2].data = dropPacketData[currentNode];
-        portChart2.data.datasets[0].data = throughputData[currentNode];
-        portChart2.data.datasets[1].data = latencyData[currentNode];
-        portChart2.data.datasets[2].data = dropPacketData[currentNode];
+        portChart1.data.datasets[0].data = throughputData[currentNode][0];
+        portChart1.data.datasets[1].data = latencyData[currentNode][0];
+        portChart1.data.datasets[2].data = dropPacketData[currentNode][0];
+        portChart2.data.datasets[0].data = throughputData[currentNode][1];
+        portChart2.data.datasets[1].data = latencyData[currentNode][1];
+        portChart2.data.datasets[2].data = dropPacketData[currentNode][1];
         portChart1.update(0);
         portChart2.update(0);
     }
-    */
 }
 
 function update() {
@@ -346,7 +344,7 @@ var portChart1 = new Chart(portCanvas1, {
     options: {
         title: {
             display: true,
-            text: 'Port 1'
+            text: 'Port [0]'
         },
         scales: {
             yAxes: [{
@@ -363,7 +361,7 @@ var portChart1 = new Chart(portCanvas1, {
 var portCanvas2 = document.getElementById("port-chart2");
 portCanvas2.width = parseInt($('#well4').css('width'), 10);
 portCanvas2.height = parseInt($('#well4').css('height'), 10);
-var portChart1 = new Chart(portCanvas2, {
+var portChart2 = new Chart(portCanvas2, {
     type: "line",
     data: {
         labels: timestampLabels,
@@ -397,7 +395,7 @@ var portChart1 = new Chart(portCanvas2, {
     options: {
         title: {
             display: true,
-            text: 'Port 2'
+            text: 'Port [1]'
         },
         scales: {
             yAxes: [{
