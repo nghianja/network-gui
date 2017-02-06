@@ -12,20 +12,11 @@ $(document).ready(function() {
 });
 
 function updateCurrentNode(id) {
-    if (id == 'a') {
-        currentNode = 0;
-    } else if (id == 'b') {
-        currentNode = 1;
-    } else if (id == 'c') {
-        currentNode = 2;
-    } else if (id == 'd') {
-        currentNode = 3;
-    } else if (id == 'e') {
-        currentNode = 4;
-    } else if (id == 'f') {
-        currentNode = 5;
-    } else if (id == 'overall') {
-        currentNode = 6;
+    var index = nodes.indexOf(id);
+    if (index < 0) {
+        currentNode = nodes.length;
+    } else {
+        currentNode = index;
     }
     $("#currentNodeLabel").text(id);
     updateDataSources();
