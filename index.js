@@ -110,6 +110,7 @@ function highlightNetworkLoad() {
         } else {
             cy.edges().style({ 'line-color':'gray' });
             cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'red' });
+            cy.edges('[target = "' + nodes[currentNode] + '"]').style({ 'line-color':'red' });
         }
     } else {
         if (currentNode == nodes.length) {
@@ -117,6 +118,7 @@ function highlightNetworkLoad() {
         } else {
             cy.edges().style({ 'line-color':'gray' });
             cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
+            cy.edges('[target = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
         }
     }
 }
