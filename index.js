@@ -199,7 +199,14 @@ $("#ex1").on("slideStop", function(slideEvt) {
 var cy = cytoscape({
     container: $('#cy'),
     elements: dataset,
-    layout: { name: "random", avoidOverlap: true },
+
+    boxSelectionEnabled: false,
+    autounselectify: true,
+
+    layout: { 
+        name: 'spread',
+        minDist: 40
+    },
     style: [
         {
             selector: 'node',
