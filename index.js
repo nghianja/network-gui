@@ -30,23 +30,14 @@ function updateDataSources() {
     cpuChart.update(0);
     networkChart.update(0);
     if (currentNode < numberOfPorts.length) {
-        if (numberOfPorts[currentNode] > 0) {
-            portChart1.data.datasets[0].data = throughputData[currentNode][0];
-            portChart1.data.datasets[1].data = latencyData[currentNode][0];
-            portChart1.data.datasets[2].data = dropPacketData[currentNode][0];
-            portChart1.update(0);
-        }
-        if (numberOfPorts[currentNode] > 1) {
-            portChart2.data.datasets[0].data = throughputData[currentNode][1];
-            portChart2.data.datasets[1].data = latencyData[currentNode][1];
-            portChart2.data.datasets[2].data = dropPacketData[currentNode][1];
-            portChart2.update(0);
-        }
-        if (numberOfPorts[currentNode] > 2) {
-            portChart3.data.datasets[0].data = throughputData[currentNode][2];
-            portChart3.data.datasets[1].data = latencyData[currentNode][2];
-            portChart3.data.datasets[2].data = dropPacketData[currentNode][2];
-            portChart3.update(0);
+        portCharts = [portChart1, portChart2, portChart3];
+        for (i = 0; i < portCharts.length; i++) {
+            if (numberOfPorts[currentNode] > i) {
+                portCharts[i].data.datasets[0].data = throughputData[currentNode][i];
+                portCharts[i].data.datasets[1].data = latencyData[currentNode][i];
+                portCharts[i].data.datasets[2].data = dropPacketData[currentNode][i];
+                portCharts[i].update(0);
+            }
         }
     }
 }
