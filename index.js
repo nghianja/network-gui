@@ -210,11 +210,11 @@ var cy = cytoscape({
     style: [
         {
             selector: 'node',
-            style: { 'label': 'data(label)' }
-        },
-        {
-            selector: '.bottom-center',
-            style: { 'text-valign': 'bottom', 'text-halign': 'center' }
+            style: { 
+                'label': 'data(label)',
+                'text-valign': 'bottom', 
+                'text-halign': 'center'
+            }
         },
         {
             // add background image, class should be same as the one define in data_topology
