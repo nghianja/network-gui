@@ -85,6 +85,42 @@ function highlightPointOnCharts() {
     cpuChart.update();
     networkChart.update();
 
+    for (i = 0; i < numberOfPorts[currentNode]; i++) {
+        var portMeta1 = portCharts[i].getDatasetMeta(0);
+        var portMeta2 = portCharts[i].getDatasetMeta(1);
+        var portMeta3 = portCharts[i].getDatasetMeta(2);
+
+        // Reset previous point
+        var portOldPoint1 = portMeta1.data[previousIndex];
+        var portOldPoint2 = portMeta2.data[previousIndex];
+        var portOldPoint3 = portMeta3.data[previousIndex];
+        portOldPoint1.custom = portOldPoint1.custom || {};
+        portOldPoint2.custom = portOldPoint2.custom || {};
+        portOldPoint3.custom = portOldPoint3.custom || {};
+        portOldPoint1.custom.backgroundColor = "#fff";
+        portOldPoint2.custom.backgroundColor = "#fff";
+        portOldPoint3.custom.backgroundColor = "#fff";
+        portOldPoint1.custom.radius = 3;
+        portOldPoint2.custom.radius = 3;
+        portOldPoint3.custom.radius = 3;
+
+        //Get point object and change the radius/color
+        var portPoint1 = portMeta1.data[pointIndex];
+        var portPoint2 = portMeta2.data[pointIndex];
+        var portPoint3 = portMeta3.data[pointIndex];
+        portPoint1.custom = portPoint1.custom || {};
+        portPoint2.custom = portPoint2.custom || {};
+        portPoint3.custom = portPoint3.custom || {};
+        portPoint1.custom.backgroundColor = "#828282";
+        portPoint2.custom.backgroundColor = "#828282";
+        portPoint3.custom.backgroundColor = "#828282";
+        portPoint1.custom.radius = 5;
+        portPoint2.custom.radius = 5;
+        portPoint3.custom.radius = 5;
+
+        portCharts[i].update();
+    }
+
     previousIndex = pointIndex;
 }
 
