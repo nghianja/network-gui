@@ -205,6 +205,16 @@ var cy = cytoscape({
             }
         },
         {
+            selector: ':parent',
+            style: {
+                'background-opacity': '0.0',
+                'background-fit': 'contain',
+                'background-image': 'images/cloud.png',
+                'background-image-opacity': '0.333',
+                'border-width': 0
+            }
+        },
+        {
             // add background image, class should be same as the one define in data_topology
             selector: '.switch',
             style: {
