@@ -1,6 +1,5 @@
 var utils = require('./utils');
 require('./data_topology');
-require('./data_network');
 require('./data_ports');
 
 numberOfNodes = 13;
@@ -22,39 +21,31 @@ nodes = [
     'l',
     'z'];
 
-cpuLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+// cpu and network data
 cpuData = [numberOfNodes + 1];
+networkData = [numberOfNodes + 1];
 for (i = 0; i < numberOfNodes; i++) {
     cpuData[i] = [numberOfTimes];
+    networkData[i] = [numberOfTimes];
     for (j = 0; j < numberOfTimes; j++) {
         cpuData[i][j] = utils.getRandomInt(0, 100);
+        networkData[i][j] = utils.getRandomInt(0, 100);
     }
 }
 cpuData_overall = [numberOfTimes];
+networkData_overall = [numberOfTimes];
 cpuData[numberOfNodes] = cpuData_overall;
+networkData[numberOfNodes] = networkData_overall;
 for (i = 0; i < numberOfTimes; i++) {
-    var total = 0;
+    var cpuTotal = 0;
+    var networkTotal = 0;
     for (j = 0; j < numberOfNodes; j++) {
-        total = total + cpuData[j][i];
+        cpuTotal = cpuTotal + cpuData[j][i];
+        networkTotal = networkTotal + networkData[j][i];
     }
-    cpuData_overall[i] = Math.floor(total / numberOfNodes);
+    cpuData_overall[i] = Math.floor(cpuTotal / numberOfNodes);
+    networkData_overall[i] = Math.floor(networkTotal / numberOfNodes);
 }
-
-networkData = [
-    networkData_a,
-    networkData_b,
-    networkData_c,
-    networkData_d,
-    networkData_e,
-    networkData_f,
-    networkData_g,
-    networkData_h,
-    networkData_i,
-    networkData_j,
-    networkData_k,
-    networkData_l,
-    networkData_z,
-    networkData_overall];
 
 numberOfPorts = [
     1,

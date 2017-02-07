@@ -1,5 +1,3 @@
-timestampLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 // for different ports
 throughputData_a = new Array();
 throughputData_a[0] = [8.7913, 8.6985, 8.7914, 8.7948, 8.7882, 8.7913, 8.6985, 8.7914, 8.7948, 8.7882];

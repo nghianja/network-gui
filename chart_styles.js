@@ -1,6 +1,6 @@
 // cpu chart
 cpuChartStyle = {
-    labels: cpuLabels,
+    labels: timestampLabels,
         datasets: [{
         label: "CPU Usage",
         fill: true,
@@ -26,7 +26,7 @@ cpuChartStyle = {
 
 // network chart
 networkChartStyle = {
-    labels: networkLabels,
+    labels: timestampLabels,
         datasets: [{
         label: "Network Usage",
         fill: true,
