@@ -30,7 +30,11 @@ function updateDataSources() {
     cpuChart.update(0);
     networkChart.update(0);
     if (currentNode < numberOfPorts.length) {
-        portCharts = [portChart1, portChart2, portChart3];
+        portCharts = [
+            portChart1,
+            portChart2,
+            portChart3];
+
         for (i = 0; i < portCharts.length; i++) {
             if (numberOfPorts[currentNode] > i) {
                 portCharts[i].data.datasets[0].data = throughputData[currentNode][i];
@@ -252,37 +256,15 @@ cy.on('click', function(event) {
     }
 });
 
+require('./chart_styles');
+
 // cpu chart
 var cpuCanvas = document.getElementById("cpu-chart");
 cpuCanvas.width = parseInt($('#well1').css('width'), 10);
 cpuCanvas.height = parseInt($('#well1').css('height'), 10);
 var cpuChart = new Chart(cpuCanvas, {
     type: 'line',
-    data: {
-        labels: cpuLabels,
-        datasets: [{
-            label: "CPU Usage",
-            fill: true,
-            lineTension: 0.1,
-            backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "rgba(75,192,192,1)",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 3,
-            pointHitRadius: 10,
-            data: cpuData[currentNode],
-            spanGaps: false
-        }]
-    }
+    data: cpuChartStyle
 });
 
 // network chart
@@ -291,31 +273,7 @@ networkCanvas.width = parseInt($('#well2').css('width'), 10);
 networkCanvas.height = parseInt($('#well2').css('height'), 10);
 var networkChart = new Chart(networkCanvas, {
     type: 'line',
-    data: {
-        labels: networkLabels,
-        datasets: [{
-            label: "Network Usage",
-            fill: true,
-            lineTension: 0.1,
-            backgroundColor: "rgba(214,83,92,0.4)",
-            borderColor: "rgba(214,83,92,1)",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(214,83,92,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(214,83,92,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 3,
-            pointHitRadius: 10,
-            data: networkData[currentNode],
-            spanGaps: false
-        }]
-    }
+    data: networkChartStyle
 });
 
 // port charts
@@ -324,46 +282,13 @@ portCanvas1.width = parseInt($('#well3').css('width'), 10);
 portCanvas1.height = parseInt($('#well3').css('height'), 10);
 var portChart1 = new Chart(portCanvas1, {
     type: "line",
-    data: {
-        labels: timestampLabels,
-        datasets: [
-            {
-                label: "Throughput (Gbps)",
-                fill: false,
-                yAxisID: "y-axis-0",
-                backgroundColor: "rgba(93,195,76,0.4)",
-                borderColor: "rgba(93,195,76,1)"
-            },
-            {
-                label: "Latency (ms)",
-                fill: false,
-                yAxisID: "y-axis-0",
-                backgroundColor: "rgba(220,160,85,0.4)",
-                borderColor: "rgba(220,160,85,1)"
-            },
-            {
-                label: "% of Dropped Packets",
-                fill: false,
-                yAxisID: "y-axis-1",
-                backgroundColor: "rgba(141,75,193,0.4)",
-                borderColor: "rgba(141,75,193,1)"
-            }
-        ]
-    },
+    data: portChartStyle,
     options: {
         title: {
             display: true,
             text: 'Port [0]'
         },
-        scales: {
-            yAxes: [{
-                position: "left",
-                "id": "y-axis-0"
-            }, {
-                position: "right",
-                "id": "y-axis-1"
-            }]
-        }
+        scales: portChartScales
     }
 });
 
@@ -372,46 +297,13 @@ portCanvas2.width = parseInt($('#well4').css('width'), 10);
 portCanvas2.height = parseInt($('#well4').css('height'), 10);
 var portChart2 = new Chart(portCanvas2, {
     type: "line",
-    data: {
-        labels: timestampLabels,
-        datasets: [
-            {
-                label: "Throughput (Gbps)",
-                fill: false,
-                yAxisID: "y-axis-0",
-                backgroundColor: "rgba(93,195,76,0.4)",
-                borderColor: "rgba(93,195,76,1)"
-            },
-            {
-                label: "Latency (ms)",
-                fill: false,
-                yAxisID: "y-axis-0",
-                backgroundColor: "rgba(220,160,85,0.4)",
-                borderColor: "rgba(220,160,85,1)"
-            },
-            {
-                label: "% of Dropped Packets",
-                fill: false,
-                yAxisID: "y-axis-1",
-                backgroundColor: "rgba(141,75,193,0.4)",
-                borderColor: "rgba(141,75,193,1)"
-            }
-        ]
-    },
+    data: portChartStyle,
     options: {
         title: {
             display: true,
             text: 'Port [1]'
         },
-        scales: {
-            yAxes: [{
-                position: "left",
-                "id": "y-axis-0"
-            }, {
-                position: "right",
-                "id": "y-axis-1"
-            }]
-        }
+        scales: portChartScales
     }
 });
 
@@ -420,45 +312,12 @@ portCanvas3.width = parseInt($('#well5').css('width'), 10);
 portCanvas3.height = parseInt($('#well5').css('height'), 10);
 var portChart3 = new Chart(portCanvas3, {
     type: "line",
-    data: {
-        labels: timestampLabels,
-        datasets: [
-            {
-                label: "Throughput (Gbps)",
-                fill: false,
-                yAxisID: "y-axis-0",
-                backgroundColor: "rgba(93,195,76,0.4)",
-                borderColor: "rgba(93,195,76,1)"
-            },
-            {
-                label: "Latency (ms)",
-                fill: false,
-                yAxisID: "y-axis-0",
-                backgroundColor: "rgba(220,160,85,0.4)",
-                borderColor: "rgba(220,160,85,1)"
-            },
-            {
-                label: "% of Dropped Packets",
-                fill: false,
-                yAxisID: "y-axis-1",
-                backgroundColor: "rgba(141,75,193,0.4)",
-                borderColor: "rgba(141,75,193,1)"
-            }
-        ]
-    },
+    data: portChartStyle,
     options: {
         title: {
             display: true,
             text: 'Port [2]'
         },
-        scales: {
-            yAxes: [{
-                position: "left",
-                "id": "y-axis-0"
-            }, {
-                position: "right",
-                "id": "y-axis-1"
-            }]
-        }
+        scales: portChartScales
     }
 });
