@@ -112,6 +112,12 @@ function highlightNetworkLoad() {
     }
 }
 
+// reset nodes and edges colors for mouse click on cy container
+function resetNodesAndEdgesColors() {
+    cy.nodes().style({ 'background-color':'gray' });
+    cy.edges().style({ 'line-color':'gray' });
+}
+
 function showPortCharts() {
     if (currentNode < numberOfNodes) {
         for (i = 1; i <= 5; i++) {
@@ -250,6 +256,7 @@ cy.on('click', function(event) {
     var node = event.cyTarget;
     if (node === cy) {
         updateCurrentNode('overall');
+        resetNodesAndEdgesColors();
     } else {
         updateCurrentNode(node.id());
     }
