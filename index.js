@@ -29,15 +29,25 @@ function updateDataSources() {
     networkChart.data.datasets[0].data = networkData[currentNode];
     cpuChart.update(0);
     networkChart.update(0);
-    if (currentNode < throughputData.length) {
-        portChart1.data.datasets[0].data = throughputData[currentNode][0];
-        portChart1.data.datasets[1].data = latencyData[currentNode][0];
-        portChart1.data.datasets[2].data = dropPacketData[currentNode][0];
-        portChart2.data.datasets[0].data = throughputData[currentNode][1];
-        portChart2.data.datasets[1].data = latencyData[currentNode][1];
-        portChart2.data.datasets[2].data = dropPacketData[currentNode][1];
-        portChart1.update(0);
-        portChart2.update(0);
+    if (currentNode < numberOfPorts.length) {
+        if (numberOfPorts[currentNode] > 0) {
+            portChart1.data.datasets[0].data = throughputData[currentNode][0];
+            portChart1.data.datasets[1].data = latencyData[currentNode][0];
+            portChart1.data.datasets[2].data = dropPacketData[currentNode][0];
+            portChart1.update(0);
+        }
+        if (numberOfPorts[currentNode] > 1) {
+            portChart2.data.datasets[0].data = throughputData[currentNode][1];
+            portChart2.data.datasets[1].data = latencyData[currentNode][1];
+            portChart2.data.datasets[2].data = dropPacketData[currentNode][1];
+            portChart2.update(0);
+        }
+        if (numberOfPorts[currentNode] > 2) {
+            portChart3.data.datasets[0].data = throughputData[currentNode][2];
+            portChart3.data.datasets[1].data = latencyData[currentNode][2];
+            portChart3.data.datasets[2].data = dropPacketData[currentNode][2];
+            portChart3.update(0);
+        }
     }
 }
 
@@ -124,9 +134,9 @@ function highlightNetworkLoad() {
 }
 
 function showPortCharts() {
-    if (currentNode == 0 || currentNode == 1) {
+    if (currentNode <= 2) {
         for (i = 1; i <= 4; i++) {
-            if (i <= throughputData[currentNode].length) {
+            if (i <= numberOfPorts[currentNode]) {
                 $('#placeholder-row' + i).removeClass("no-visibility");
             } else {
                 $('#placeholder-row' + i).addClass("no-visibility");
@@ -330,7 +340,6 @@ var portChart1 = new Chart(portCanvas1, {
                 label: "Throughput (Gbps)",
                 fill: false,
                 yAxisID: "y-axis-0",
-                data: throughputData_a[0],
                 backgroundColor: "rgba(93,195,76,0.4)",
                 borderColor: "rgba(93,195,76,1)"
             },
@@ -338,7 +347,6 @@ var portChart1 = new Chart(portCanvas1, {
                 label: "Latency (ms)",
                 fill: false,
                 yAxisID: "y-axis-0",
-                data: latencyData_a[0],
                 backgroundColor: "rgba(220,160,85,0.4)",
                 borderColor: "rgba(220,160,85,1)"
             },
@@ -346,7 +354,6 @@ var portChart1 = new Chart(portCanvas1, {
                 label: "% of Dropped Packets",
                 fill: false,
                 yAxisID: "y-axis-1",
-                data: dropPacketData_a[0],
                 backgroundColor: "rgba(141,75,193,0.4)",
                 borderColor: "rgba(141,75,193,1)"
             }
@@ -381,7 +388,6 @@ var portChart2 = new Chart(portCanvas2, {
                 label: "Throughput (Gbps)",
                 fill: false,
                 yAxisID: "y-axis-0",
-                data: throughputData_a[1],
                 backgroundColor: "rgba(93,195,76,0.4)",
                 borderColor: "rgba(93,195,76,1)"
             },
@@ -389,7 +395,6 @@ var portChart2 = new Chart(portCanvas2, {
                 label: "Latency (ms)",
                 fill: false,
                 yAxisID: "y-axis-0",
-                data: latencyData_a[1],
                 backgroundColor: "rgba(220,160,85,0.4)",
                 borderColor: "rgba(220,160,85,1)"
             },
@@ -397,7 +402,6 @@ var portChart2 = new Chart(portCanvas2, {
                 label: "% of Dropped Packets",
                 fill: false,
                 yAxisID: "y-axis-1",
-                data: dropPacketData_a[1],
                 backgroundColor: "rgba(141,75,193,0.4)",
                 borderColor: "rgba(141,75,193,1)"
             }
@@ -407,6 +411,54 @@ var portChart2 = new Chart(portCanvas2, {
         title: {
             display: true,
             text: 'Port [1]'
+        },
+        scales: {
+            yAxes: [{
+                position: "left",
+                "id": "y-axis-0"
+            }, {
+                position: "right",
+                "id": "y-axis-1"
+            }]
+        }
+    }
+});
+
+var portCanvas3 = document.getElementById("port-chart3");
+portCanvas3.width = parseInt($('#well5').css('width'), 10);
+portCanvas3.height = parseInt($('#well5').css('height'), 10);
+var portChart3 = new Chart(portCanvas3, {
+    type: "line",
+    data: {
+        labels: timestampLabels,
+        datasets: [
+            {
+                label: "Throughput (Gbps)",
+                fill: false,
+                yAxisID: "y-axis-0",
+                backgroundColor: "rgba(93,195,76,0.4)",
+                borderColor: "rgba(93,195,76,1)"
+            },
+            {
+                label: "Latency (ms)",
+                fill: false,
+                yAxisID: "y-axis-0",
+                backgroundColor: "rgba(220,160,85,0.4)",
+                borderColor: "rgba(220,160,85,1)"
+            },
+            {
+                label: "% of Dropped Packets",
+                fill: false,
+                yAxisID: "y-axis-1",
+                backgroundColor: "rgba(141,75,193,0.4)",
+                borderColor: "rgba(141,75,193,1)"
+            }
+        ]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'Port [2]'
         },
         scales: {
             yAxes: [{
