@@ -204,8 +204,7 @@ var cy = cytoscape({
     autounselectify: true,
 
     layout: { 
-        name: 'spread',
-        minDist: 10
+        name: 'cose-bilkent'
     },
     style: [
         {
