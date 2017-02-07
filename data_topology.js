@@ -25,19 +25,22 @@ dataset = [
         { data: { id: 'l', label: 'switch', parent: 'ispC'  }, classes: 'switch' },
         
         // edges for group 1
-        { data: { id: 'ad', source: 'a', target: 'd' } },
-        { data: { id: 'bd', source: 'b', target: 'd' } },
-        { data: { id: 'cd', source: 'c', target: 'd' } },
+        { data: { id: 'e00', source: 'a', target: 'd' } },
+        { data: { id: 'e01', source: 'b', target: 'd' } },
+        { data: { id: 'e02', source: 'c', target: 'd' } },
+
         // edges for group 2
-        { data: { id: 'eh', source: 'e', target: 'h' } },
-        { data: { id: 'fh', source: 'f', target: 'h' } },
-        { data: { id: 'gh', source: 'g', target: 'h' } },
+        { data: { id: 'e03', source: 'e', target: 'h' } },
+        { data: { id: 'e04', source: 'f', target: 'h' } },
+        { data: { id: 'e05', source: 'g', target: 'h' } },
+
         // edges for group 3
-        { data: { id: 'il', source: 'i', target: 'l' } },
-        { data: { id: 'jl', source: 'j', target: 'l' } },
-        { data: { id: 'kl', source: 'k', target: 'l' } },
+        { data: { id: 'e06', source: 'i', target: 'l' } },
+        { data: { id: 'e07', source: 'j', target: 'l' } },
+        { data: { id: 'e08', source: 'k', target: 'l' } },
+
         // edges connnecting switches to central switch
-        { data: { id: 'dz', source: 'd', target: 'z' } },
-        { data: { id: 'hz', source: 'h', target: 'z' } },
-        { data: { id: 'lz', source: 'l', target: 'z' } },
+        { data: { id: 'e09', source: 'd', target: 'z' } },
+        { data: { id: 'e10', source: 'h', target: 'z' } },
+        { data: { id: 'e11', source: 'l', target: 'z' } }
     ];
