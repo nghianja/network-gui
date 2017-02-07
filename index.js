@@ -220,8 +220,8 @@ var cy = cytoscape({
             // add background image, class should be same as the one define in data_topology
             selector: '.switch',
             style: {
-                'height': 100,
-                'width': 100,
+                'height': 30,
+                'width': 50,
                 'background-opacity': '0.0',
                 'background-fit': 'contain',
                 'background-image': 'images/switch.png'
