@@ -141,12 +141,12 @@ function showPortCharts() {
 
 // button functions
 $('#startButton').on('click', function () {
-    pointIndex = 0;
+    pointIndex = $('#ex1').slider('getAttribute', 'min');
     $('#ex1').slider('setValue', pointIndex);
     update();
 });
 $('#endButton').on('click', function () {
-    pointIndex = 9;
+    pointIndex = $('#ex1').slider('getAttribute', 'max');
     $('#ex1').slider('setValue', pointIndex);
     update();
 });
@@ -158,8 +158,8 @@ $('#playPauseButton').on('click', function () {
     } else {
         isPlaying = true;
         $('#playPauseIcon').removeClass('glyphicon-play').addClass('glyphicon-pause');
-        if (pointIndex == 9) {
-            pointIndex = 0;
+        if (pointIndex == $('#ex1').slider('getAttribute', 'max')) {
+            pointIndex = $('#ex1').slider('getAttribute', 'min');
             $('#ex1').slider('setValue', pointIndex);
             update();
             window.setTimeout(playbackTicker, 500);
@@ -169,12 +169,12 @@ $('#playPauseButton').on('click', function () {
     }
 });
 function playbackTicker() {
-    if (isPlaying && pointIndex < 9) {
+    if (isPlaying && pointIndex < $('#ex1').slider('getAttribute', 'max')) {
         pointIndex++;
         $('#ex1').slider('setValue', pointIndex);
         update();
         window.setTimeout(playbackTicker, 500);
-    } else if (isPlaying && pointIndex >= 9) {
+    } else if (isPlaying && pointIndex >= $('#ex1').slider('getAttribute', 'max')) {
         isPlaying = false;
         $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
     }
