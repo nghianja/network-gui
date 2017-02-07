@@ -118,7 +118,7 @@ function highlightNetworkLoad() {
 }
 
 function showPortCharts() {
-    if (currentNode <= 2) {
+    if (currentNode <= numberOfPorts.length) {
         for (i = 1; i <= 4; i++) {
             if (i <= numberOfPorts[currentNode]) {
                 $('#placeholder-row' + i).removeClass("no-visibility");
