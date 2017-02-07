@@ -1,7 +1,11 @@
+var utils = require('./utils');
 require('./data_topology');
-require('./data_cpu');
 require('./data_network');
 require('./data_ports');
+
+numberOfNodes = 13;
+numberOfTimes = 10;
+timestampLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 nodes = [
     'a',
@@ -18,21 +22,23 @@ nodes = [
     'l',
     'z'];
 
-cpuData = [
-    cpuData_a,
-    cpuData_b,
-    cpuData_c,
-    cpuData_d,
-    cpuData_e,
-    cpuData_f,
-    cpuData_g,
-    cpuData_h,
-    cpuData_i,
-    cpuData_j,
-    cpuData_k,
-    cpuData_l,
-    cpuData_z,
-    cpuData_overall];
+cpuLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+cpuData = [numberOfNodes + 1];
+for (i = 0; i < numberOfNodes; i++) {
+    cpuData[i] = [numberOfTimes];
+    for (j = 0; j < numberOfTimes; j++) {
+        cpuData[i][j] = utils.getRandomInt(0, 100);
+    }
+}
+cpuData_overall = [numberOfTimes];
+cpuData[numberOfNodes] = cpuData_overall;
+for (i = 0; i < numberOfTimes; i++) {
+    var total = 0;
+    for (j = 0; j < numberOfNodes; j++) {
+        total = total + cpuData[j][i];
+    }
+    cpuData_overall[i] = Math.floor(total / numberOfNodes);
+}
 
 networkData = [
     networkData_a,
