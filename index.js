@@ -27,21 +27,15 @@ function updateCurrentNode(id) {
 function updateDataSources() {
     cpuChart.data.datasets[0].data = cpuData[currentNode];
     networkChart.data.datasets[0].data = networkData[currentNode];
-    cpuChart.update(0);
-    networkChart.update(0);
+    cpuChart.update();
+    networkChart.update();
     if (currentNode < numberOfNodes) {
-        portCharts = [
-            portChart1,
-            portChart2,
-            portChart3,
-            portChart4,
-            portChart5];
         for (i = 0; i < portCharts.length; i++) {
             if (numberOfPorts[currentNode] > i) {
                 portCharts[i].data.datasets[0].data = throughputData[currentNode][i];
                 portCharts[i].data.datasets[1].data = latencyData[currentNode][i];
                 portCharts[i].data.datasets[2].data = dropPacketData[currentNode][i];
-                portCharts[i].update(0);
+                portCharts[i].update();
             }
         }
     }
@@ -88,8 +82,8 @@ function highlightPointOnCharts() {
     // first parameter to update is the animation duration.
     // if none is specified, the config animation duration
     // is used. Using 0 here will do the draw immediately.
-    cpuChart.update(0);
-    networkChart.update(0);
+    cpuChart.update();
+    networkChart.update();
 
     previousIndex = pointIndex;
 }
@@ -122,14 +116,20 @@ function showPortCharts() {
     if (currentNode < numberOfNodes) {
         for (i = 1; i <= 5; i++) {
             if (i <= numberOfPorts[currentNode]) {
-                $('#placeholder-row' + i).removeClass("no-visibility");
+                if ($('#placeholder-row' + i).hasClass("no-visibility")) {
+                    $('#placeholder-row' + i).removeClass("no-visibility");
+                }
             } else {
-                $('#placeholder-row' + i).addClass("no-visibility");
+                if (!$('#placeholder-row' + i).hasClass("no-visibility")) {
+                    $('#placeholder-row' + i).addClass("no-visibility");
+                }
             }
         }
     } else {
         for (i = 1; i <= 5; i++) {
-            $('#placeholder-row' + i).addClass("no-visibility");
+            if (!$('#placeholder-row' + i).hasClass("no-visibility")) {
+                $('#placeholder-row' + i).addClass("no-visibility");
+            }
         }
     }
 }
@@ -350,3 +350,10 @@ var portChart5 = new Chart(portCanvas5, {
         scales: portChartScales
     }
 });
+
+portCharts = [
+    portChart1,
+    portChart2,
+    portChart3,
+    portChart4,
+    portChart5];
