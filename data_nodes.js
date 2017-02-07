@@ -47,10 +47,10 @@ for (i = 0; i < numberOfTimes; i++) {
 }
 
 // port data
-numberOfPorts = [numberOfNodes];
-for (i = 0; i < numberOfNodes; i++) {
-    numberOfPorts[i] = utils.getRandomInt(0, 5);
-}
+numberOfPorts = [1, 1, 1, 4, 1, 1, 1, 4, 1, 1, 1, 4, 3];
+// for (i = 0; i < numberOfNodes; i++) {
+//     numberOfPorts[i] = utils.getRandomInt(0, 5);
+// }
 throughputData = [numberOfNodes];
 latencyData = [numberOfNodes];
 dropPacketData = [numberOfNodes];
