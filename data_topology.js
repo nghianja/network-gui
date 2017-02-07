@@ -2,21 +2,28 @@
 dataset = [
         // central switch
         { data: { id: 'z', label: 'switch' }, classes: 'switch' },
+
         // group 1
-        { data: { id: 'a', label: '192.168.1.1' }},
-        { data: { id: 'b', label: '192.168.1.2' }},
-        { data: { id: 'c', label: '192.168.1.3' }},
-        { data: { id: 'd', label: 'switch' }, classes: 'switch' },
+        { data: { id: 'ispA'}},
+        { data: { id: 'a', label: '192.168.1.1', parent: 'ispA'}},
+        { data: { id: 'b', label: '192.168.1.2', parent: 'ispA'}},
+        { data: { id: 'c', label: '192.168.1.3', parent: 'ispA'}},
+        { data: { id: 'd', label: 'switch', parent: 'ispA'}, classes: 'switch'},
+
         // group 2
-        { data: { id: 'e', label: '192.168.2.1' }},
-        { data: { id: 'f', label: '192.168.2.2' }},
-        { data: { id: 'g', label: '192.168.2.3' }},
-        { data: { id: 'h', label: 'switch' }, classes: 'switch' },
+        { data: { id: 'ispB'}},
+        { data: { id: 'e', label: '192.168.2.1', parent: 'ispB' }},
+        { data: { id: 'f', label: '192.168.2.2', parent: 'ispB' }},
+        { data: { id: 'g', label: '192.168.2.3', parent: 'ispB' }},
+        { data: { id: 'h', label: 'switch', parent: 'ispB' }, classes: 'switch' },
+
         // group 3
-        { data: { id: 'i', label: '192.168.3.1' }},
-        { data: { id: 'j', label: '192.168.3.2' }},
-        { data: { id: 'k', label: '192.168.3.3' }},
-        { data: { id: 'l', label: 'switch' }, classes: 'switch' },
+        { data: { id: 'ispC'}},
+        { data: { id: 'i', label: '192.168.3.1', parent: 'ispC'  }},
+        { data: { id: 'j', label: '192.168.3.2', parent: 'ispC'  }},
+        { data: { id: 'k', label: '192.168.3.3', parent: 'ispC'  }},
+        { data: { id: 'l', label: 'switch', parent: 'ispC'  }, classes: 'switch' },
+        
         // edges for group 1
         { data: { id: 'ad', source: 'a', target: 'd' } },
         { data: { id: 'bd', source: 'b', target: 'd' } },
