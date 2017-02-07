@@ -14,7 +14,7 @@ $(document).ready(function() {
 function updateCurrentNode(id) {
     var index = nodes.indexOf(id);
     if (index < 0) {
-        currentNode = nodes.length;
+        currentNode = numberOfNodes;
     } else {
         currentNode = index;
     }
@@ -29,12 +29,13 @@ function updateDataSources() {
     networkChart.data.datasets[0].data = networkData[currentNode];
     cpuChart.update(0);
     networkChart.update(0);
-    if (currentNode < numberOfPorts.length) {
+    if (currentNode < numberOfNodes) {
         portCharts = [
             portChart1,
             portChart2,
-            portChart3];
-
+            portChart3,
+            portChart4,
+            portChart5];
         for (i = 0; i < portCharts.length; i++) {
             if (numberOfPorts[currentNode] > i) {
                 portCharts[i].data.datasets[0].data = throughputData[currentNode][i];
@@ -96,21 +97,21 @@ function highlightPointOnCharts() {
 function highlightNetworkLoad() {
 
     if (cpuData[currentNode][pointIndex] > 50) {
-        if (currentNode != nodes.length) {
+        if (currentNode != numberOfNodes) {
             cy.nodes().style({ 'background-color':'gray' });
             cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'red' });
         }
-    } else if (currentNode != nodes.length) {
+    } else if (currentNode != numberOfNodes) {
             cy.nodes().style({ 'background-color':'gray' });
             cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'green' });
     }
     if (networkData[currentNode][pointIndex] > 50) {
-        if (currentNode != nodes.length) {
+        if (currentNode != numberOfNodes) {
             cy.edges().style({ 'line-color':'gray' });
             cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'red' });
             cy.edges('[target = "' + nodes[currentNode] + '"]').style({ 'line-color':'red' });
         }
-    } else if (currentNode != nodes.length) {
+    } else if (currentNode != numberOfNodes) {
         cy.edges().style({ 'line-color':'gray' });
         cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
         cy.edges('[target = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
@@ -118,8 +119,8 @@ function highlightNetworkLoad() {
 }
 
 function showPortCharts() {
-    if (currentNode <= numberOfPorts.length) {
-        for (i = 1; i <= 4; i++) {
+    if (currentNode < numberOfNodes) {
+        for (i = 1; i <= 5; i++) {
             if (i <= numberOfPorts[currentNode]) {
                 $('#placeholder-row' + i).removeClass("no-visibility");
             } else {
@@ -127,7 +128,7 @@ function showPortCharts() {
             }
         }
     } else {
-        for (i = 1; i <= 4; i++) {
+        for (i = 1; i <= 5; i++) {
             $('#placeholder-row' + i).addClass("no-visibility");
         }
     }
@@ -315,6 +316,36 @@ var portChart3 = new Chart(portCanvas3, {
         title: {
             display: true,
             text: 'Port [2]'
+        },
+        scales: portChartScales
+    }
+});
+
+var portCanvas4 = document.getElementById("port-chart4");
+portCanvas4.width = parseInt($('#well6').css('width'), 10);
+portCanvas4.height = parseInt($('#well6').css('height'), 10);
+var portChart4 = new Chart(portCanvas4, {
+    type: "line",
+    data: portChartStyle,
+    options: {
+        title: {
+            display: true,
+            text: 'Port [3]'
+        },
+        scales: portChartScales
+    }
+});
+
+var portCanvas5 = document.getElementById("port-chart5");
+portCanvas5.width = parseInt($('#well7').css('width'), 10);
+portCanvas5.height = parseInt($('#well7').css('height'), 10);
+var portChart5 = new Chart(portCanvas5, {
+    type: "line",
+    data: portChartStyle,
+    options: {
+        title: {
+            display: true,
+            text: 'Port [4]'
         },
         scales: portChartScales
     }

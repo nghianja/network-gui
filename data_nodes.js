@@ -1,6 +1,5 @@
 var utils = require('./utils');
 require('./data_topology');
-require('./data_ports');
 
 numberOfNodes = 13;
 numberOfTimes = 10;
@@ -47,22 +46,26 @@ for (i = 0; i < numberOfTimes; i++) {
     networkData_overall[i] = Math.floor(networkTotal / numberOfNodes);
 }
 
-numberOfPorts = [
-    1,
-    2,
-    3];
-
-throughputData = [
-    throughputData_a,
-    throughputData_b,
-    throughputData_c];
-
-latencyData = [
-    latencyData_a,
-    latencyData_b,
-    latencyData_c];
-
-dropPacketData = [
-    dropPacketData_a,
-    dropPacketData_b,
-    dropPacketData_c];
+// port data
+numberOfPorts = [numberOfNodes];
+for (i = 0; i < numberOfNodes; i++) {
+    numberOfPorts[i] = utils.getRandomInt(0, 5);
+}
+throughputData = [numberOfNodes];
+latencyData = [numberOfNodes];
+dropPacketData = [numberOfNodes];
+for (i = 0; i < numberOfNodes; i++) {
+    throughputData[i] = [numberOfPorts[i]];
+    dropPacketData[i] = [numberOfPorts[i]];
+    latencyData[i] = [numberOfPorts[i]];
+    for (j = 0; j < numberOfPorts[i]; j++) {
+        throughputData[i][j] = [numberOfTimes];
+        dropPacketData[i][j] = [numberOfTimes];
+        latencyData[i][j] = [numberOfTimes];
+        for (k = 0; k < numberOfTimes; k++) {
+            throughputData[i][j][k] = utils.getRandomInt(0, 10000) / 1000;
+            dropPacketData[i][j][k] = utils.getRandomInt(0, 10000) / 1000;
+            latencyData[i][j][k] = utils.getRandomInt(0, 10000) / 1000;
+        }
+    }
+}
