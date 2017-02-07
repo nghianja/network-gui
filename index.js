@@ -205,7 +205,7 @@ var cy = cytoscape({
 
     layout: { 
         name: 'spread',
-        minDist: 40
+        minDist: 10
     },
     style: [
         {
