@@ -178,26 +178,14 @@ function highlightNetworkLoad() {
 }
 
 function highlightOverallNetworkLoad() {
-    for (i = 0; i < nodes.length; i++) {
-        var index = cpuData[i][pointIndex] % 5;
-        cy.edges().style({'line-color': colorArray[index]});
-        cy.nodes('#' + nodes[i]).style({'background-color': colorArray[index]});
+    if (currentNode == numberOfNodes) {
+        // overall
+        for (i = 0; i < nodes.length; i++) {
+            var index = cpuData[i][pointIndex] % 5;
+            cy.edges().style({'line-color': colorArray[index]});
+            cy.nodes('#' + nodes[i]).style({'background-color': colorArray[index]});
+        }
     }
-    // cy.nodes().forEach(function( ele, i) {
-    //     if (ele.id().lastIndexOf("isp", 0) == -1) {
-    //         // search for nodes whose id is not a 'ispXXX' which is a parent node holding the cluster
-    //         // lastIndexOf returns -1 if does not match
-    //         // we want to color all other nodes instead
-    //         console.log(i + ":" + ele.id());
-    //     }
-    // });
-    // console.log(cpuData[currentNode][pointIndex])
-    // console.log(ele.id)
-
-    // cy.nodes().forEach(function( ele, i ){
-    //     console.log("index is " + i)
-    //     console.log("it works" + currentNode)
-    // });
 }
 
 // reset nodes and edges colors for mouse click on cy container
