@@ -30,13 +30,11 @@ function updateDataSources() {
     cpuChart.update();
     networkChart.update();
     if (currentNode < numberOfNodes) {
-        for (i = 0; i < portCharts.length; i++) {
-            if (numberOfPorts[currentNode] > i) {
-                portCharts[i].data.datasets[0].data = throughputData[currentNode][i];
-                portCharts[i].data.datasets[1].data = latencyData[currentNode][i];
-                portCharts[i].data.datasets[2].data = dropPacketData[currentNode][i];
-                portCharts[i].update();
-            }
+        for (i = 0; i < numberOfPorts[currentNode]; i++) {
+            portCharts[i].data.datasets[0].data = throughputData[currentNode][i];
+            portCharts[i].data.datasets[1].data = latencyData[currentNode][i];
+            portCharts[i].data.datasets[2].data = dropPacketData[currentNode][i];
+            portCharts[i].update();
         }
     }
 }
@@ -164,11 +162,11 @@ function highlightOverallNetworkLoad() {
     // });
     // console.log(cpuData[currentNode][pointIndex])
     // console.log(ele.id)
-    /*
-    cy.nodes().forEach(function( ele, i ){
-        console.log("index is " + i)
-        console.log("it works" + currentNode)
-    });*/
+
+    // cy.nodes().forEach(function( ele, i ){
+    //     console.log("index is " + i)
+    //     console.log("it works" + currentNode)
+    // });
 }
 
 // reset nodes and edges colors for mouse click on cy container
@@ -347,7 +345,7 @@ portCanvas1.width = parseInt($('#well3').css('width'), 10);
 portCanvas1.height = parseInt($('#well3').css('height'), 10);
 var portChart1 = new Chart(portCanvas1, {
     type: "line",
-    data: portChartStyle,
+    data: portChartStyle1,
     options: {
         title: {
             display: true,
@@ -362,7 +360,7 @@ portCanvas2.width = parseInt($('#well4').css('width'), 10);
 portCanvas2.height = parseInt($('#well4').css('height'), 10);
 var portChart2 = new Chart(portCanvas2, {
     type: "line",
-    data: portChartStyle,
+    data: portChartStyle2,
     options: {
         title: {
             display: true,
@@ -377,7 +375,7 @@ portCanvas3.width = parseInt($('#well5').css('width'), 10);
 portCanvas3.height = parseInt($('#well5').css('height'), 10);
 var portChart3 = new Chart(portCanvas3, {
     type: "line",
-    data: portChartStyle,
+    data: portChartStyle3,
     options: {
         title: {
             display: true,
@@ -392,7 +390,7 @@ portCanvas4.width = parseInt($('#well6').css('width'), 10);
 portCanvas4.height = parseInt($('#well6').css('height'), 10);
 var portChart4 = new Chart(portCanvas4, {
     type: "line",
-    data: portChartStyle,
+    data: portChartStyle4,
     options: {
         title: {
             display: true,
@@ -407,7 +405,7 @@ portCanvas5.width = parseInt($('#well7').css('width'), 10);
 portCanvas5.height = parseInt($('#well7').css('height'), 10);
 var portChart5 = new Chart(portCanvas5, {
     type: "line",
-    data: portChartStyle,
+    data: portChartStyle5,
     options: {
         title: {
             display: true,

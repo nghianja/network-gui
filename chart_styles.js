@@ -51,32 +51,58 @@ networkChartStyle = {
 };
 
 // port charts
-portChartStyle = {
-    labels: timestampLabels,
-        datasets: [
-        {
-            label: "Throughput (Gbps)",
-            fill: false,
-            yAxisID: "y-axis-0",
-            backgroundColor: "rgba(93,195,76,0.4)",
-            borderColor: "rgba(93,195,76,1)"
-        },
-        {
-            label: "Latency (ms)",
-            fill: false,
-            yAxisID: "y-axis-0",
-            backgroundColor: "rgba(220,160,85,0.4)",
-            borderColor: "rgba(220,160,85,1)"
-        },
-        {
-            label: "% of Dropped Packets",
-            fill: false,
-            yAxisID: "y-axis-1",
-            backgroundColor: "rgba(141,75,193,0.4)",
-            borderColor: "rgba(141,75,193,1)"
-        }
-    ]
+portChartStyle1 = {
+    datasets: [{}, {}, {}]
 };
+
+portChartStyle2 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle3 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle4 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle5 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyles = [
+    portChartStyle1,
+    portChartStyle2,
+    portChartStyle3,
+    portChartStyle4,
+    portChartStyle5];
+
+// populate portChartStyles
+for (i = 0; i < portChartStyles.length; i++) {
+    var labels = "labels";
+    portChartStyles[i][labels] = timestampLabels;
+    var label = "label";
+    portChartStyles[i].datasets[0][label] = "Throughput (Gbps)";
+    portChartStyles[i].datasets[1][label] = "Latency (ms)";
+    portChartStyles[i].datasets[2][label] = "% of Dropped Packets";
+    var fill = "fill";
+    portChartStyles[i].datasets[0][fill] = false;
+    portChartStyles[i].datasets[1][fill] = false;
+    portChartStyles[i].datasets[2][fill] = false;
+    var yAxisID = "yAxisID";
+    portChartStyles[i].datasets[0][yAxisID] = "y-axis-0";
+    portChartStyles[i].datasets[1][yAxisID] = "y-axis-0";
+    portChartStyles[i].datasets[2][yAxisID] = "y-axis-1";
+    var backgroundColor = "backgroundColor";
+    portChartStyles[i].datasets[0][backgroundColor] = "rgba(93,195,76,0.4)";
+    portChartStyles[i].datasets[1][backgroundColor] = "rgba(220,160,85,0.4)";
+    portChartStyles[i].datasets[2][backgroundColor] = "rgba(141,75,193,0.4)";
+    var borderColor = "borderColor";
+    portChartStyles[i].datasets[0][borderColor] = "rgba(93,195,76,1)";
+    portChartStyles[i].datasets[1][borderColor] = "rgba(220,160,85,1)";
+    portChartStyles[i].datasets[2][borderColor] = "rgba(141,75,193,1)";
+}
 
 portChartScales = {
     yAxes: [{
