@@ -21,11 +21,9 @@ var currentNode = 0;
 // ]
 
 var colorArray = [
-"#F33B3B", 
-"#F33BAA", 
-"#793BF3", 
-"#3BB0F3", 
-"#3BF37F"
+"#CC3333", 
+"#FF9933", 
+"#66CC33"
 ]
 
 // update and highlight functions
@@ -181,9 +179,36 @@ function highlightOverallNetworkLoad() {
     if (currentNode == numberOfNodes) {
         // overall
         for (i = 0; i < nodes.length; i++) {
-            var index = cpuData[i][pointIndex] % 5;
-            cy.edges().style({'line-color': colorArray[index]});
-            cy.nodes('#' + nodes[i]).style({'background-color': colorArray[index]});
+            // color nodes based on cpu data
+            // lower index equates darker color
+            var cpuUsage = cpuData[i][pointIndex];
+            var nodeColorIndex = 0;
+            if (cpuUsage <= 40) {
+                nodeColorIndex = 2;
+            } else if (cpuUsage <= 70) {
+                nodeColorIndex = 1;
+            } else {
+                nodeColorIndex = 0;
+            }
+
+            cy.nodes('#' + nodes[i]).style({'background-color': colorArray[nodeColorIndex]});
+
+            // color edges based on throughput data
+            // edges data should be the same just reverse up/down links; so choose any one direction
+            for (k = 0; k < numberOfPorts[i]; k++) {
+                var throughputUsage = throughputData[i][k][pointIndex];
+                var edgeColorIndex = 0;
+                if (throughputUsage <= 4) {
+                    edgeColorIndex = 2;
+                } else if (throughputUsage <= 7) {
+                    edgeColorIndex = 1;
+                } else {
+                    edgeColorIndex = 0;
+                }
+
+                cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-color': colorArray[edgeColorIndex] });    
+            }
+
         }
     }
 }
@@ -338,7 +363,7 @@ cy.on('click', function(event) {
     var node = event.cyTarget;
     if (node === cy) {
         updateCurrentNode('overall');
-        // resetNodesAndEdgesColors();
+        resetNodesAndEdgesColors();
     } else {
         updateCurrentNode(node.id());
     }
