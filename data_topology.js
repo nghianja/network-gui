@@ -40,7 +40,7 @@ dataset = [
         { data: { id: 'e08', source: 'k', target: 'l', sPort: 0, tPort: 2 } },
 
         // edges connnecting switches to central switch
-        { data: { id: 'e09', source: 'd', target: 'z', sPort: 4, tPort: 0 } },
-        { data: { id: 'e10', source: 'h', target: 'z', sPort: 4, tPort: 1 } },
-        { data: { id: 'e11', source: 'l', target: 'z', sPort: 4, tPort: 2 } }
+        { data: { id: 'e09', source: 'd', target: 'z', sPort: 3, tPort: 0 } },
+        { data: { id: 'e10', source: 'h', target: 'z', sPort: 3, tPort: 1 } },
+        { data: { id: 'e11', source: 'l', target: 'z', sPort: 3, tPort: 2 } }
     ];
