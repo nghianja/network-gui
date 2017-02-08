@@ -132,21 +132,21 @@ function highlightPointOnCharts() {
 function highlightNetworkLoad() {
     if (currentNode != numberOfNodes) {
         cy.nodes().style({ 'background-color':'gray' });
-        if (cpuData[currentNode][pointIndex] > 50) {
-            cy.nodes().style({ 'background-color':'gray' });
+        if (cpuData[currentNode][pointIndex] > 70) {
+            cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'red' });
+        } else if (cpuData[currentNode][pointIndex] > 40) {
+            cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'orange' });
         } else {
             cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'green' });
         }
         cy.edges().style({ 'line-color':'gray' });
         for (i = 0; i < numberOfPorts[currentNode]; i++) {
-            console.log(throughputData[currentNode][i][pointIndex]);
             if (throughputData[currentNode][i][pointIndex] > 7) {
                 cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'red' });
                 cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'red' });
             } else if (throughputData[currentNode][i][pointIndex] > 4) {
                 cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'orange' });
                 cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'orange' });
-                cy.edges().style({ 'line-color':'gray' });
             } else {
                 cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'green' });
                 cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'green' });
