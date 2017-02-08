@@ -125,26 +125,25 @@ function highlightPointOnCharts() {
 }
 
 function highlightNetworkLoad() {
-
-    if (cpuData[currentNode][pointIndex] > 50) {
-        if (currentNode != numberOfNodes) {
+    if (currentNode != numberOfNodes) {
+        if (cpuData[currentNode][pointIndex] > 50) {
             cy.nodes().style({ 'background-color':'gray' });
             cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'red' });
-        }
-    } else if (currentNode != numberOfNodes) {
+        } else {
             cy.nodes().style({ 'background-color':'gray' });
             cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'green' });
+        }
     }
-    if (networkData[currentNode][pointIndex] > 50) {
-        if (currentNode != numberOfNodes) {
+    if (currentNode != numberOfNodes) {
+        if (networkData[currentNode][pointIndex] > 50) {
             cy.edges().style({ 'line-color':'gray' });
             cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'red' });
             cy.edges('[target = "' + nodes[currentNode] + '"]').style({ 'line-color':'red' });
+        } else {
+            cy.edges().style({ 'line-color':'gray' });
+            cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
+            cy.edges('[target = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
         }
-    } else if (currentNode != numberOfNodes) {
-        cy.edges().style({ 'line-color':'gray' });
-        cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
-        cy.edges('[target = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
     }
 }
 
