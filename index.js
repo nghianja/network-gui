@@ -48,6 +48,7 @@ function update() {
 
 function updateHighlights() {
     highlightPointOnCharts();
+    highlightOverallNetworkLoad();
     highlightNetworkLoad();
 }
 
@@ -125,7 +126,6 @@ function highlightPointOnCharts() {
 }
 
 function highlightNetworkLoad() {
-
     if (cpuData[currentNode][pointIndex] > 50) {
         if (currentNode != numberOfNodes) {
             cy.nodes().style({ 'background-color':'gray' });
@@ -146,6 +146,31 @@ function highlightNetworkLoad() {
         cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
         cy.edges('[target = "' + nodes[currentNode] + '"]').style({ 'line-color':'green' });
     }
+}
+
+function highlightOverallNetworkLoad() {
+    for (i = 0; i < nodes.length; i++) {
+        if (cpuData[i][pointIndex] > 50) {
+            cy.nodes('#' + nodes[i]).style({ 'background-color':'red' });
+        } else {
+            cy.nodes('#' + nodes[i]).style({ 'background-color':'green' });
+        }
+    }
+    // cy.nodes().forEach(function( ele, i) {
+    //     if (ele.id().lastIndexOf("isp", 0) == -1) {
+    //         // search for nodes whose id is not a 'ispXXX' which is a parent node holding the cluster
+    //         // lastIndexOf returns -1 if does not match
+    //         // we want to color all other nodes instead
+    //         console.log(i + ":" + ele.id());
+    //     }
+    // });
+    // console.log(cpuData[currentNode][pointIndex])
+    // console.log(ele.id)
+    /*
+    cy.nodes().forEach(function( ele, i ){
+        console.log("index is " + i)
+        console.log("it works" + currentNode)
+    });*/
 }
 
 // reset nodes and edges colors for mouse click on cy container
@@ -292,7 +317,7 @@ cy.on('click', function(event) {
     var node = event.cyTarget;
     if (node === cy) {
         updateCurrentNode('overall');
-        resetNodesAndEdgesColors();
+        // resetNodesAndEdgesColors();
     } else {
         updateCurrentNode(node.id());
     }
