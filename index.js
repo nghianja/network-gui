@@ -5,6 +5,28 @@ require('./data_nodes');
 var previousIndex = 0;
 var pointIndex = 0;
 var currentNode = 0;
+// network load color array for use in order of 10
+// order is from red to green for modulo purpose
+// var colorArray = [
+// "#F33B3B", 
+// "#D9473A", 
+// "#C05439", 
+// "#A76139", 
+// "#8D6E38",
+// "#747A38",
+// "#5B8737",
+// "#419437",
+// "#28A136",
+// "#0FAE36"
+// ]
+
+var colorArray = [
+"#F33B3B", 
+"#F33BAA", 
+"#793BF3", 
+"#3BB0F3", 
+"#3BF37F"
+]
 
 // update and highlight functions
 $(document).ready(function() {
@@ -157,11 +179,9 @@ function highlightNetworkLoad() {
 
 function highlightOverallNetworkLoad() {
     for (i = 0; i < nodes.length; i++) {
-        if (cpuData[i][pointIndex] > 50) {
-            cy.nodes('#' + nodes[i]).style({ 'background-color':'red' });
-        } else {
-            cy.nodes('#' + nodes[i]).style({ 'background-color':'green' });
-        }
+        var index = cpuData[i][pointIndex] % 5;
+        cy.edges().style({'line-color': colorArray[index]});
+        cy.nodes('#' + nodes[i]).style({'background-color': colorArray[index]});
     }
     // cy.nodes().forEach(function( ele, i) {
     //     if (ele.id().lastIndexOf("isp", 0) == -1) {
