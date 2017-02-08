@@ -133,8 +133,6 @@ function highlightNetworkLoad() {
             cy.nodes().style({ 'background-color':'gray' });
             cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'green' });
         }
-    }
-    if (currentNode != numberOfNodes) {
         if (networkData[currentNode][pointIndex] > 50) {
             cy.edges().style({ 'line-color':'gray' });
             cy.edges('[source = "' + nodes[currentNode] + '"]').style({ 'line-color':'red' });
