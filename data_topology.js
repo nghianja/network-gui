@@ -25,22 +25,22 @@ dataset = [
         { data: { id: 'l', label: 'switch', parent: 'ispC'  }, classes: 'switch' },
         
         // edges for group 1
-        { data: { id: 'e00', source: 'a', target: 'd' } },
-        { data: { id: 'e01', source: 'b', target: 'd' } },
-        { data: { id: 'e02', source: 'c', target: 'd' } },
+        { data: { id: 'e00', source: 'a', target: 'd', sPort: 0, tPort: 0 } },
+        { data: { id: 'e01', source: 'b', target: 'd', sPort: 0, tPort: 1 } },
+        { data: { id: 'e02', source: 'c', target: 'd', sPort: 0, tPort: 2 } },
 
         // edges for group 2
-        { data: { id: 'e03', source: 'e', target: 'h' } },
-        { data: { id: 'e04', source: 'f', target: 'h' } },
-        { data: { id: 'e05', source: 'g', target: 'h' } },
+        { data: { id: 'e03', source: 'e', target: 'h', sPort: 0, tPort: 0 } },
+        { data: { id: 'e04', source: 'f', target: 'h', sPort: 0, tPort: 1 } },
+        { data: { id: 'e05', source: 'g', target: 'h', sPort: 0, tPort: 2 } },
 
         // edges for group 3
-        { data: { id: 'e06', source: 'i', target: 'l' } },
-        { data: { id: 'e07', source: 'j', target: 'l' } },
-        { data: { id: 'e08', source: 'k', target: 'l' } },
+        { data: { id: 'e06', source: 'i', target: 'l', sPort: 0, tPort: 0 } },
+        { data: { id: 'e07', source: 'j', target: 'l', sPort: 0, tPort: 1 } },
+        { data: { id: 'e08', source: 'k', target: 'l', sPort: 0, tPort: 2 } },
 
         // edges connnecting switches to central switch
-        { data: { id: 'e09', source: 'd', target: 'z' } },
-        { data: { id: 'e10', source: 'h', target: 'z' } },
-        { data: { id: 'e11', source: 'l', target: 'z' } }
+        { data: { id: 'e09', source: 'd', target: 'z', sPort: 4, tPort: 0 } },
+        { data: { id: 'e10', source: 'h', target: 'z', sPort: 4, tPort: 1 } },
+        { data: { id: 'e11', source: 'l', target: 'z', sPort: 4, tPort: 2 } }
     ];
