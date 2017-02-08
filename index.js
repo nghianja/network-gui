@@ -21,14 +21,12 @@ function updateCurrentNode(id) {
     $("#currentNodeLabel").text(id);
     updateDataSources();
     update();
-    showPortCharts();
+    showHideCharts();
 }
 
 function updateDataSources() {
     cpuChart.data.datasets[0].data = cpuData[currentNode];
-    networkChart.data.datasets[0].data = networkData[currentNode];
     cpuChart.update();
-    networkChart.update();
     if (currentNode < numberOfNodes) {
         for (i = 0; i < numberOfPorts[currentNode]; i++) {
             portCharts[i].data.datasets[0].data = throughputData[currentNode][i];
@@ -36,6 +34,9 @@ function updateDataSources() {
             portCharts[i].data.datasets[2].data = dropPacketData[currentNode][i];
             portCharts[i].update();
         }
+    } else {
+        networkChart.data.datasets[0].data = networkData_overall;
+        networkChart.update();
     }
 }
 
@@ -63,71 +64,76 @@ function highlightPointOnCharts() {
     cpuOldPoint.custom = cpuOldPoint.custom || {};
     cpuOldPoint.custom.backgroundColor = "#fff";
     cpuOldPoint.custom.radius = 3;
-    var networkOldPoint = networkMeta.data[previousIndex];
-    networkOldPoint.custom = networkOldPoint.custom || {};
-    networkOldPoint.custom.backgroundColor = "#fff";
-    networkOldPoint.custom.radius = 3;
 
     //Get point object and change the radius/color
     var cpuPoint = cpuMeta.data[pointIndex];
     cpuPoint.custom = cpuPoint.custom || {};
     cpuPoint.custom.backgroundColor = "#828282";
     cpuPoint.custom.radius = 5;
-    var networkPoint = networkMeta.data[pointIndex];
-    networkPoint.custom = networkPoint.custom || {};
-    networkPoint.custom.backgroundColor = "#828282";
-    networkPoint.custom.radius = 5;
 
     // first parameter to update is the animation duration.
     // if none is specified, the config animation duration
     // is used. Using 0 here will do the draw immediately.
     cpuChart.update();
-    networkChart.update();
 
-    for (i = 0; i < numberOfPorts[currentNode]; i++) {
-        var portMeta1 = portCharts[i].getDatasetMeta(0);
-        var portMeta2 = portCharts[i].getDatasetMeta(1);
-        var portMeta3 = portCharts[i].getDatasetMeta(2);
+    if (currentNode < numberOfNodes) {
+        for (i = 0; i < numberOfPorts[currentNode]; i++) {
+            var portMeta1 = portCharts[i].getDatasetMeta(0);
+            var portMeta2 = portCharts[i].getDatasetMeta(1);
+            var portMeta3 = portCharts[i].getDatasetMeta(2);
 
-        // Reset previous point
-        var portOldPoint1 = portMeta1.data[previousIndex];
-        var portOldPoint2 = portMeta2.data[previousIndex];
-        var portOldPoint3 = portMeta3.data[previousIndex];
-        portOldPoint1.custom = portOldPoint1.custom || {};
-        portOldPoint2.custom = portOldPoint2.custom || {};
-        portOldPoint3.custom = portOldPoint3.custom || {};
-        portOldPoint1.custom.backgroundColor = "#fff";
-        portOldPoint2.custom.backgroundColor = "#fff";
-        portOldPoint3.custom.backgroundColor = "#fff";
-        portOldPoint1.custom.radius = 3;
-        portOldPoint2.custom.radius = 3;
-        portOldPoint3.custom.radius = 3;
+            // Reset previous point
+            var portOldPoint1 = portMeta1.data[previousIndex];
+            var portOldPoint2 = portMeta2.data[previousIndex];
+            var portOldPoint3 = portMeta3.data[previousIndex];
+            portOldPoint1.custom = portOldPoint1.custom || {};
+            portOldPoint2.custom = portOldPoint2.custom || {};
+            portOldPoint3.custom = portOldPoint3.custom || {};
+            portOldPoint1.custom.backgroundColor = "#fff";
+            portOldPoint2.custom.backgroundColor = "#fff";
+            portOldPoint3.custom.backgroundColor = "#fff";
+            portOldPoint1.custom.radius = 3;
+            portOldPoint2.custom.radius = 3;
+            portOldPoint3.custom.radius = 3;
 
-        //Get point object and change the radius/color
-        var portPoint1 = portMeta1.data[pointIndex];
-        var portPoint2 = portMeta2.data[pointIndex];
-        var portPoint3 = portMeta3.data[pointIndex];
-        portPoint1.custom = portPoint1.custom || {};
-        portPoint2.custom = portPoint2.custom || {};
-        portPoint3.custom = portPoint3.custom || {};
-        portPoint1.custom.backgroundColor = "#828282";
-        portPoint2.custom.backgroundColor = "#828282";
-        portPoint3.custom.backgroundColor = "#828282";
-        portPoint1.custom.radius = 5;
-        portPoint2.custom.radius = 5;
-        portPoint3.custom.radius = 5;
+            //Get point object and change the radius/color
+            var portPoint1 = portMeta1.data[pointIndex];
+            var portPoint2 = portMeta2.data[pointIndex];
+            var portPoint3 = portMeta3.data[pointIndex];
+            portPoint1.custom = portPoint1.custom || {};
+            portPoint2.custom = portPoint2.custom || {};
+            portPoint3.custom = portPoint3.custom || {};
+            portPoint1.custom.backgroundColor = "#828282";
+            portPoint2.custom.backgroundColor = "#828282";
+            portPoint3.custom.backgroundColor = "#828282";
+            portPoint1.custom.radius = 5;
+            portPoint2.custom.radius = 5;
+            portPoint3.custom.radius = 5;
 
-        portCharts[i].update();
+            portCharts[i].update();
+        }
+    } else {
+        var networkOldPoint = networkMeta.data[previousIndex];
+        networkOldPoint.custom = networkOldPoint.custom || {};
+        networkOldPoint.custom.backgroundColor = "#fff";
+
+        networkOldPoint.custom.radius = 3;
+        var networkPoint = networkMeta.data[pointIndex];
+        networkPoint.custom = networkPoint.custom || {};
+        networkPoint.custom.backgroundColor = "#828282";
+
+        networkPoint.custom.radius = 5;
+        networkChart.update();
     }
 
     previousIndex = pointIndex;
 }
 
 function highlightNetworkLoad() {
-    if (currentNode != numberOfNodes) {
+    // if (currentNode != numberOfNodes) {
         cy.nodes().style({ 'background-color':'gray' });
-        if (cpuData[currentNode][pointIndex] > 50) {
-            cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'red' });
+    //     if (cpuData[currentNode][pointIndex] > 50) {
+    //         cy.nodes().style({ 'background-color':'gray' });
         } else {
             cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'green' });
         }
@@ -140,6 +146,7 @@ function highlightNetworkLoad() {
             } else if (throughputData[currentNode][i][pointIndex] > 4) {
                 cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'orange' });
                 cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'orange' });
+    //         cy.edges().style({ 'line-color':'gray' });
             } else {
                 cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'green' });
                 cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'green' });
@@ -179,8 +186,11 @@ function resetNodesAndEdgesColors() {
     cy.edges().style({ 'line-color':'gray' });
 }
 
-function showPortCharts() {
+function showHideCharts() {
     if (currentNode < numberOfNodes) {
+        if (!$('#placeholder-network').hasClass("no-visibility")) {
+            $('#placeholder-network').addClass("no-visibility");
+        }
         for (i = 1; i <= 5; i++) {
             if (i <= numberOfPorts[currentNode]) {
                 if ($('#placeholder-row' + i).hasClass("no-visibility")) {
@@ -193,6 +203,9 @@ function showPortCharts() {
             }
         }
     } else {
+        if ($('#placeholder-network').hasClass("no-visibility")) {
+            $('#placeholder-network').removeClass("no-visibility");
+        }
         for (i = 1; i <= 5; i++) {
             if (!$('#placeholder-row' + i).hasClass("no-visibility")) {
                 $('#placeholder-row' + i).addClass("no-visibility");

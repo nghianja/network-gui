@@ -22,28 +22,24 @@ nodes = [
 
 // cpu and network data
 cpuData = [numberOfNodes + 1];
-networkData = [numberOfNodes + 1];
 for (i = 0; i < numberOfNodes; i++) {
     cpuData[i] = [numberOfTimes];
-    networkData[i] = [numberOfTimes];
     for (j = 0; j < numberOfTimes; j++) {
         cpuData[i][j] = utils.getRandomInt(0, 100);
-        networkData[i][j] = utils.getRandomInt(0, 100);
     }
 }
 cpuData_overall = [numberOfTimes];
 networkData_overall = [numberOfTimes];
+for (i = 0; i < numberOfTimes; i++) {
+    networkData_overall[i] = utils.getRandomInt(0, 100);
+}
 cpuData[numberOfNodes] = cpuData_overall;
-networkData[numberOfNodes] = networkData_overall;
 for (i = 0; i < numberOfTimes; i++) {
     var cpuTotal = 0;
-    var networkTotal = 0;
     for (j = 0; j < numberOfNodes; j++) {
         cpuTotal = cpuTotal + cpuData[j][i];
-        networkTotal = networkTotal + networkData[j][i];
     }
     cpuData_overall[i] = Math.floor(cpuTotal / numberOfNodes);
-    networkData_overall[i] = Math.floor(networkTotal / numberOfNodes);
 }
 
 // port data
