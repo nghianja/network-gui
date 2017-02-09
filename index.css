@@ -45,3 +45,6 @@ html, body, .container-fluid {
 .no-visibility {
   display: none;
 }
+.media-control #currentTimeLabel {
+    margin-right: 10px;
+}

@@ -21,13 +21,22 @@
             </div>
           </div>
           <div class="row media-control">
-            <label type="button" class="btn btn-link" id="startButton"><span class="glyphicon glyphicon-fast-backward"></span></label>
-            <label type="button" class="btn btn-link" id="playPauseButton"><span id="playPauseIcon" class="glyphicon glyphicon-play"></span></label>
-            <label type="button" class="btn btn-link" id="endButton"><span class="glyphicon glyphicon-fast-forward"></span></label>
-            <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="9" data-slider-step="1" data-slider-value="0"/>
-            <span>Current time: <span id="currentTimeLabel">0</span></span>
-            <br />
-            <span>Current node: <span id="currentNodeLabel">0</span></span>
+            <div class="col-sm-8">
+              <label type="button" class="btn btn-link" id="startButton"><span class="glyphicon glyphicon-fast-backward"></span></label>
+              <label type="button" class="btn btn-link" id="playPauseButton"><span id="playPauseIcon" class="glyphicon glyphicon-play"></span></label>
+              <label type="button" class="btn btn-link" id="endButton"><span class="glyphicon glyphicon-fast-forward"></span></label>
+              <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="9" data-slider-step="1" data-slider-value="0"/>
+              <br />
+              <span>Current time: <span id="currentTimeLabel">0</span></span>
+              <span>Current node: <span id="currentNodeLabel">0</span></span>
+            </div>
+            <div class="col-sm-4" style="padding-top: 10px">
+              Usage Load: 
+              <br />
+              <span class="label label-success">Low</span>
+              <span class="label label-warning">Medium</span>
+              <span class="label label-danger">High</span>
+            </div>
           </div>
         </div>
         <div class="col-sm-4 full-height scrollable-column">
