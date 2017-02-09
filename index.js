@@ -212,9 +212,15 @@ function highlightOverallNetworkLoad() {
                     edgeColorIndex = 0;
                 }
 
-                cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-color': colorArray[edgeColorIndex] });    
+                // set solid lines for edges leaving switches only
+                // switch connecting to central switch using source port 3
+                if (k == 3) {
+                    cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-style': 'solid', 'line-color': colorArray[edgeColorIndex] });   
+                } else {
+                    cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-style': 'dashed' ,'line-color': colorArray[edgeColorIndex] });   
+                }
             }
-
+            
         }
     }
 }
