@@ -90,17 +90,26 @@ function highlightPointOnCharts() {
     cpuOldPoint.custom = cpuOldPoint.custom || {};
     cpuOldPoint.custom.backgroundColor = "#fff";
     cpuOldPoint.custom.radius = 3;
+    var networkOldPoint = networkMeta.data[previousIndex];
+    networkOldPoint.custom = networkOldPoint.custom || {};
+    networkOldPoint.custom.backgroundColor = "#fff";
+    networkOldPoint.custom.radius = 3;
 
     //Get point object and change the radius/color
     var cpuPoint = cpuMeta.data[pointIndex];
     cpuPoint.custom = cpuPoint.custom || {};
     cpuPoint.custom.backgroundColor = "#828282";
     cpuPoint.custom.radius = 5;
+    var networkPoint = networkMeta.data[pointIndex];
+    networkPoint.custom = networkPoint.custom || {};
+    networkPoint.custom.backgroundColor = "#828282";
+    networkPoint.custom.radius = 5;
 
     // first parameter to update is the animation duration.
     // if none is specified, the config animation duration
     // is used. Using 0 here will do the draw immediately.
     cpuChart.update();
+    networkChart.update();
 
     if (currentNode < numberOfNodes) {
         for (i = 0; i < numberOfPorts[currentNode]; i++) {
@@ -138,18 +147,6 @@ function highlightPointOnCharts() {
 
             portCharts[i].update();
         }
-    } else {
-        var networkOldPoint = networkMeta.data[previousIndex];
-        networkOldPoint.custom = networkOldPoint.custom || {};
-        networkOldPoint.custom.backgroundColor = "#fff";
-
-        networkOldPoint.custom.radius = 3;
-        var networkPoint = networkMeta.data[pointIndex];
-        networkPoint.custom = networkPoint.custom || {};
-        networkPoint.custom.backgroundColor = "#828282";
-
-        networkPoint.custom.radius = 5;
-        networkChart.update();
     }
 
     previousIndex = pointIndex;
