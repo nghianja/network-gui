@@ -27,9 +27,9 @@ var currentNode = 0;
 // ]
 
 var colorArray = [
-"#da0696", 
-"#dc5bb2", 
-"#de93c6"
+"red", 
+"orange", 
+"green"
 ]
 
 // update and highlight functions
@@ -217,10 +217,10 @@ function highlightOverallNetworkLoad() {
                 if (k == 3) {
                     cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-style': 'solid', 'line-color': colorArray[edgeColorIndex] });   
                 } else {
-                    cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-style': 'dashed' ,'line-color': colorArray[edgeColorIndex] });   
+                    cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-style': 'dashed' ,'line-color': colorArray[edgeColorIndex] });
                 }
             }
-            
+
         }
     }
 }
