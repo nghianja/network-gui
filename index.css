@@ -33,6 +33,11 @@ html, body, .container-fluid {
 #cy {
   height: 100%;
   display: block;
+  background: url(images/bg.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 .scrollable-column {
   overflow-y: scroll;

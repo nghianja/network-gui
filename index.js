@@ -20,10 +20,16 @@ var currentNode = 0;
 // "#0FAE36"
 // ]
 
+// var colorArray = [
+// "#CC3333", 
+// "#FF9933", 
+// "#66CC33"
+// ]
+
 var colorArray = [
-"#CC3333", 
-"#FF9933", 
-"#66CC33"
+"#da0696", 
+"#dc5bb2", 
+"#de93c6"
 ]
 
 // update and highlight functions
@@ -329,7 +335,7 @@ var cy = cytoscape({
                 'background-opacity': '0.0',
                 'background-fit': 'contain',
                 'background-image': 'images/cloud.png',
-                'background-image-opacity': '0.333',
+                'background-image-opacity': '0.7',
                 'border-width': 0
             }
         },
@@ -341,7 +347,7 @@ var cy = cytoscape({
                 'width': 50,
                 'background-opacity': '0.0',
                 'background-fit': 'contain',
-                'background-image': 'images/switch.png'
+                'background-image': 'images/switch2.png'
             }
         }
     ]
