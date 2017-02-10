@@ -25,19 +25,19 @@ dataset = [
         { data: { id: 'l', label: 'switch', parent: 'ispC'  }, classes: 'switch' },
         
         // edges for group 1
-        { data: { id: 'e00', source: 'a', target: 'd', sPort: 0, tPort: 0 } },
-        { data: { id: 'e01', source: 'b', target: 'd', sPort: 0, tPort: 1 } },
-        { data: { id: 'e02', source: 'c', target: 'd', sPort: 0, tPort: 2 } },
+        { data: { id: 'e00', source: 'a', target: 'd', sPort: 0, tPort: 0 }, classes: 'dashed' },
+        { data: { id: 'e01', source: 'b', target: 'd', sPort: 0, tPort: 1 }, classes: 'dashed' },
+        { data: { id: 'e02', source: 'c', target: 'd', sPort: 0, tPort: 2 }, classes: 'dashed' },
 
         // edges for group 2
-        { data: { id: 'e03', source: 'e', target: 'h', sPort: 0, tPort: 0 } },
-        { data: { id: 'e04', source: 'f', target: 'h', sPort: 0, tPort: 1 } },
-        { data: { id: 'e05', source: 'g', target: 'h', sPort: 0, tPort: 2 } },
+        { data: { id: 'e03', source: 'e', target: 'h', sPort: 0, tPort: 0 }, classes: 'dashed' },
+        { data: { id: 'e04', source: 'f', target: 'h', sPort: 0, tPort: 1 }, classes: 'dashed' },
+        { data: { id: 'e05', source: 'g', target: 'h', sPort: 0, tPort: 2 }, classes: 'dashed' },
 
         // edges for group 3
-        { data: { id: 'e06', source: 'i', target: 'l', sPort: 0, tPort: 0 } },
-        { data: { id: 'e07', source: 'j', target: 'l', sPort: 0, tPort: 1 } },
-        { data: { id: 'e08', source: 'k', target: 'l', sPort: 0, tPort: 2 } },
+        { data: { id: 'e06', source: 'i', target: 'l', sPort: 0, tPort: 0 }, classes: 'dashed' },
+        { data: { id: 'e07', source: 'j', target: 'l', sPort: 0, tPort: 1 }, classes: 'dashed' },
+        { data: { id: 'e08', source: 'k', target: 'l', sPort: 0, tPort: 2 }, classes: 'dashed' },
 
         // edges connnecting switches to central switch
         { data: { id: 'e09', source: 'd', target: 'z', sPort: 3, tPort: 0 } },
