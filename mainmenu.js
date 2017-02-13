@@ -4,6 +4,16 @@
 // [3] http://stackoverflow.com/questions/35063582/can-i-pass-variable-to-required-file
 
 module.exports = function(mainWindow) {
+  const electron = require('electron')
+  const BrowserWindow = electron.BrowserWindow
+  const path = require('path')
+  const url = require('url')
+  
+  var consoleWindow
+  this.getConsole = function () {
+      return consoleWindow
+  }
+  
   function sendTrigger(channel) {
     dialog.showOpenDialog(function(fileNames) {
       if (fileNames === undefined) {
@@ -14,32 +24,39 @@ module.exports = function(mainWindow) {
       }
     })
   }
+
+  function createConsole() {
+    consoleWindow = new BrowserWindow({ parent: mainWindow, show: false })
+    consoleWindow.loadURL(url.format({
+      pathname: path.join(__dirname, 'console.html'),
+      protocol: 'file:',
+      slashes: true
+    }))
+    consoleWindow.on('closed', function () { 
+      consoleWindow = null
+    })
+  }
+
+  function showConsole() {
+    if (consoleWindow == null) {
+      createConsole()
+      consoleWindow.show()
+    }
+  }
   
   const {app, dialog, ipcMain, Menu} = require('electron')
 
   const template = [
     {
-      label: 'File',
+      label: 'Open',
       submenu: [
         {
-          label: 'Load Topology',
+          label: 'Network Topology',
           click () { sendTrigger('readTopo') }
         },
         {
-          label: 'Load Bots Log',
-          click () { sendTrigger('readBots') }
-        },
-        {
-          label: 'Load Bot Control Log',
-          click () { sendTrigger('readBotControl') }
-        },
-        {
-          label: 'Load Servers Log',
-          click () { sendTrigger('readServers') }
-        },
-        {
-          label: 'Load Switches Log',
-          click () { sendTrigger('readSwitches') }
+          label: 'Aggregated Log',
+          click () { sendTrigger('readLog') }
         }
       ]
     },
@@ -74,7 +91,11 @@ module.exports = function(mainWindow) {
       role: 'window',
       submenu: [
         { role: 'minimize' },
-        { role: 'close' }
+        { role: 'close' },
+        { 
+          label: 'Show Console',
+          click () { showConsole(); }
+        }
       ]
     },
     {

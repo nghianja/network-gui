@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Log Console</title>
+      
+    <style>
+      html, body { height: 100%; margin: 0px; padding: 0px; }
+      #terminal-body {
+        font-family: monospace; line-height: 1em;
+        font-size: 11px;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        line-height: 1.5em;
+        color: #FFF;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="terminal-body"></div>
+  </body>
+    
+  <script>
+    const {ipcRenderer} = require('electron')
+    ipcRenderer.on('console', (event, arg) => {
+      document.getElementById('terminal-body').innerHTML += '[' + Date.now() + ']' + arg + '<br>';
+    })
+  </script>
+</html>

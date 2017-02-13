@@ -34,8 +34,8 @@ function createWindow () {
     mainWindow = null
   })
   
-  var mainmenu = require('./mainmenu')
-  mainmenu(mainWindow)
+  mainmenu = require('./mainmenu')
+  mainmenuObj = new mainmenu(mainWindow)
 }
 
 // This method will be called when Electron has finished
@@ -62,3 +62,10 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+const {ipcMain} = require('electron')
+ipcMain.on('main', function(event, arg) {
+    consoleWindow = mainmenuObj.getConsole()
+    if (consoleWindow != null) {
+      consoleWindow.webContents.send('console', arg)
+    }
+})

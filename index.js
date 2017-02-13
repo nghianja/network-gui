@@ -69,6 +69,7 @@ function updateDataSources() {
 function update() {
     updateHighlights();
     updateLabels();
+    updateConsole();
 }
 
 function updateHighlights() {
@@ -79,6 +80,13 @@ function updateHighlights() {
 
 function updateLabels() {
     $("#currentTimeLabel").text(pointIndex);
+}
+
+const {ipcRenderer} = require('electron')
+function updateConsole() {
+    if (currentNode != numberOfNodes) {
+        ipcRenderer.send('main', "CPU load: " + cpuData[currentNode][pointIndex])
+    }
 }
 
 function highlightPointOnCharts() {
