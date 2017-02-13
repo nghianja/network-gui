@@ -5,15 +5,18 @@
     <title>Log Console</title>
       
     <style>
-      html, body { height: 100%; margin: 0px; padding: 0px; }
+      html, body { height: 100%; background-color: #000; }
       #terminal-body {
+        background-color: #000;
+        color: #FFF;
         font-family: monospace; line-height: 1em;
         font-size: 11px;
-        width: 100%;
-        height: 100%;
-        background-color: #000;
         line-height: 1.5em;
-        color: #FFF;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
       }
     </style>
   </head>
@@ -24,7 +27,7 @@
   <script>
     const {ipcRenderer} = require('electron')
     ipcRenderer.on('console', (event, arg) => {
-      document.getElementById('terminal-body').innerHTML += '[' + Date.now() + ']' + arg + '<br>';
+      document.getElementById('terminal-body').innerHTML += '[' + Date.now() + '] ' + arg + '<br>';
     })
   </script>
 </html>

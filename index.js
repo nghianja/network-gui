@@ -85,7 +85,12 @@ function updateLabels() {
 const {ipcRenderer} = require('electron')
 function updateConsole() {
     if (currentNode != numberOfNodes) {
-        ipcRenderer.send('main', "CPU load: " + cpuData[currentNode][pointIndex])
+        ipcRenderer.send('main', "CPU load: " + cpuData[currentNode][pointIndex]);
+        for (i = 0; i < numberOfPorts[currentNode]; i++) {
+            ipcRenderer.send('main', "Throughput: " + throughputData[currentNode][i][pointIndex]);
+            ipcRenderer.send('main', "Latency: " + latencyData[currentNode][i][pointIndex]);
+            ipcRenderer.send('main', "Packets Dropped: " + dropPacketData[currentNode][i][pointIndex]);
+        }
     }
 }
 
