@@ -71,12 +71,97 @@ portChartStyle5 = {
     datasets: [{}, {}, {}]
 };
 
+portChartStyle6 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle7 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle8 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle9 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle10 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle11 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle12 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle13 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle14 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle15 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle16 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle17 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle18 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle19 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle20 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle21 = {
+    datasets: [{}, {}, {}]
+};
+
+portChartStyle22 = {
+    datasets: [{}, {}, {}]
+};
+
 portChartStyles = [
     portChartStyle1,
     portChartStyle2,
     portChartStyle3,
     portChartStyle4,
-    portChartStyle5];
+    portChartStyle5,
+    portChartStyle6,
+    portChartStyle7,
+    portChartStyle8,
+    portChartStyle9,
+    portChartStyle10,
+    portChartStyle11,
+    portChartStyle12,
+    portChartStyle13,
+    portChartStyle14,
+    portChartStyle15,
+    portChartStyle16,
+    portChartStyle17,
+    portChartStyle18,
+    portChartStyle19,
+    portChartStyle20,
+    portChartStyle21,
+    portChartStyle22];
 
 // populate portChartStyles
 for (i = 0; i < portChartStyles.length; i++) {

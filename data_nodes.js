@@ -43,7 +43,7 @@ for (i = 0; i < numberOfTimes; i++) {
 }
 
 // port data
-numberOfPorts = [1, 1, 1, 4, 1, 1, 1, 4, 1, 1, 1, 4, 3];
+numberOfPorts = [1, 1, 1, 22, 1, 1, 1, 22, 1, 1, 1, 22, 3];
 // for (i = 0; i < numberOfNodes; i++) {
 //     numberOfPorts[i] = utils.getRandomInt(0, 5);
 // }
