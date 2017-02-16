@@ -328,7 +328,9 @@ var cy = cytoscape({
     autounselectify: true,
 
     layout: { 
-        name: 'cose-bilkent'
+        name: 'cose-bilkent',
+        randomize: true,
+        nodeRepulsion: 400000
     },
     style: [
         {
