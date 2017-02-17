@@ -11,18 +11,16 @@ let currentNode = '';
 
 // network load color array for use in order of 10
 // order is from red to green for modulo purpose
-// var colorArray = [
-// "#F33B3B", 
-// "#D9473A", 
-// "#C05439", 
-// "#A76139", 
-// "#8D6E38",
-// "#747A38",
-// "#5B8737",
-// "#419437",
-// "#28A136",
-// "#0FAE36"
-// ]
+var colorArray = [
+"#fb000c", 
+"#c92901", 
+"#C05439", 
+"#A76139", 
+"#8D6E38",
+"#747A38",
+"#5B8737",
+"#92e151"
+]
 
 // var colorArray = [
 // "#CC3333", 
@@ -30,20 +28,11 @@ let currentNode = '';
 // "#66CC33"
 // ]
 
-var colorArray = [
-"red", 
-"orange", 
-"green"
-];
-
-var colorArray = [
-"#fb2754",
-"#8d1f8f",
-"#2d2997",
-"#2171b0",
-"#0fb2f3",
-"#0cc1f8"
-]
+// var colorArray = [
+// "red", 
+// "orange", 
+// "green"
+// ];
 
 // update and highlight functions
 $(document).ready(function() {
@@ -214,18 +203,22 @@ function highlightOverallNetworkLoad() {
             // color nodes based on network data
             let node = nodes[i];
             let networkLoad = nodeMap.get(node).get('total')[pointIndex];
-            console.log(networkLoad);
-            let nodeColorIndex = 2;
-            if (networkLoad > 700000) {
+            console.log(nodes[i] + ":" + networkLoad);
+            let nodeColorIndex = 7;
+            if (networkLoad > 2000000) {
                 nodeColorIndex = 0;
-            } else if (networkLoad > 600000) {
+            } else if (networkLoad > 1000000) {
                 nodeColorIndex = 1;
-            } else if (networkLoad > 400000) {
+            } else if (networkLoad > 600000) {
                 nodeColorIndex = 2;
-            } else if (networkLoad > 260000) {
+            } else if (networkLoad > 280000) {
                 nodeColorIndex = 3;
-            } else if (networkLoad > 200000) {
+            } else if (networkLoad > 260000) {
                 nodeColorIndex = 4;
+            } else if (networkLoad > 240000) {
+                nodeColorIndex = 5;
+            } else if (networkLoad > 220000) {
+                nodeColorIndex = 6;
             }
             cy.nodes('#' + nodes[i]).style({'background-color': colorArray[nodeColorIndex]});
 
