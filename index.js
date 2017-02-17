@@ -339,7 +339,7 @@ var cy = cytoscape({
         {
             selector: 'node',
             style: { 
-                'label': 'data(label)',
+                'label': 'data(id)',
                 'text-valign': 'bottom', 
                 'text-halign': 'center'
             }
@@ -376,7 +376,7 @@ var cy = cytoscape({
 cy.on('mouseover', 'node', function(event) {
     var node = event.cyTarget;
     node.qtip({
-         content: 'id: ' + this.id(),
+         content: this.data('label'),
          show: {
             event: event.type,
             ready: true
