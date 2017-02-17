@@ -28,7 +28,7 @@ cpuChartStyle = {
 networkChartStyle = {
     labels: timestampLabels,
         datasets: [{
-        label: "Network Usage",
+        label: "Total Network Usage (KB/s)",
         fill: true,
         lineTension: 0.1,
         backgroundColor: "rgba(214,83,92,0.4)",
@@ -95,3 +95,42 @@ portChartScales = {
         "id": "y-axis-0"
     }]
 };
+
+// cy style
+cyStyle = [
+    {
+        selector: 'node',
+        style: {
+            'label': 'data(id)',
+            'text-valign': 'bottom',
+            'text-halign': 'center'
+        }
+    },
+    {
+        selector: ':parent',
+        style: {
+            'background-opacity': '0.0',
+            'background-fit': 'contain',
+            'background-image': 'images/cloud.png',
+            'background-image-opacity': '0.7',
+            'border-width': 0
+        }
+    },
+    {
+        // add background image, class should be same as the one define in data_topology
+        selector: '.switch',
+        style: {
+            'height': 30,
+            'width': 50,
+            'background-opacity': '0.0',
+            'background-fit': 'contain',
+            'background-image': 'images/switch2.png'
+        }
+    },
+    {
+        selector: '.dashed',
+        style: {
+            'line-style': 'dashed'
+        }
+    }
+];

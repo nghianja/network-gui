@@ -1,14 +1,14 @@
 const {ipcRenderer} = require('electron');
-// load dummy data
-require('./data_nodes');
-
-var data_logs = require('./data_logs');
+const data_logs = require('./data_logs');
+data_logs.readFiles();
 let nodeMap = data_logs.getLogsMap();
+require('./chart_styles');
 
 // vars
-var previousIndex = 0;
-var pointIndex = 0;
-var currentNode = '';
+let previousIndex = 0;
+let pointIndex = 0;
+let currentNode = '';
+
 // network load color array for use in order of 10
 // order is from red to green for modulo purpose
 // var colorArray = [
@@ -39,7 +39,7 @@ var colorArray = [
 // update and highlight functions
 $(document).ready(function() {
     updateCurrentNode('overall');
-    data_logs.readFiles();
+    // print to our console
     data_logs.getLogsMap().forEach(function(value, key) {
         // ipcRenderer.send('main', key + ': ' + value);
         ipcRenderer.send('main', 'name: ' + value.get('name'));
@@ -50,7 +50,9 @@ $(document).ready(function() {
             ipcRenderer.send('main', 'port: ' + currentValue);
             ipcRenderer.send('main', 'input: ' + value.get('ports').get(currentValue).get('input'));
             ipcRenderer.send('main', 'output: ' + value.get('ports').get(currentValue).get('output'));
+            ipcRenderer.send('main', 'port total: ' + value.get('ports').get(currentValue).get('total'));
         });
+        ipcRenderer.send('main', 'total: ' + value.get('total'));
     });
 });
 
@@ -62,9 +64,8 @@ function updateCurrentNode(node) {
 }
 
 function updateDataSources(node) {
-    // cpuChart.data.datasets[0].data = cpuData[currentNode];
-    // cpuChart.update();
     if (nodeMap.has(node)) {
+        networkChart.data.datasets[0].data = nodeMap.get(node).get('total');
         for (i = 0; i < nodeMap.get(node).get('numOfPorts'); i++) {
             let portName = nodeMap.get(node).get('portNames')[i];
             portCharts[i].options.title.text = portName;
@@ -73,23 +74,26 @@ function updateDataSources(node) {
             portCharts[i].update();
         }
     } else {
+        // TODO: add up total network traffic?
         networkChart.data.datasets[0].data = networkData_overall;
-        networkChart.update();
     }
+    networkChart.update();
+    cpuChart.data.datasets[0].data = cpuData_overall;
+    cpuChart.update();
 }
 
 function update(node) {
-    // updateHighlights(node);
+    updateHighlights(node);
     $("#currentTimeLabel").text(pointIndex);
 }
 
 function updateHighlights(node) {
     highlightPointOnCharts(node);
-    highlightOverallNetworkLoad(node);
-    highlightNetworkLoad(node);
+    // highlightOverallNetworkLoad(node);
+    // highlightNetworkLoad(node);
 }
 
-function highlightPointOnCharts() {
+function highlightPointOnCharts(node) {
     var cpuMeta = cpuChart.getDatasetMeta(0);
     var networkMeta = networkChart.getDatasetMeta(0);
 
@@ -119,39 +123,30 @@ function highlightPointOnCharts() {
     cpuChart.update();
     networkChart.update();
 
-    if (currentNode < numberOfNodes) {
-        for (i = 0; i < numberOfPorts[currentNode]; i++) {
+    if (nodeMap.has(node)) {
+        for (i = 0; i < nodeMap.get(node).get('numOfPorts'); i++) {
             var portMeta1 = portCharts[i].getDatasetMeta(0);
             var portMeta2 = portCharts[i].getDatasetMeta(1);
-            var portMeta3 = portCharts[i].getDatasetMeta(2);
 
             // Reset previous point
             var portOldPoint1 = portMeta1.data[previousIndex];
             var portOldPoint2 = portMeta2.data[previousIndex];
-            var portOldPoint3 = portMeta3.data[previousIndex];
             portOldPoint1.custom = portOldPoint1.custom || {};
             portOldPoint2.custom = portOldPoint2.custom || {};
-            portOldPoint3.custom = portOldPoint3.custom || {};
             portOldPoint1.custom.backgroundColor = "#fff";
             portOldPoint2.custom.backgroundColor = "#fff";
-            portOldPoint3.custom.backgroundColor = "#fff";
             portOldPoint1.custom.radius = 3;
             portOldPoint2.custom.radius = 3;
-            portOldPoint3.custom.radius = 3;
 
             //Get point object and change the radius/color
             var portPoint1 = portMeta1.data[pointIndex];
             var portPoint2 = portMeta2.data[pointIndex];
-            var portPoint3 = portMeta3.data[pointIndex];
             portPoint1.custom = portPoint1.custom || {};
             portPoint2.custom = portPoint2.custom || {};
-            portPoint3.custom = portPoint3.custom || {};
             portPoint1.custom.backgroundColor = "#828282";
             portPoint2.custom.backgroundColor = "#828282";
-            portPoint3.custom.backgroundColor = "#828282";
             portPoint1.custom.radius = 5;
             portPoint2.custom.radius = 5;
-            portPoint3.custom.radius = 5;
 
             portCharts[i].update();
         }
@@ -234,9 +229,6 @@ function resetNodesAndEdgesColors() {
 
 function showHideCharts(node) {
     if (nodeMap.has(node)) {
-        if (!$('#placeholder-network').hasClass("no-visibility")) {
-            $('#placeholder-network').addClass("no-visibility");
-        }
         for (i = 1; i <= portCharts.length; i++) {
             if (i <= nodeMap.get(node).get('numOfPorts')) {
                 if ($('#placeholder-row' + i).hasClass("no-visibility")) {
@@ -249,9 +241,6 @@ function showHideCharts(node) {
             }
         }
     } else {
-        if ($('#placeholder-network').hasClass("no-visibility")) {
-            $('#placeholder-network').removeClass("no-visibility");
-        }
         for (i = 1; i <= portCharts.length; i++) {
             if (!$('#placeholder-row' + i).hasClass("no-visibility")) {
                 $('#placeholder-row' + i).addClass("no-visibility");
@@ -329,57 +318,21 @@ var cy = cytoscape({
         randomize: true,
         nodeRepulsion: 400000
     },
-    style: [
-        {
-            selector: 'node',
-            style: { 
-                'label': 'data(id)',
-                'text-valign': 'bottom', 
-                'text-halign': 'center'
-            }
-        },
-        {
-            selector: ':parent',
-            style: {
-                'background-opacity': '0.0',
-                'background-fit': 'contain',
-                'background-image': 'images/cloud.png',
-                'background-image-opacity': '0.7',
-                'border-width': 0
-            }
-        },
-        {
-            // add background image, class should be same as the one define in data_topology
-            selector: '.switch',
-            style: {
-                'height': 30,
-                'width': 50,
-                'background-opacity': '0.0',
-                'background-fit': 'contain',
-                'background-image': 'images/switch2.png'
-            }
-        },
-        {
-            selector: '.dashed',
-            style: {
-                'line-style': 'dashed'
-            }
-        }
-    ]
+    style: cyStyle
 });
-// cy.on('mouseover', 'node', function(event) {
-//     var node = event.cyTarget;
-//     node.qtip({
-//          content: this.data('label'),
-//          show: {
-//             event: event.type,
-//             ready: true
-//          },
-//          hide: {
-//             event: 'mouseout unfocus'
-//          }
-//     }, event);
-// });
+cy.on('mouseover', 'node', function(event) {
+    var node = event.cyTarget;
+    // node.qtip({
+    //     content: this.data('label'),
+    //     show: {
+    //         event: event.type,
+    //         ready: true
+    //     },
+    //     hide: {
+    //         event: 'mouseout unfocus'
+    //     }
+    // }, event);
+});
 cy.on('click', function(event) {
     var node = event.cyTarget;
     if (node === cy) {
@@ -389,8 +342,6 @@ cy.on('click', function(event) {
         updateCurrentNode(node.id());
     }
 });
-
-require('./chart_styles');
 
 // cpu chart
 var cpuCanvas = document.getElementById("cpu-chart");

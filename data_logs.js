@@ -1,8 +1,39 @@
 const fs = require('fs');
 const path = require('path');
 const {ipcRenderer} = require('electron');
-let nodes = [];
 const logsMap = new Map();
+const utils = require('./utils');
+require('./data_topology');
+
+let nodes = [];
+numberOfNodes = 68 // (22*3 + central switch)
+numberOfTimes = 88;
+timestampLabels = [];
+for (i = 0; i < numberOfTimes; i++) {
+    timestampLabels.push(i);
+}
+
+// cpu and network data
+cpuData = [numberOfNodes + 1];
+for (i = 0; i < numberOfNodes; i++) {
+    cpuData[i] = [numberOfTimes];
+    for (j = 0; j < numberOfTimes; j++) {
+        cpuData[i][j] = utils.getRandomInt(0, 100);
+    }
+}
+cpuData_overall = [numberOfTimes];
+networkData_overall = [numberOfTimes];
+for (i = 0; i < numberOfTimes; i++) {
+    networkData_overall[i] = utils.getRandomInt(0, 100);
+}
+cpuData[numberOfNodes] = cpuData_overall;
+for (i = 0; i < numberOfTimes; i++) {
+    var cpuTotal = 0;
+    for (j = 0; j < numberOfNodes; j++) {
+        cpuTotal = cpuTotal + cpuData[j][i];
+    }
+    cpuData_overall[i] = Math.floor(cpuTotal / numberOfNodes);
+}
 
 module.exports.getNodes = function() {
     return nodes;
@@ -65,8 +96,25 @@ function parseLog(data) {
             // ipcRenderer.send('main', 'type of traffic: output');
             ports.get(portName).set('output', parts.slice(1));
         }
-        // ipcRenderer.send('main', 'throughput: ' + parts.slice(1));
     }
+    // ipcRenderer.send('main', 'throughput: ' + parts.slice(1));
+    for (i = 0; i < portNames.length; i++) {
+        let total = [];
+        for (j = 0; j < ports.get(portNames[i]).get('input').length; j++) {
+            total.push(Number(ports.get(portNames[i]).get('input')[j]) +
+                Number(ports.get(portNames[i]).get('output')[j]));
+        }
+        ports.get(portNames[i]).set('total', total);
+    }
+    let total = [];
+    for (i = 0; i < ports.get(portNames[0]).get('input').length; i++) {
+        let sum = 0;
+        for (j = 0; j < portNames.length; j++) {
+            sum = Number(sum) + Number(ports.get(portNames[j]).get('total')[i]);
+        }
+        total.push(sum);
+    }
+    nodeMap.set('total', total);
     nodeMap.set('ports', ports);
     nodeMap.set('portNames', portNames);
     logsMap.set(lines[0], nodeMap);
