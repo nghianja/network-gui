@@ -89,7 +89,7 @@ function update() {
 function updateHighlights() {
     // highlightPointOnCharts();
     highlightOverallNetworkLoad();
-    // highlightNetworkLoad();
+    highlightNetworkLoad();
 }
 
 function updateLabels() {
@@ -179,10 +179,12 @@ function highlightNetworkLoad() {
         }
         cy.edges().style({ 'line-color':'gray' });
         for (i = 0; i < numberOfPorts[currentNode]; i++) {
-            if (throughputData[currentNode][i][pointIndex] > 7) {
+            var bandwidth = inputData[currentNode][i][pointIndex] + outputData[currentNode][i][pointIndex];
+            console.log(inputData[currentNode][i][pointIndex]);
+            if (bandwidth > 200000) {
                 cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'red' });
                 cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'red' });
-            } else if (throughputData[currentNode][i][pointIndex] > 4) {
+            } else if (bandwidth > 100000) {
                 cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'orange' });
                 cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'orange' });
             } else {
