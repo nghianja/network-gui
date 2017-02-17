@@ -1,7 +1,7 @@
 // load dummy data
 require('./data_nodes');
 
-var logs = require('./logs');
+var data_logs = require('./data_logs');
 
 // vars
 var previousIndex = 0;
@@ -37,7 +37,7 @@ var colorArray = [
 // update and highlight functions
 $(document).ready(function() {
     updateCurrentNode('overall');
-    logs.readFile();
+    data_logs.readFiles();
 });
 
 function updateCurrentNode(id) {

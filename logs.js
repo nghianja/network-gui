@@ -1,9 +1,9 @@
 let path = require('path');
 let fs = require('fs');
-const {ipcRenderer} = require('electron')
+const {ipcRenderer} = require('electron');
 
-module.exports.readFile = function() {
-    let p = path.join(__dirname, '/logs_output', 'anode-0');
+module.exports.readFile = function(node) {
+    let p = path.join(__dirname, '/logs_output', node);
     fs.readFile(p, 'utf8', function (err, data) {
         if (err) return console.log(err);
 
