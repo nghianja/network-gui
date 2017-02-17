@@ -10,7 +10,11 @@ numberOfNodes = 68 // (22*3 + central switch)
 numberOfTimes = 88;
 timestampLabels = [];
 for (i = 0; i < numberOfTimes; i++) {
-    timestampLabels.push(i);
+    if ((i%10 == 0) || (i == numberOfTimes-1)) {
+        timestampLabels.push(i);
+    } else {
+        timestampLabels.push("");
+    }
 }
 networkData_overall = [numberOfTimes];
 cpuData_overall = [numberOfTimes];
