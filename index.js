@@ -235,6 +235,30 @@ function highlightOverallNetworkLoad() {
                 }
                 portNum++;
             });
+/*
+            let edgeColorIndex = 7;
+            portsMap.forEach(function (value, key) {
+                let bandwidth = value.get('total')[pointIndex];
+                if (bandwidth > 2000000) {
+                   edgeColorIndex = 0;
+                } else if (bandwidth > 1000000) {
+                    edgeColorIndex = 1;
+                } else if (bandwidth > 600000) {
+                    edgeColorIndex = 2;
+                } else if (bandwidth > 280000) {
+                    edgeColorIndex = 3;
+                } else if (bandwidth > 260000) {
+                    edgeColorIndex = 4;
+                } else if (bandwidth > 240000) {
+                    edgeColorIndex = 5;
+                } else if (bandwidth > 220000) {
+                    edgeColorIndex = 6;
+                }
+
+                cy.elements('edge[source = "' + nodeMap.get(node).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color': colorArray[edgeColorIndex] });
+                portNum++;
+            });
+*/
         }
     }
 }
