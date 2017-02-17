@@ -34,7 +34,7 @@ var colorArray = [
 "red", 
 "orange", 
 "green"
-]
+];
 
 // update and highlight functions
 $(document).ready(function() {
@@ -67,7 +67,9 @@ function updateCurrentNode(node) {
 function updateDataSources() {
     if (nodeMap.has(currentNode)) {
         networkChart.data.datasets[0].data = nodeMap.get(currentNode).get('total');
-        for (i = 0; i < nodeMap.get(currentNode).get('numOfPorts'); i++) {
+        let numOfPorts = nodeMap.get(currentNode).get('numOfPorts');
+        networkChart.options.scales.yAxes[0].ticks.max = 2500000 * numOfPorts;
+        for (i = 0; i < numOfPorts; i++) {
             let portName = nodeMap.get(currentNode).get('portNames')[i];
             portCharts[i].options.title.text = portName;
             portCharts[i].data.datasets[0].data = nodeMap.get(currentNode).get('ports').get(portName).get('input');
@@ -75,8 +77,8 @@ function updateDataSources() {
             portCharts[i].update();
         }
     } else {
-        // TODO: add up total network traffic?
         networkChart.data.datasets[0].data = networkData_overall;
+        networkChart.options.scales.yAxes[0].ticks.max = 125000000;
     }
     networkChart.update();
     cpuChart.data.datasets[0].data = cpuData_overall;
@@ -360,7 +362,8 @@ cpuCanvas.width = parseInt($('#well1').css('width'), 10);
 cpuCanvas.height = parseInt($('#well1').css('height'), 10);
 var cpuChart = new Chart(cpuCanvas, {
     type: 'line',
-    data: cpuChartStyle
+    data: cpuChartStyle,
+    options: {}
 });
 
 // network chart
@@ -369,7 +372,8 @@ networkCanvas.width = parseInt($('#well2').css('width'), 10);
 networkCanvas.height = parseInt($('#well2').css('height'), 10);
 var networkChart = new Chart(networkCanvas, {
     type: 'line',
-    data: networkChartStyle
+    data: networkChartStyle,
+    options: networkChartOptions
 });
 
 // port charts

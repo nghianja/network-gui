@@ -50,6 +50,18 @@ networkChartStyle = {
     }]
 };
 
+networkChartOptions = {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true,
+                steps: 5,
+                max: 100
+            }
+        }]
+    }
+};
+
 // port charts
 portChartStyle1 = {
     datasets: [{}, {}]
@@ -70,29 +82,29 @@ for (i = 0; i < portChartStyles.length; i++) {
     var label = "label";
     portChartStyles[i].datasets[0][label] = "Input (KB/s)";
     portChartStyles[i].datasets[1][label] = "Output (KB/s)";
-    // portChartStyles[i].datasets[2][label] = "% of Dropped Packets";
     var fill = "fill";
     portChartStyles[i].datasets[0][fill] = false;
     portChartStyles[i].datasets[1][fill] = false;
-    // portChartStyles[i].datasets[2][fill] = false;
     var yAxisID = "yAxisID";
     portChartStyles[i].datasets[0][yAxisID] = "y-axis-0";
     portChartStyles[i].datasets[1][yAxisID] = "y-axis-0";
-    // portChartStyles[i].datasets[2][yAxisID] = "y-axis-1";
     var backgroundColor = "backgroundColor";
     portChartStyles[i].datasets[0][backgroundColor] = "rgba(93,195,76,0.4)";
     portChartStyles[i].datasets[1][backgroundColor] = "rgba(220,160,85,0.4)";
-    // portChartStyles[i].datasets[2][backgroundColor] = "rgba(141,75,193,0.4)";
     var borderColor = "borderColor";
     portChartStyles[i].datasets[0][borderColor] = "rgba(93,195,76,1)";
     portChartStyles[i].datasets[1][borderColor] = "rgba(220,160,85,1)";
-    // portChartStyles[i].datasets[2][borderColor] = "rgba(141,75,193,1)";
 }
 
 portChartScales = {
     yAxes: [{
         position: "left",
-        "id": "y-axis-0"
+        "id": "y-axis-0",
+        ticks: {
+            beginAtZero: true,
+            steps: 5,
+            max: 1250000
+        }
     }]
 };
 
