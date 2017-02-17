@@ -52,91 +52,91 @@ networkChartStyle = {
 
 // port charts
 portChartStyle1 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle2 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle3 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle4 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle5 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle6 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle7 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle8 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle9 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle10 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle11 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle12 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle13 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle14 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle15 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle16 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle17 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle18 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle19 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle20 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle21 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyle22 = {
-    datasets: [{}, {}, {}]
+    datasets: [{}, {}]
 };
 
 portChartStyles = [
@@ -168,25 +168,25 @@ for (i = 0; i < portChartStyles.length; i++) {
     var labels = "labels";
     portChartStyles[i][labels] = timestampLabels;
     var label = "label";
-    portChartStyles[i].datasets[0][label] = "Throughput (Gbps)";
-    portChartStyles[i].datasets[1][label] = "Latency (ms)";
-    portChartStyles[i].datasets[2][label] = "% of Dropped Packets";
+    portChartStyles[i].datasets[0][label] = "Input (KB/s)";
+    portChartStyles[i].datasets[1][label] = "Output (KB/s)";
+    // portChartStyles[i].datasets[2][label] = "% of Dropped Packets";
     var fill = "fill";
     portChartStyles[i].datasets[0][fill] = false;
     portChartStyles[i].datasets[1][fill] = false;
-    portChartStyles[i].datasets[2][fill] = false;
+    // portChartStyles[i].datasets[2][fill] = false;
     var yAxisID = "yAxisID";
     portChartStyles[i].datasets[0][yAxisID] = "y-axis-0";
     portChartStyles[i].datasets[1][yAxisID] = "y-axis-0";
-    portChartStyles[i].datasets[2][yAxisID] = "y-axis-1";
+    // portChartStyles[i].datasets[2][yAxisID] = "y-axis-1";
     var backgroundColor = "backgroundColor";
     portChartStyles[i].datasets[0][backgroundColor] = "rgba(93,195,76,0.4)";
     portChartStyles[i].datasets[1][backgroundColor] = "rgba(220,160,85,0.4)";
-    portChartStyles[i].datasets[2][backgroundColor] = "rgba(141,75,193,0.4)";
+    // portChartStyles[i].datasets[2][backgroundColor] = "rgba(141,75,193,0.4)";
     var borderColor = "borderColor";
     portChartStyles[i].datasets[0][borderColor] = "rgba(93,195,76,1)";
     portChartStyles[i].datasets[1][borderColor] = "rgba(220,160,85,1)";
-    portChartStyles[i].datasets[2][borderColor] = "rgba(141,75,193,1)";
+    // portChartStyles[i].datasets[2][borderColor] = "rgba(141,75,193,1)";
 }
 
 portChartScales = {

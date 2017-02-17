@@ -70,9 +70,8 @@ function updateDataSources() {
     cpuChart.update();
     if (currentNode < numberOfNodes) {
         for (i = 0; i < numberOfPorts[currentNode]; i++) {
-            portCharts[i].data.datasets[0].data = throughputData[currentNode][i];
-            portCharts[i].data.datasets[1].data = latencyData[currentNode][i];
-            portCharts[i].data.datasets[2].data = dropPacketData[currentNode][i];
+            portCharts[i].data.datasets[0].data = inputData[currentNode][i];
+            portCharts[i].data.datasets[1].data = outputData[currentNode][i];
             portCharts[i].update();
         }
     } else {
