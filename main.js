@@ -63,8 +63,9 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 const {ipcMain} = require('electron')
+var console = require('./console')
 ipcMain.on('main', function(event, arg) {
-    consoleWindow = mainmenuObj.getConsole()
+    consoleWindow = console.getConsole()
     if (consoleWindow != null) {
       consoleWindow.webContents.send('console', arg)
     }

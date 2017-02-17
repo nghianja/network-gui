@@ -3,17 +3,9 @@
 // [2] http://ourcodeworld.com/articles/read/106/how-to-choose-read-save-delete-or-create-a-file-with-electron-framework
 // [3] http://stackoverflow.com/questions/35063582/can-i-pass-variable-to-required-file
 
+var console = require('./console')
+
 module.exports = function(mainWindow) {
-  const electron = require('electron')
-  const BrowserWindow = electron.BrowserWindow
-  const path = require('path')
-  const url = require('url')
-  
-  var consoleWindow
-  this.getConsole = function () {
-      return consoleWindow
-  }
-  
   function sendTrigger(channel) {
     dialog.showOpenDialog(function(fileNames) {
       if (fileNames === undefined) {
@@ -23,25 +15,6 @@ module.exports = function(mainWindow) {
         mainWindow.webContents.send(channel, fileNames[0])
       }
     })
-  }
-
-  function createConsole() {
-    consoleWindow = new BrowserWindow({ parent: mainWindow, show: false })
-    consoleWindow.loadURL(url.format({
-      pathname: path.join(__dirname, 'console.html'),
-      protocol: 'file:',
-      slashes: true
-    }))
-    consoleWindow.on('closed', function () { 
-      consoleWindow = null
-    })
-  }
-
-  function showConsole() {
-    if (consoleWindow == null) {
-      createConsole()
-      consoleWindow.show()
-    }
   }
   
   const {app, dialog, ipcMain, Menu} = require('electron')
@@ -94,7 +67,7 @@ module.exports = function(mainWindow) {
         { role: 'close' },
         { 
           label: 'Show Console',
-          click () { showConsole(); }
+          click () { console.showConsole(mainWindow); }
         }
       ]
     },
