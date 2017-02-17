@@ -36,6 +36,15 @@ var colorArray = [
 "green"
 ];
 
+var colorArray = [
+"#fb2754",
+"#8d1f8f",
+"#2d2997",
+"#2171b0",
+"#0fb2f3",
+"#0cc1f8"
+]
+
 // update and highlight functions
 $(document).ready(function() {
     updateCurrentNode('overall');
@@ -205,11 +214,18 @@ function highlightOverallNetworkLoad() {
             // color nodes based on network data
             let node = nodes[i];
             let networkLoad = nodeMap.get(node).get('total')[pointIndex];
+            console.log(networkLoad);
             let nodeColorIndex = 2;
-            if (networkLoad > 400000) {
+            if (networkLoad > 700000) {
                 nodeColorIndex = 0;
-            } else if (networkLoad > 200000) {
+            } else if (networkLoad > 600000) {
                 nodeColorIndex = 1;
+            } else if (networkLoad > 400000) {
+                nodeColorIndex = 2;
+            } else if (networkLoad > 260000) {
+                nodeColorIndex = 3;
+            } else if (networkLoad > 200000) {
+                nodeColorIndex = 4;
             }
             cy.nodes('#' + nodes[i]).style({'background-color': colorArray[nodeColorIndex]});
 
