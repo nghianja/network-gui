@@ -1,6 +1,8 @@
 // load dummy data
 require('./data_nodes');
 
+var logs = require('./logs');
+
 // vars
 var previousIndex = 0;
 var pointIndex = 0;
@@ -35,6 +37,7 @@ var colorArray = [
 // update and highlight functions
 $(document).ready(function() {
     updateCurrentNode('overall');
+    logs.readFile();
 });
 
 function updateCurrentNode(id) {
