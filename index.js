@@ -283,7 +283,7 @@ $('#playPauseButton').on('click', function () {
             pointIndex = $('#ex1').slider('getAttribute', 'min');
             $('#ex1').slider('setValue', pointIndex);
             update();
-            window.setTimeout(playbackTicker, 500);
+            window.setTimeout(playbackTicker, 100);
         } else {
             playbackTicker();
         }
@@ -294,7 +294,7 @@ function playbackTicker() {
         pointIndex++;
         $('#ex1').slider('setValue', pointIndex);
         update();
-        window.setTimeout(playbackTicker, 500);
+        window.setTimeout(playbackTicker, 100);
     } else if (isPlaying && pointIndex >= $('#ex1').slider('getAttribute', 'max')) {
         isPlaying = false;
         $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
