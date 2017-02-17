@@ -4,7 +4,10 @@ require('./data_topology');
 
 numberOfNodes = 68 // (22*3 + central switch)
 numberOfTimes = 88;
-timestampLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+timestampLabels = [];
+for (i = 0; i < numberOfTimes; i++) {
+    timestampLabels.push(i);
+}
 
 nodes = [];
 // port data
