@@ -93,8 +93,5 @@ portChartScales = {
     yAxes: [{
         position: "left",
         "id": "y-axis-0"
-    }, {
-        position: "right",
-        "id": "y-axis-1"
     }]
 };
