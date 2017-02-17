@@ -3,11 +3,12 @@ const {ipcRenderer} = require('electron');
 require('./data_nodes');
 
 var data_logs = require('./data_logs');
+let nodeMap = data_logs.getLogsMap();
 
 // vars
 var previousIndex = 0;
 var pointIndex = 0;
-var currentNode = 0;
+var currentNode = '';
 // network load color array for use in order of 10
 // order is from red to green for modulo purpose
 // var colorArray = [
@@ -53,26 +54,22 @@ $(document).ready(function() {
     });
 });
 
-function updateCurrentNode(id) {
-    var index = nodes.indexOf(id);
-    if (index < 0) {
-        currentNode = numberOfNodes;
-    } else {
-        currentNode = index;
-    }
-    $("#currentNodeLabel").text(id);
-    updateDataSources();
-    update();
-    showHideCharts();
+function updateCurrentNode(node) {
+    $("#currentNodeLabel").text(node);
+    updateDataSources(node);
+    update(node);
+    showHideCharts(node);
 }
 
-function updateDataSources() {
-    cpuChart.data.datasets[0].data = cpuData[currentNode];
-    cpuChart.update();
-    if (currentNode < numberOfNodes) {
-        for (i = 0; i < numberOfPorts[currentNode]; i++) {
-            portCharts[i].data.datasets[0].data = inputData[currentNode][i];
-            portCharts[i].data.datasets[1].data = outputData[currentNode][i];
+function updateDataSources(node) {
+    // cpuChart.data.datasets[0].data = cpuData[currentNode];
+    // cpuChart.update();
+    if (nodeMap.has(node)) {
+        for (i = 0; i < nodeMap.get(node).get('numOfPorts'); i++) {
+            let portName = nodeMap.get(node).get('portNames')[i];
+            portCharts[i].options.title.text = portName;
+            portCharts[i].data.datasets[0].data = nodeMap.get(node).get('ports').get(portName).get('input');
+            portCharts[i].data.datasets[1].data = nodeMap.get(node).get('ports').get(portName).get('output');
             portCharts[i].update();
         }
     } else {
@@ -81,19 +78,15 @@ function updateDataSources() {
     }
 }
 
-function update() {
-    updateHighlights();
-    updateLabels();
-}
-
-function updateHighlights() {
-    // highlightPointOnCharts();
-    highlightOverallNetworkLoad();
-    highlightNetworkLoad();
-}
-
-function updateLabels() {
+function update(node) {
+    // updateHighlights(node);
     $("#currentTimeLabel").text(pointIndex);
+}
+
+function updateHighlights(node) {
+    highlightPointOnCharts(node);
+    highlightOverallNetworkLoad(node);
+    highlightNetworkLoad(node);
 }
 
 function highlightPointOnCharts() {
@@ -239,13 +232,13 @@ function resetNodesAndEdgesColors() {
     cy.edges().style({ 'line-color':'gray' });
 }
 
-function showHideCharts() {
-    if (currentNode < numberOfNodes) {
+function showHideCharts(node) {
+    if (nodeMap.has(node)) {
         if (!$('#placeholder-network').hasClass("no-visibility")) {
             $('#placeholder-network').addClass("no-visibility");
         }
         for (i = 1; i <= portCharts.length; i++) {
-            if (i <= numberOfPorts[currentNode]) {
+            if (i <= nodeMap.get(node).get('numOfPorts')) {
                 if ($('#placeholder-row' + i).hasClass("no-visibility")) {
                     $('#placeholder-row' + i).removeClass("no-visibility");
                 }
@@ -259,7 +252,7 @@ function showHideCharts() {
         if ($('#placeholder-network').hasClass("no-visibility")) {
             $('#placeholder-network').removeClass("no-visibility");
         }
-        for (i = 1; i <= 5; i++) {
+        for (i = 1; i <= portCharts.length; i++) {
             if (!$('#placeholder-row' + i).hasClass("no-visibility")) {
                 $('#placeholder-row' + i).addClass("no-visibility");
             }
