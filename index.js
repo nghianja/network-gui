@@ -1,6 +1,6 @@
 const {ipcRenderer} = require('electron');
 const data_logs = require('./data_logs');
-data_logs.readFiles();
+data_logs.loadLogs();
 let nodeMap = data_logs.getLogsMap();
 require('./chart_styles');
 

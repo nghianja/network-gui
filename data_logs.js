@@ -12,28 +12,8 @@ timestampLabels = [];
 for (i = 0; i < numberOfTimes; i++) {
     timestampLabels.push(i);
 }
-
-// cpu and network data
-cpuData = [numberOfNodes + 1];
-for (i = 0; i < numberOfNodes; i++) {
-    cpuData[i] = [numberOfTimes];
-    for (j = 0; j < numberOfTimes; j++) {
-        cpuData[i][j] = utils.getRandomInt(0, 100);
-    }
-}
-cpuData_overall = [numberOfTimes];
 networkData_overall = [numberOfTimes];
-for (i = 0; i < numberOfTimes; i++) {
-    networkData_overall[i] = utils.getRandomInt(0, 100);
-}
-cpuData[numberOfNodes] = cpuData_overall;
-for (i = 0; i < numberOfTimes; i++) {
-    var cpuTotal = 0;
-    for (j = 0; j < numberOfNodes; j++) {
-        cpuTotal = cpuTotal + cpuData[j][i];
-    }
-    cpuData_overall[i] = Math.floor(cpuTotal / numberOfNodes);
-}
+cpuData_overall = [numberOfTimes];
 
 module.exports.getNodes = function() {
     return nodes;
@@ -43,13 +23,40 @@ module.exports.getLogsMap = function() {
     return logsMap;
 };
 
-module.exports.readFiles = function() {
+module.exports.loadLogs = function() {
     ipcRenderer.send('main', 'reading logs');
     nodes = fs.readdirSync(path.join(__dirname, '/logs_output'));
     ipcRenderer.send('main', 'number of files: ' + nodes.length);
     nodes.forEach(function(item, index, array) {
         readFile(item);
     });
+
+    // network data
+    for (i = 0; i < numberOfTimes; i++) {
+        let total = 0;
+        for (j = 0; j < nodes.length; j++) {
+            total = Number(total) + Number(logsMap.get(nodes[j]).get('total')[i]);
+        }
+        networkData_overall[i] = total;
+    }
+
+    // random cpu data
+    cpuData = [numberOfNodes + 1];
+    for (i = 0; i < numberOfNodes; i++) {
+        cpuData[i] = [numberOfTimes];
+        for (j = 0; j < numberOfTimes; j++) {
+            cpuData[i][j] = utils.getRandomInt(0, 100);
+        }
+    }
+
+    cpuData[numberOfNodes] = cpuData_overall;
+    for (i = 0; i < numberOfTimes; i++) {
+        var cpuTotal = 0;
+        for (j = 0; j < numberOfNodes; j++) {
+            cpuTotal = cpuTotal + cpuData[j][i];
+        }
+        cpuData_overall[i] = Math.floor(cpuTotal / numberOfNodes);
+    }
 };
 
 function readFile(file) {
@@ -105,6 +112,8 @@ function parseLog(data) {
                 Number(ports.get(portNames[i]).get('output')[j]));
         }
         ports.get(portNames[i]).set('total', total);
+        // console.log(lines[0] + ' - ' + portNames[i] + ': input ' + ports.get(portNames[i]).get('input').length +
+        //     ' output ' + ports.get(portNames[i]).get('output').length);
     }
     let total = [];
     for (i = 0; i < ports.get(portNames[0]).get('input').length; i++) {
@@ -119,4 +128,3 @@ function parseLog(data) {
     nodeMap.set('portNames', portNames);
     logsMap.set(lines[0], nodeMap);
 }
-
