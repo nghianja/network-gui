@@ -58,19 +58,20 @@ $(document).ready(function() {
 
 function updateCurrentNode(node) {
     $("#currentNodeLabel").text(node);
-    updateDataSources(node);
-    update(node);
-    showHideCharts(node);
+    currentNode = node;
+    updateDataSources();
+    update();
+    showHideCharts();
 }
 
-function updateDataSources(node) {
-    if (nodeMap.has(node)) {
-        networkChart.data.datasets[0].data = nodeMap.get(node).get('total');
-        for (i = 0; i < nodeMap.get(node).get('numOfPorts'); i++) {
-            let portName = nodeMap.get(node).get('portNames')[i];
+function updateDataSources() {
+    if (nodeMap.has(currentNode)) {
+        networkChart.data.datasets[0].data = nodeMap.get(currentNode).get('total');
+        for (i = 0; i < nodeMap.get(currentNode).get('numOfPorts'); i++) {
+            let portName = nodeMap.get(currentNode).get('portNames')[i];
             portCharts[i].options.title.text = portName;
-            portCharts[i].data.datasets[0].data = nodeMap.get(node).get('ports').get(portName).get('input');
-            portCharts[i].data.datasets[1].data = nodeMap.get(node).get('ports').get(portName).get('output');
+            portCharts[i].data.datasets[0].data = nodeMap.get(currentNode).get('ports').get(portName).get('input');
+            portCharts[i].data.datasets[1].data = nodeMap.get(currentNode).get('ports').get(portName).get('output');
             portCharts[i].update();
         }
     } else {
@@ -82,18 +83,18 @@ function updateDataSources(node) {
     cpuChart.update();
 }
 
-function update(node) {
-    updateHighlights(node);
+function update() {
+    updateHighlights();
     $("#currentTimeLabel").text(pointIndex);
 }
 
-function updateHighlights(node) {
-    highlightPointOnCharts(node);
-    // highlightOverallNetworkLoad(node);
-    // highlightNetworkLoad(node);
+function updateHighlights() {
+    highlightPointOnCharts();
+    // highlightOverallNetworkLoad();
+    // highlightNetworkLoad();
 }
 
-function highlightPointOnCharts(node) {
+function highlightPointOnCharts() {
     var cpuMeta = cpuChart.getDatasetMeta(0);
     var networkMeta = networkChart.getDatasetMeta(0);
 
@@ -111,11 +112,11 @@ function highlightPointOnCharts(node) {
     var cpuPoint = cpuMeta.data[pointIndex];
     cpuPoint.custom = cpuPoint.custom || {};
     cpuPoint.custom.backgroundColor = "#828282";
-    cpuPoint.custom.radius = 5;
+    cpuPoint.custom.radius = 7;
     var networkPoint = networkMeta.data[pointIndex];
     networkPoint.custom = networkPoint.custom || {};
     networkPoint.custom.backgroundColor = "#828282";
-    networkPoint.custom.radius = 5;
+    networkPoint.custom.radius = 7;
 
     // first parameter to update is the animation duration.
     // if none is specified, the config animation duration
@@ -123,8 +124,8 @@ function highlightPointOnCharts(node) {
     cpuChart.update();
     networkChart.update();
 
-    if (nodeMap.has(node)) {
-        for (i = 0; i < nodeMap.get(node).get('numOfPorts'); i++) {
+    if (nodeMap.has(currentNode)) {
+        for (i = 0; i < nodeMap.get(currentNode).get('numOfPorts'); i++) {
             var portMeta1 = portCharts[i].getDatasetMeta(0);
             var portMeta2 = portCharts[i].getDatasetMeta(1);
 
@@ -145,8 +146,8 @@ function highlightPointOnCharts(node) {
             portPoint2.custom = portPoint2.custom || {};
             portPoint1.custom.backgroundColor = "#828282";
             portPoint2.custom.backgroundColor = "#828282";
-            portPoint1.custom.radius = 5;
-            portPoint2.custom.radius = 5;
+            portPoint1.custom.radius = 7;
+            portPoint2.custom.radius = 7;
 
             portCharts[i].update();
         }
@@ -227,10 +228,10 @@ function resetNodesAndEdgesColors() {
     cy.edges().style({ 'line-color':'gray' });
 }
 
-function showHideCharts(node) {
-    if (nodeMap.has(node)) {
+function showHideCharts() {
+    if (nodeMap.has(currentNode)) {
         for (i = 1; i <= portCharts.length; i++) {
-            if (i <= nodeMap.get(node).get('numOfPorts')) {
+            if (i <= nodeMap.get(currentNode).get('numOfPorts')) {
                 if ($('#placeholder-row' + i).hasClass("no-visibility")) {
                     $('#placeholder-row' + i).removeClass("no-visibility");
                 }
