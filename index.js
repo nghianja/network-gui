@@ -181,21 +181,20 @@ function highlightNetworkLoad() {
             cy.nodes('#' + currentNode).style({ 'background-color':'green' });
         }
 
-        // cy.edges().style({ 'line-color':'gray' });
-        // for (i = 0; i < numberOfPorts[currentNode]; i++) {
-        //     var bandwidth = inputData[currentNode][i][pointIndex] + outputData[currentNode][i][pointIndex];
-        //     console.log(inputData[currentNode][i][pointIndex]);
-        //     if (bandwidth > 200000) {
-        //         cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'red' });
-        //         cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'red' });
-        //     } else if (bandwidth > 100000) {
-        //         cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'orange' });
-        //         cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'orange' });
-        //     } else {
-        //         cy.elements('node#' + nodes[currentNode] + ', edge[source = "' + nodes[currentNode] + '"][sPort = ' + i + ']').style({ 'line-color':'green' });
-        //         cy.elements('node#' + nodes[currentNode] + ', edge[target = "' + nodes[currentNode] + '"][tPort = ' + i + ']').style({ 'line-color':'green' });
-        //     }
-        // }
+        cy.edges().style({ 'line-color':'gray' });
+        let portsMap = nodeMap.get(currentNode).get('ports');
+        let portNum = 0;
+        portsMap.forEach(function (value, key) {
+            let bandwidth = value.get('total')[pointIndex];
+            if (bandwidth > 400000) {
+                cy.elements('edge[source = "' + nodeMap.get(currentNode).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'red' });
+            } else if (bandwidth > 200000) {
+                cy.elements('edge[source = "' + nodeMap.get(currentNode).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'orange' });
+            } else {
+                cy.elements('edge[source = "' + nodeMap.get(currentNode).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'green' });
+            }
+            portNum++;
+        });
     }
 }
 
@@ -214,22 +213,19 @@ function highlightOverallNetworkLoad() {
             }
             cy.nodes('#' + nodes[i]).style({'background-color': colorArray[nodeColorIndex]});
 
-            // color edges based on throughput data
-            // edges data should be the same just reverse up/down links; so choose any one direction
-            // for (k = 0; k < numberOfPorts[i]; k++) {
-            //     var throughputUsage = throughputData[i][k][pointIndex];
-            //     var edgeColorIndex = 0;
-            //     if (throughputUsage <= 4) {
-            //         edgeColorIndex = 2;
-            //     } else if (throughputUsage <= 7) {
-            //         edgeColorIndex = 1;
-            //     } else {
-            //         edgeColorIndex = 0;
-            //     }
-            //
-            //     cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-color': colorArray[edgeColorIndex] });
-            // }
-
+            let portsMap = nodeMap.get(node).get('ports');
+            let portNum = 0;
+            portsMap.forEach(function (value, key) {
+                let bandwidth = value.get('total')[pointIndex];
+                if (bandwidth > 400000) {
+                    cy.elements('edge[source = "' + nodeMap.get(node).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'red' });
+                } else if (bandwidth > 200000) {
+                    cy.elements('edge[source = "' + nodeMap.get(node).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'orange' });
+                } else {
+                    cy.elements('edge[source = "' + nodeMap.get(node).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'green' });
+                }
+                portNum++;
+            });
         }
     }
 }

@@ -159,17 +159,17 @@ dataset = [
         { data: { id: 'enodeC4', source: 'nodeC4', target: 'lanC4', sPort: 0, tPort: 19 }, classes: 'dashed' },
 
         // edges connnecting two nodes to central switch
-        { data: { id: 'enodeC01Main', source: 'nodeC01', target: 'mainLan', sPort: 3, tPort: 0 } },
-        { data: { id: 'enodeC1Main', source: 'nodeC1', target: 'mainLan', sPort: 3, tPort: 0 } },
-        { data: { id: 'enodeC02Main', source: 'nodeC02', target: 'mainLan', sPort: 3, tPort: 1 } },
-        { data: { id: 'enodeC2Main', source: 'nodeC2', target: 'mainLan', sPort: 3, tPort: 1 } },
-        { data: { id: 'enodeC04Main', source: 'nodeC04', target: 'mainLan', sPort: 3, tPort: 2 } },
-        { data: { id: 'enodeC4Main', source: 'nodeC4', target: 'mainLan', sPort: 3, tPort: 2 } },
+        { data: { id: 'enodeC01Main', source: 'nodeC01', target: 'mainLan', sPort: 1, tPort: 0 } },
+        { data: { id: 'enodeC1Main', source: 'nodeC1', target: 'mainLan', sPort: 1, tPort: 1 } },
+        { data: { id: 'enodeC02Main', source: 'nodeC02', target: 'mainLan', sPort: 1, tPort: 2 } },
+        { data: { id: 'enodeC2Main', source: 'nodeC2', target: 'mainLan', sPort: 1, tPort: 3 } },
+        { data: { id: 'enodeC04Main', source: 'nodeC04', target: 'mainLan', sPort: 1, tPort: 4 } },
+        { data: { id: 'enodeC4Main', source: 'nodeC4', target: 'mainLan', sPort: 1, tPort: 5 } },
 
         // edges connecting nodes from one cluster to another cluster
         // TODO: identify which is the sPort and tPort
-        { data: { id: 'eanode-9-bnode-9', source: 'anode-9', target: 'bnode-9', sPort: 3, tPort: 0 } },
-        { data: { id: 'eanode-8-dnode-9', source: 'anode-8', target: 'dnode-9', sPort: 3, tPort: 0 } },
-        { data: { id: 'ebnode-8-dnode-8', source: 'bnode-8', target: 'dnode-8', sPort: 3, tPort: 0 } },
+        { data: { id: 'eanode-9-bnode-9', source: 'anode-9', target: 'bnode-9', sPort: 1, tPort: 1 } },
+        { data: { id: 'eanode-8-dnode-9', source: 'anode-8', target: 'dnode-9', sPort: 1, tPort: 1 } },
+        { data: { id: 'ebnode-8-dnode-8', source: 'bnode-8', target: 'dnode-8', sPort: 1, tPort: 1 } },
 
     ];
