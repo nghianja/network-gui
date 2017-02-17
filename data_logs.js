@@ -4,6 +4,10 @@ const {ipcRenderer} = require('electron');
 let nodes = [];
 const logsMap = new Map();
 
+module.exports.getNodes = function() {
+    return nodes;
+};
+
 module.exports.getLogsMap = function() {
     return logsMap;
 };
