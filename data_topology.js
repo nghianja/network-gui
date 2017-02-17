@@ -29,7 +29,7 @@ dataset = [
         { data: { id: 'anode-20', label: '172.30.7.24', parent: 'ispA', numPorts: 1}},
         { data: { id: 'anode-21', label: '172.30.7.25', parent: 'ispA', numPorts: 1}},
         { data: { id: 'nodeC01', label: '172.30.7.3, 172.30.2.5', parent: 'ispA', numPorts: 2}},
-        { data: { id: 'nodeC1', label: '172.30.7.2, 172.30.2.2', parent: 'ispA', numPorts: 2, }},
+        { data: { id: 'nodeC1', label: '172.30.7.2, 172.30.2.2', parent: 'ispA', numPorts: 2 }},
         { data: { id: 'lanC1', label: 'switch', parent: 'ispA', numPorts: 24}, classes: 'switch'},
 
         // group 2
