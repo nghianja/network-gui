@@ -11,6 +11,8 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+var console = require('./console')
+
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1024, height: 768})
@@ -36,6 +38,9 @@ function createWindow () {
   
   mainmenu = require('./mainmenu')
   mainmenuObj = new mainmenu(mainWindow)
+
+  // open console on startup
+  console.showConsole(mainWindow)
 }
 
 // This method will be called when Electron has finished
@@ -63,7 +68,6 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 const {ipcMain} = require('electron')
-var console = require('./console')
 ipcMain.on('main', function(event, arg) {
     consoleWindow = console.getConsole()
     if (consoleWindow != null) {
