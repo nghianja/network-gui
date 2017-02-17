@@ -15,18 +15,6 @@ module.exports.readFiles = function() {
     nodes.forEach(function(item, index, array) {
         readFile(item);
     });
-    logsMap.forEach(function(value, key) {
-        // ipcRenderer.send('main', key + ': ' + value);
-        ipcRenderer.send('main', 'name: ' + value.get('name'));
-        ipcRenderer.send('main', 'numOfPorts: ' + value.get('numOfPorts'));
-        let portNames = value.get('portNames');
-        ipcRenderer.send('main', 'portNames: ' + portNames);
-        portNames.forEach(function(currentValue, index, array) {
-            ipcRenderer.send('main', 'port: ' + currentValue);
-            ipcRenderer.send('main', 'input: ' + value.get('ports').get(currentValue).get('input'));
-            ipcRenderer.send('main', 'output: ' + value.get('ports').get(currentValue).get('output'));
-        });
-    });
 };
 
 function readFile(file) {

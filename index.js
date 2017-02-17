@@ -38,6 +38,18 @@ var colorArray = [
 $(document).ready(function() {
     updateCurrentNode('overall');
     data_logs.readFiles();
+    data_logs.getLogsMap().forEach(function(value, key) {
+        // ipcRenderer.send('main', key + ': ' + value);
+        ipcRenderer.send('main', 'name: ' + value.get('name'));
+        ipcRenderer.send('main', 'numOfPorts: ' + value.get('numOfPorts'));
+        let portNames = value.get('portNames');
+        ipcRenderer.send('main', 'portNames: ' + portNames);
+        portNames.forEach(function(currentValue, index, array) {
+            ipcRenderer.send('main', 'port: ' + currentValue);
+            ipcRenderer.send('main', 'input: ' + value.get('ports').get(currentValue).get('input'));
+            ipcRenderer.send('main', 'output: ' + value.get('ports').get(currentValue).get('output'));
+        });
+    });
 });
 
 function updateCurrentNode(id) {
@@ -195,41 +207,41 @@ function highlightNetworkLoad() {
 }
 
 function highlightOverallNetworkLoad() {
-    if (currentNode == numberOfNodes) {
-        // overall
-        for (i = 0; i < nodes.length; i++) {
-            // color nodes based on cpu data
-            // lower index equates darker color
-            var cpuUsage = cpuData[i][pointIndex];
-            var nodeColorIndex = 0;
-            if (cpuUsage <= 40) {
-                nodeColorIndex = 2;
-            } else if (cpuUsage <= 70) {
-                nodeColorIndex = 1;
-            } else {
-                nodeColorIndex = 0;
-            }
-
-            cy.nodes('#' + nodes[i]).style({'background-color': colorArray[nodeColorIndex]});
-
-            // color edges based on throughput data
-            // edges data should be the same just reverse up/down links; so choose any one direction
-            for (k = 0; k < numberOfPorts[i]; k++) {
-                var throughputUsage = throughputData[i][k][pointIndex];
-                var edgeColorIndex = 0;
-                if (throughputUsage <= 4) {
-                    edgeColorIndex = 2;
-                } else if (throughputUsage <= 7) {
-                    edgeColorIndex = 1;
-                } else {
-                    edgeColorIndex = 0;
-                }
-
-                cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-color': colorArray[edgeColorIndex] });   
-            }
-
-        }
-    }
+    // if (currentNode == numberOfNodes) {
+    //     // overall
+    //     for (i = 0; i < nodes.length; i++) {
+    //         // color nodes based on cpu data
+    //         // lower index equates darker color
+    //         var cpuUsage = cpuData[i][pointIndex];
+    //         var nodeColorIndex = 0;
+    //         if (cpuUsage <= 40) {
+    //             nodeColorIndex = 2;
+    //         } else if (cpuUsage <= 70) {
+    //             nodeColorIndex = 1;
+    //         } else {
+    //             nodeColorIndex = 0;
+    //         }
+    //
+    //         cy.nodes('#' + nodes[i]).style({'background-color': colorArray[nodeColorIndex]});
+    //
+    //         // color edges based on throughput data
+    //         // edges data should be the same just reverse up/down links; so choose any one direction
+    //         for (k = 0; k < numberOfPorts[i]; k++) {
+    //             var throughputUsage = throughputData[i][k][pointIndex];
+    //             var edgeColorIndex = 0;
+    //             if (throughputUsage <= 4) {
+    //                 edgeColorIndex = 2;
+    //             } else if (throughputUsage <= 7) {
+    //                 edgeColorIndex = 1;
+    //             } else {
+    //                 edgeColorIndex = 0;
+    //             }
+    //
+    //             cy.elements('node#' + nodes[i] + ', edge[source = "' + nodes[i] + '"][sPort = ' + k + ']').style({ 'line-color': colorArray[edgeColorIndex] });
+    //         }
+    //
+    //     }
+    // }
 }
 
 // reset nodes and edges colors for mouse click on cy container
