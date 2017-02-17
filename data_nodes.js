@@ -28,11 +28,23 @@ for (i = 0 ; i < dataset.length; i++) {
             // ignore the lan for ports
             numberOfPorts.push(0);
 
-            inputData[i] = 0;
+            inputData[i] = [0];
+            outputData[i] = [0];
         } else {
            var nodeDataMap = data_logs.getLogsMap().get(dataset[i].data.id);
            var numberOfPortsPerNode = nodeDataMap.get("numOfPorts")
            numberOfPorts.push(numberOfPortsPerNode);
+
+           inputData[i] = [numberOfPortsPerNode];
+           outputData[i] = [numberOfPortsPerNode];
+
+           var portIndex = 0;
+           nodeDataMap.get("ports").forEach(function(value, key) {
+            inputData[i][portIndex] = value.get("input");
+            outputData[i][portIndex] = value.get("output");
+            portIndex++;
+           });
+
         }
     }
 }
