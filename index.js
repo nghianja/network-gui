@@ -203,8 +203,8 @@ function highlightOverallNetworkLoad() {
             // color nodes based on network data
             let node = nodes[i];
             let networkLoad = nodeMap.get(node).get('total')[pointIndex];
-            console.log(nodes[i] + ":" + networkLoad);
             let nodeColorIndex = 7;
+
             if (networkLoad > 2000000) {
                 nodeColorIndex = 0;
             } else if (networkLoad > 1000000) {
@@ -226,9 +226,10 @@ function highlightOverallNetworkLoad() {
             let portNum = 0;
             portsMap.forEach(function (value, key) {
                 let bandwidth = value.get('total')[pointIndex];
-                if (bandwidth > 400000) {
+                console.log("bandwidth: " + bandwidth);
+                if (bandwidth > 800000) {
                     cy.elements('edge[source = "' + nodeMap.get(node).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'red' });
-                } else if (bandwidth > 200000) {
+                } else if (bandwidth > 240000) {
                     cy.elements('edge[source = "' + nodeMap.get(node).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'orange' });
                 } else {
                     cy.elements('edge[source = "' + nodeMap.get(node).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'green' });
