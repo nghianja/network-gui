@@ -31,18 +31,18 @@ networkChartStyle = {
         label: "Total Network Usage (KB/s)",
         fill: true,
         lineTension: 0.1,
-        backgroundColor: "rgba(214,83,92,0.4)",
-        borderColor: "rgba(214,83,92,1)",
+        backgroundColor: "rgba(153,102,255, 0.2)",
+        borderColor: "rgba(153,102,255, 1)",
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: "rgba(214,83,92,1)",
+        pointBorderColor: "rgba(153,102,255, 1)",
         pointBackgroundColor: "#fff",
         pointBorderWidth: 1,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: "rgba(214,83,92,1)",
-        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBackgroundColor: "rgba(152,102,255,1)",
+        pointHoverBorderColor: "rgba(152,102,255,1)",
         pointHoverBorderWidth: 2,
         pointRadius: 3,
         pointHitRadius: 10,
@@ -89,10 +89,10 @@ for (i = 0; i < portChartStyles.length; i++) {
     portChartStyles[i].datasets[0][yAxisID] = "y-axis-0";
     portChartStyles[i].datasets[1][yAxisID] = "y-axis-0";
     var backgroundColor = "backgroundColor";
-    portChartStyles[i].datasets[0][backgroundColor] = "rgba(93,195,76,0.4)";
+    portChartStyles[i].datasets[0][backgroundColor] = "rgba(27,145,215,0.4)";
     portChartStyles[i].datasets[1][backgroundColor] = "rgba(220,160,85,0.4)";
     var borderColor = "borderColor";
-    portChartStyles[i].datasets[0][borderColor] = "rgba(93,195,76,1)";
+    portChartStyles[i].datasets[0][borderColor] = "rgba(27,145,215,1)";
     portChartStyles[i].datasets[1][borderColor] = "rgba(220,160,85,1)";
 }
 

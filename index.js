@@ -82,7 +82,6 @@ function updateDataSources() {
             var portMaxInput = Math.max.apply(Math, portCharts[i].data.datasets[0].data);
             var portMaxOutput = Math.max.apply(Math, portCharts[i].data.datasets[1].data);
             var portCombinedMax = Math.max(portMaxInput, portMaxOutput);
-            console.log(portCombinedMax);
             portCharts[i].options.scales.yAxes[0].ticks.max = Math.ceil(portCombinedMax/50000)*50000;
         }
 
