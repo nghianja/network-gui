@@ -65,15 +65,27 @@ function updateCurrentNode(node) {
 function updateDataSources() {
     if (nodeMap.has(currentNode)) {
         networkChart.data.datasets[0].data = nodeMap.get(currentNode).get('total');
+
+        // round to nearest 50000
+        var networkChartScale = Math.ceil(Math.max.apply(Math, networkChart.data.datasets[0].data)/50000)*50000;
         let numOfPorts = nodeMap.get(currentNode).get('numOfPorts');
-        networkChart.options.scales.yAxes[0].ticks.max = 2500000 * numOfPorts;
+        networkChart.options.scales.yAxes[0].ticks.max = networkChartScale;
+
         for (i = 0; i < numOfPorts; i++) {
             let portName = nodeMap.get(currentNode).get('portNames')[i];
             portCharts[i].options.title.text = portName;
             portCharts[i].data.datasets[0].data = nodeMap.get(currentNode).get('ports').get(portName).get('input');
             portCharts[i].data.datasets[1].data = nodeMap.get(currentNode).get('ports').get(portName).get('output');
             portCharts[i].update();
+
+            // dynamic scale the y-axis for the port graph to nearest 50000
+            var portMaxInput = Math.max.apply(Math, portCharts[i].data.datasets[0].data);
+            var portMaxOutput = Math.max.apply(Math, portCharts[i].data.datasets[1].data);
+            var portCombinedMax = Math.max(portMaxInput, portMaxOutput);
+            console.log(portCombinedMax);
+            portCharts[i].options.scales.yAxes[0].ticks.max = Math.ceil(portCombinedMax/50000)*50000;
         }
+
     } else {
         networkChart.data.datasets[0].data = networkData_overall;
         networkChart.options.scales.yAxes[0].ticks.max = 25000000;
@@ -236,7 +248,6 @@ function highlightOverallNetworkLoad() {
             let portNum = 0;
             portsMap.forEach(function (value, key) {
                 let bandwidth = value.get('total')[pointIndex];
-                console.log("bandwidth: " + bandwidth);
                 if (bandwidth > 800000) {
                     cy.elements('edge[source = "' + nodeMap.get(node).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'red' });
                 } else if (bandwidth > 240000) {
