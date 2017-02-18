@@ -171,22 +171,32 @@ function highlightNetworkLoad() {
 
         // colour nodes based on network load
         let networkLoad = nodeMap.get(currentNode).get('total')[pointIndex];
-        if (networkLoad > 400000) {
-            cy.nodes('#' + currentNode).style({ 'background-color':'red' });
-        } else if (networkLoad > 200000) {
-            cy.nodes('#' + currentNode).style({ 'background-color':'orange' });
-        } else {
-            cy.nodes('#' + currentNode).style({ 'background-color':'green' });
+        let nodeColorIndex = 7;
+        if (networkLoad > 2000000) {
+            nodeColorIndex = 0;
+        } else if (networkLoad > 1000000) {
+            nodeColorIndex = 1;
+        } else if (networkLoad > 600000) {
+            nodeColorIndex = 2;
+        } else if (networkLoad > 280000) {
+            nodeColorIndex = 3;
+        } else if (networkLoad > 260000) {
+            nodeColorIndex = 4;
+        } else if (networkLoad > 240000) {
+            nodeColorIndex = 5;
+        } else if (networkLoad > 220000) {
+            nodeColorIndex = 6;
         }
+        cy.nodes('#' + currentNode).style({'background-color': colorArray[nodeColorIndex]});
 
         cy.edges().style({ 'line-color':'gray' });
         let portsMap = nodeMap.get(currentNode).get('ports');
         let portNum = 0;
         portsMap.forEach(function (value, key) {
             let bandwidth = value.get('total')[pointIndex];
-            if (bandwidth > 400000) {
+            if (bandwidth > 800000) {
                 cy.elements('edge[source = "' + nodeMap.get(currentNode).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'red' });
-            } else if (bandwidth > 200000) {
+            } else if (bandwidth > 240000) {
                 cy.elements('edge[source = "' + nodeMap.get(currentNode).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'orange' });
             } else {
                 cy.elements('edge[source = "' + nodeMap.get(currentNode).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'green' });
