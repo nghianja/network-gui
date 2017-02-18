@@ -76,7 +76,7 @@ function updateDataSources() {
         }
     } else {
         networkChart.data.datasets[0].data = networkData_overall;
-        networkChart.options.scales.yAxes[0].ticks.max = 125000000;
+        networkChart.options.scales.yAxes[0].ticks.max = 25000000;
     }
     networkChart.update();
     cpuChart.data.datasets[0].data = cpuData_overall;
