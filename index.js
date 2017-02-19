@@ -8,6 +8,7 @@ require('./chart_styles');
 let previousIndex = 0;
 let pointIndex = 0;
 let currentNode = '';
+let networkCapacity = 798.2461;
 
 // network load color array for use in order of 10
 // order is from red to green for modulo purpose
@@ -52,6 +53,9 @@ $(document).ready(function() {
         });
         ipcRenderer.send('main', 'total: ' + value.get('total'));
     });
+
+    // display total network capacity
+    document.getElementById("networkCapacity").innerHTML = networkCapacity;
 });
 
 function updateCurrentNode(node) {
