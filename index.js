@@ -324,6 +324,7 @@ $('#endButton').on('click', function () {
     update();
 });
 var isPlaying = false;
+var playbackSpeed = 100;
 $('#playPauseButton').on('click', function () {
     if (isPlaying) {
         isPlaying = false;
@@ -335,7 +336,7 @@ $('#playPauseButton').on('click', function () {
             pointIndex = $('#ex1').slider('getAttribute', 'min');
             $('#ex1').slider('setValue', pointIndex);
             update();
-            window.setTimeout(playbackTicker, 100);
+            window.setTimeout(playbackTicker, playbackSpeed);
         } else {
             playbackTicker();
         }
@@ -346,7 +347,7 @@ function playbackTicker() {
         pointIndex++;
         $('#ex1').slider('setValue', pointIndex);
         update();
-        window.setTimeout(playbackTicker, 100);
+        window.setTimeout(playbackTicker, playbackSpeed);
     } else if (isPlaying && pointIndex >= $('#ex1').slider('getAttribute', 'max')) {
         isPlaying = false;
         $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
@@ -383,26 +384,28 @@ var cy = cytoscape({
     },
     style: cyStyle
 });
-cy.on('mouseover', 'node', function(event) {
-    var node = event.cyTarget;
-    // node.qtip({
-    //     content: this.data('label'),
-    //     show: {
-    //         event: event.type,
-    //         ready: true
-    //     },
-    //     hide: {
-    //         event: 'mouseout unfocus'
-    //     }
-    // }, event);
-});
+//cy.on('mouseover', 'node', function(event) {
+//    var node = event.cyTarget;
+//     node.qtip({
+//         content: this.data('label'),
+//         show: {
+//             event: event.type,
+//             ready: true
+//         },
+//         hide: {
+//             event: 'mouseout unfocus'
+//         }
+//     }, event);
+//});
 cy.on('click', function(event) {
     var node = event.cyTarget;
     if (node === cy) {
         updateCurrentNode('overall');
         resetNodesAndEdgesColors();
+        playbackSpeed = 100;
     } else {
         updateCurrentNode(node.id());
+        playbackSpeed = 800;
     }
 });
 
