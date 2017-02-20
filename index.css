@@ -46,9 +46,8 @@ html, body, .container-fluid {
 }
 
 #networkCapacity {
-  font-family: ddosFont;
   font-size: 3em;
-  color: #005777;
+  color: #5c5c5c;
 }
 
 .scrollable-column {
