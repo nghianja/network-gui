@@ -1,3 +1,8 @@
+@font-face {
+  font-family: ddosFont;
+  src: url(fonts/Akashi.ttf);
+}
+
 html, body, .container-fluid {
     height:100%;
 }
@@ -39,6 +44,13 @@ html, body, .container-fluid {
   -o-background-size: cover;
   background-size: cover;
 }
+
+#networkCapacity {
+  font-family: ddosFont;
+  font-size: 2.5em;
+  color: #005777;
+}
+
 .scrollable-column {
   overflow-y: scroll;
 }
