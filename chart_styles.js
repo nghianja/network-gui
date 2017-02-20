@@ -59,7 +59,8 @@ networkChartOptions = {
                 max: 100
             }
         }]
-    }
+    },
+    maintainAspectRatio: false
 };
 
 // port charts

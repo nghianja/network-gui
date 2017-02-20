@@ -5,8 +5,8 @@
 const {ipcRenderer} = require('electron')
 
 ipcRenderer.on('readTopo', (event, arg) => {
-  console.log("Topology File: " + arg);
+    console.log("Topology File: " + arg);
 })
 ipcRenderer.on('readLog', (event, arg) => {
-  console.log("Log File: " + arg);
+    console.log("Log File: " + arg);
 })

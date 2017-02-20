@@ -445,7 +445,8 @@ var portChart1 = new Chart(portCanvas1, {
             display: true,
             text: 'Port [0]'
         },
-        scales: portChartScales
+        scales: portChartScales,
+        maintainAspectRatio: false
     }
 });
 
@@ -460,7 +461,8 @@ var portChart2 = new Chart(portCanvas2, {
             display: true,
             text: 'Port [1]'
         },
-        scales: portChartScales
+        scales: portChartScales,
+        maintainAspectRatio: false
     }
 });
 
