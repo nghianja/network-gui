@@ -31,7 +31,7 @@ networkChartStyle = {
         label: "Total Network Usage (KB/s)",
         fill: true,
         lineTension: 0.1,
-        backgroundColor: "rgba(153,102,255, 0.2)",
+        backgroundColor: "rgba(153,102,255, 0.4)",
         borderColor: "rgba(153,102,255, 1)",
         borderCapStyle: 'butt',
         borderDash: [],
