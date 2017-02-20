@@ -18,9 +18,10 @@ html, body, .container-fluid {
 }
 .chart-height {
   height: 30%;
+  margin-bottom: 20px;
 }
 .port-chart-height {
-  height: 35%;
+  height: 27.5%;
 }
 .well {
   margin: 10px 10px 0px 0px;
@@ -58,22 +59,4 @@ html, body, .container-fluid {
 }
 .media-control #currentTimeLabel {
     margin-right: 10px;
-}
-.usage-load-1 {
-  background-color: #92e151;
-}
-.usage-load-2 {
-  background-color: #5B8737;
-}
-.usage-load-3 {
-  background-color: #747A38;
-}
-.usage-load-4 {
-  background-color: #C05439;
-}
-.usage-load-5 {
-  background-color: #c92901;
-}
-.usage-load-6 {
-  background-color: #fb000c;
 }
