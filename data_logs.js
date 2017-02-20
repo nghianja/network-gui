@@ -5,10 +5,12 @@ const logsMap = new Map();
 const utils = require('./utils');
 require('./data_topology');
 
+let networkMultiper = 4.0;
 let nodes = [];
 numberOfNodes = 68 // (22*3 + central switch)
 numberOfTimes = 88;
 timestampLabels = [];
+
 for (i = 0; i < numberOfTimes; i++) {
     if ((i%10 == 0) || (i == numberOfTimes-1)) {
         timestampLabels.push(i);
@@ -39,9 +41,12 @@ module.exports.loadLogs = function() {
     for (i = 0; i < numberOfTimes; i++) {
         let total = 0;
         for (j = 0; j < nodes.length; j++) {
-            total = Number(total) + Number(logsMap.get(nodes[j]).get('total')[i]);
+            var testNumber = Number(logsMap.get(nodes[j]).get('total')[i]);
+            if (!isNaN(testNumber)) {
+                total = Number(total) + Number(logsMap.get(nodes[j]).get('total')[i]);
+            }
         }
-        networkData_overall[i] = total;
+        networkData_overall[i] = total*networkMultiper;
     }
 
     // random cpu data

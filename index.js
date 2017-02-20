@@ -90,8 +90,9 @@ function updateDataSources() {
         }
 
     } else {
+        // var networkChartScale = Math.ceil(Math.max.apply(Math, networkData_overall)/100000)*100000;
         networkChart.data.datasets[0].data = networkData_overall;
-        networkChart.options.scales.yAxes[0].ticks.max = 25000000;
+        networkChart.options.scales.yAxes[0].ticks.max = 100000000;
     }
     networkChart.update();
     cpuChart.data.datasets[0].data = cpuData_overall;
