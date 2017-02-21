@@ -350,13 +350,14 @@ $('#playPauseButton').on('click', function () {
 function playbackTicker() {
     if (isPlaying && pointIndex < $('#ex1').slider('getAttribute', 'max')) {
         pointIndex++;
-        $('#ex1').slider('setValue', pointIndex);
-        update();
-        window.setTimeout(playbackTicker, playbackSpeed);
     } else if (isPlaying && pointIndex >= $('#ex1').slider('getAttribute', 'max')) {
-        isPlaying = false;
-        $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
+        // isPlaying = false;
+        // $('#playPauseIcon').removeClass('glyphicon-pause').addClass('glyphicon-play');
+        pointIndex = 0;
     }
+    $('#ex1').slider('setValue', pointIndex);
+    update();
+    window.setTimeout(playbackTicker, playbackSpeed);
 }
 
 // slider
