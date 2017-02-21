@@ -19,7 +19,7 @@ for (i = 0; i < numberOfTimes; i++) {
     }
 }
 networkData_overall = [numberOfTimes];
-cpuData_overall = [numberOfTimes];
+// cpuData_overall = [numberOfTimes];
 
 module.exports.getNodes = function() {
     return nodes;
@@ -30,9 +30,9 @@ module.exports.getLogsMap = function() {
 };
 
 module.exports.loadLogs = function() {
-    ipcRenderer.send('main', 'reading logs');
+    // ipcRenderer.send('main', 'reading logs');
     nodes = fs.readdirSync(path.join(__dirname, '/logs_output'));
-    ipcRenderer.send('main', 'number of files: ' + nodes.length);
+    // ipcRenderer.send('main', 'number of files: ' + nodes.length);
     nodes.forEach(function(item, index, array) {
         readFile(item);
     });
@@ -41,7 +41,7 @@ module.exports.loadLogs = function() {
     for (i = 0; i < numberOfTimes; i++) {
         let total = 0;
         for (j = 0; j < nodes.length; j++) {
-            var testNumber = Number(logsMap.get(nodes[j]).get('total')[i]);
+            let testNumber = Number(logsMap.get(nodes[j]).get('total')[i]);
             if (!isNaN(testNumber)) {
                 total = Number(total) + Number(logsMap.get(nodes[j]).get('total')[i]);
             }
@@ -50,22 +50,22 @@ module.exports.loadLogs = function() {
     }
 
     // random cpu data
-    cpuData = [numberOfNodes + 1];
-    for (i = 0; i < numberOfNodes; i++) {
-        cpuData[i] = [numberOfTimes];
-        for (j = 0; j < numberOfTimes; j++) {
-            cpuData[i][j] = utils.getRandomInt(0, 100);
-        }
-    }
-
-    cpuData[numberOfNodes] = cpuData_overall;
-    for (i = 0; i < numberOfTimes; i++) {
-        var cpuTotal = 0;
-        for (j = 0; j < numberOfNodes; j++) {
-            cpuTotal = cpuTotal + cpuData[j][i];
-        }
-        cpuData_overall[i] = Math.floor(cpuTotal / numberOfNodes);
-    }
+    // cpuData = [numberOfNodes + 1];
+    // for (i = 0; i < numberOfNodes; i++) {
+    //     cpuData[i] = [numberOfTimes];
+    //     for (j = 0; j < numberOfTimes; j++) {
+    //         cpuData[i][j] = utils.getRandomInt(0, 100);
+    //     }
+    // }
+    //
+    // cpuData[numberOfNodes] = cpuData_overall;
+    // for (i = 0; i < numberOfTimes; i++) {
+    //     let cpuTotal = 0;
+    //     for (j = 0; j < numberOfNodes; j++) {
+    //         cpuTotal = cpuTotal + cpuData[j][i];
+    //     }
+    //     cpuData_overall[i] = Math.floor(cpuTotal / numberOfNodes);
+    // }
 };
 
 function readFile(file) {
