@@ -216,11 +216,13 @@ startButton.on('click', function () {
     sliderId.slider('setValue', pointIndex);
     update();
 });
+
 endButton.on('click', function () {
     pointIndex = sliderId.slider('getAttribute', 'max');
     sliderId.slider('setValue', pointIndex);
     update();
 });
+
 playPauseButton.on('click', function () {
     if (isPlaying) {
         isPlaying = false;
@@ -238,6 +240,7 @@ playPauseButton.on('click', function () {
         }
     }
 });
+
 function playbackTicker() {
     let maxPoint = sliderId.slider('getAttribute', 'max');
     if (isPlaying && pointIndex < maxPoint) {
@@ -258,10 +261,12 @@ sliderId.slider({
         return 'Current time: ' + value;
     }
 });
+
 sliderId.on('slide', function(slideEvt) {
     pointIndex = slideEvt.value;
     update();
 });
+
 sliderId.on('slideStop', function(slideEvt) {
     pointIndex = slideEvt.value;
     update();
@@ -282,6 +287,7 @@ let cy = cytoscape({
     },
     style: cyStyle
 });
+
 // populating cy maps
 for (i = 0; i < numOfNodes; i++) {
     let nodeName = nodes[i];
@@ -295,6 +301,7 @@ for (i = 0; i < numOfNodes; i++) {
         portNum++;
     });
 }
+
 //cy.on('mouseover', 'node', function(event) {
 //    let node = event.cyTarget;
 //     node.qtip({
@@ -308,6 +315,7 @@ for (i = 0; i < numOfNodes; i++) {
 //         }
 //     }, event);
 //});
+
 cy.on('click', function(event) {
     let node = event.cyTarget;
     if (node === cy) {
