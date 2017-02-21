@@ -36,10 +36,7 @@ module.exports.updateHighlightedPointOnChart = function(chart, datasetNum, previ
     let chartMeta = chart.getDatasetMeta(datasetNum);
 
     // Reset previous point
-    let oldPoint = chartMeta.data[previousIndex];
-    oldPoint.custom = oldPoint.custom || {};
-    oldPoint.custom.backgroundColor = '#fff';
-    oldPoint.custom.radius = 3;
+    resetPointOnChart(chart, datasetNum, previousIndex);
 
     //Get point object and change the radius/color
     let newPoint = chartMeta.data[pointIndex];
@@ -49,3 +46,19 @@ module.exports.updateHighlightedPointOnChart = function(chart, datasetNum, previ
 
     // this function doesn't update the chart so remember to do so after calling it!
 };
+
+module.exports.resetPointOnChart = function(chart, datasetNum, index) {
+    resetPointOnChart(chart, datasetNum, index);
+};
+
+function resetPointOnChart(chart, datasetNum, index) {
+    let chartMeta = chart.getDatasetMeta(datasetNum);
+
+    // Reset point
+    let point = chartMeta.data[index];
+    if (point) {
+        point.custom = point.custom || {};
+        point.custom.backgroundColor = '#fff';
+        point.custom.radius = 3;
+    }
+}

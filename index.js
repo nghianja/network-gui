@@ -146,6 +146,10 @@ function highlightPointOnCharts(isNode) {
             portCharts[i].update();
         }
     } else {
+        for (i = 0; i < numOfPortCharts; i++) {
+            utils.resetPointOnChart(portCharts[i], 0, previousIndex);
+            utils.resetPointOnChart(portCharts[i], 1, previousIndex);
+        }
         networkChart.update(0);
     }
 
@@ -175,7 +179,7 @@ function highlightOverallNetworkLoad() {
     }
 }
 
-// reset nodes and edges colors for mouse click on cy container
+// reset nodes and edges colors for mouse click on nodes
 function resetNodesAndEdgesColors() {
     cy.nodes().style({ 'background-color':'gray' });
     cy.edges().style({ 'line-color':'gray' });
