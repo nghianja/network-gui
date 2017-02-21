@@ -15,7 +15,7 @@ let currentNode = '';
 const networkCapacity = 798.2461;
 const numOfPortCharts = 2;
 let isPlaying = false;
-let playbackSpeed = 100;
+let playbackSpeed = 300;
 
 // elements
 let sliderId = $('#ex1');
@@ -121,11 +121,13 @@ function update() {
 function updateHighlights() {
     let isNode = nodeMap.has(currentNode);
     highlightPointOnCharts(isNode);
+    cy.startBatch();
     if (isNode) {
         highlightNetworkLoadForNode(currentNode);
     } else {
         highlightOverallNetworkLoad();
     }
+    cy.endBatch();
 }
 
 function highlightPointOnCharts(isNode) {
@@ -146,11 +148,11 @@ function highlightPointOnCharts(isNode) {
             portCharts[i].update();
         }
     } else {
+        networkChart.update(0);
         for (i = 0; i < numOfPortCharts; i++) {
             utils.resetPointOnChart(portCharts[i], 0, previousIndex);
             utils.resetPointOnChart(portCharts[i], 1, previousIndex);
         }
-        networkChart.update(0);
     }
 
     previousIndex = pointIndex;
@@ -181,8 +183,10 @@ function highlightOverallNetworkLoad() {
 
 // reset nodes and edges colors for mouse click on nodes
 function resetNodesAndEdgesColors() {
+    cy.startBatch();
     cy.nodes().style({ 'background-color':'gray' });
     cy.edges().style({ 'line-color':'gray' });
+    cy.endBatch();
 }
 
 function showHideCharts(isNode) {
@@ -320,11 +324,9 @@ cy.on('click', function(event) {
     let node = event.cyTarget;
     if (node === cy) {
         updateCurrentNode('overall');
-        playbackSpeed = 100;
     } else {
         resetNodesAndEdgesColors();
         updateCurrentNode(node.id());
-        playbackSpeed = 800;
     }
 });
 
