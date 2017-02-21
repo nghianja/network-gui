@@ -31,3 +31,21 @@ module.exports.colourEdge = function(bandwidth, edge) {
         edge.style({ 'line-color':'green' });
     }
 };
+
+module.exports.updateHighlightedPointOnChart = function(chart, datasetNum, previousIndex, pointIndex) {
+    let chartMeta = chart.getDatasetMeta(datasetNum);
+
+    // Reset previous point
+    let oldPoint = chartMeta.data[previousIndex];
+    oldPoint.custom = oldPoint.custom || {};
+    oldPoint.custom.backgroundColor = '#fff';
+    oldPoint.custom.radius = 3;
+
+    //Get point object and change the radius/color
+    let newPoint = chartMeta.data[pointIndex];
+    newPoint.custom = newPoint.custom || {};
+    newPoint.custom.backgroundColor = '#828282';
+    newPoint.custom.radius = 7;
+
+    // this function doesn't update the chart so remember to do so after calling it!
+};

@@ -129,28 +129,9 @@ function updateHighlights() {
 }
 
 function highlightPointOnCharts(isNode) {
-    // let cpuMeta = cpuChart.getDatasetMeta(0);
+    // utils.updateHighlightedPointOnChart(cpuChart, 0, previousIndex, pointIndex);
+    utils.updateHighlightedPointOnChart(networkChart, 0, previousIndex, pointIndex);
     let networkMeta = networkChart.getDatasetMeta(0);
-
-    // Reset previous point
-    // let cpuOldPoint = cpuMeta.data[previousIndex];
-    // cpuOldPoint.custom = cpuOldPoint.custom || {};
-    // cpuOldPoint.custom.backgroundColor = '#fff';
-    // cpuOldPoint.custom.radius = 3;
-    let networkOldPoint = networkMeta.data[previousIndex];
-    networkOldPoint.custom = networkOldPoint.custom || {};
-    networkOldPoint.custom.backgroundColor = '#fff';
-    networkOldPoint.custom.radius = 3;
-
-    //Get point object and change the radius/color
-    // let cpuPoint = cpuMeta.data[pointIndex];
-    // cpuPoint.custom = cpuPoint.custom || {};
-    // cpuPoint.custom.backgroundColor = '#828282';
-    // cpuPoint.custom.radius = 7;
-    let networkPoint = networkMeta.data[pointIndex];
-    networkPoint.custom = networkPoint.custom || {};
-    networkPoint.custom.backgroundColor = '#828282';
-    networkPoint.custom.radius = 7;
 
     // first parameter to update is the animation duration.
     // if none is specified, the config animation duration
@@ -160,29 +141,8 @@ function highlightPointOnCharts(isNode) {
     if (isNode) {
         networkChart.update();
         for (i = 0; i < nodeMap.get(currentNode).get('numOfPorts'); i++) {
-            let portMeta1 = portCharts[i].getDatasetMeta(0);
-            let portMeta2 = portCharts[i].getDatasetMeta(1);
-
-            // Reset previous point
-            let portOldPoint1 = portMeta1.data[previousIndex];
-            let portOldPoint2 = portMeta2.data[previousIndex];
-            portOldPoint1.custom = portOldPoint1.custom || {};
-            portOldPoint2.custom = portOldPoint2.custom || {};
-            portOldPoint1.custom.backgroundColor = '#fff';
-            portOldPoint2.custom.backgroundColor = '#fff';
-            portOldPoint1.custom.radius = 3;
-            portOldPoint2.custom.radius = 3;
-
-            //Get point object and change the radius/color
-            let portPoint1 = portMeta1.data[pointIndex];
-            let portPoint2 = portMeta2.data[pointIndex];
-            portPoint1.custom = portPoint1.custom || {};
-            portPoint2.custom = portPoint2.custom || {};
-            portPoint1.custom.backgroundColor = '#828282';
-            portPoint2.custom.backgroundColor = '#828282';
-            portPoint1.custom.radius = 7;
-            portPoint2.custom.radius = 7;
-
+            utils.updateHighlightedPointOnChart(portCharts[i], 0, previousIndex, pointIndex);
+            utils.updateHighlightedPointOnChart(portCharts[i], 1, previousIndex, pointIndex);
             portCharts[i].update();
         }
     } else {
