@@ -1,15 +1,21 @@
 const {ipcRenderer} = require('electron');
+const utils = require('./utils');
 const data_logs = require('./data_logs');
 data_logs.loadLogs();
-let nodeMap = data_logs.getLogsMap();
 require('./chart_styles');
+require('./data_topology');
 
 // vars
+const nodeMap = data_logs.getLogsMap();
+const nodes = data_logs.getNodes();
+const numOfNodes = nodes.length;
 let previousIndex = 0;
 let pointIndex = 0;
 let currentNode = '';
-let networkCapacity = 798.2461;
+const networkCapacity = 798.2461;
 const numOfPortCharts = 2;
+let isPlaying = false;
+let playbackSpeed = 100;
 
 // elements
 let sliderId = $('#ex1');
@@ -24,11 +30,13 @@ let portChartPlaceholders = [numOfPortCharts];
 for (i = 1; i <= numOfPortCharts; i++) {
     portChartPlaceholders[i - 1] = $('#placeholder-row' + i);
 }
+let cyNodesMap = new Map(); // will be populated after creating cy below
+let cyEdgesMap = new Map(); // will be populated after creating cy below
 
 
-// network load color array for use in order of 10
+// network load colour array for use in order of 10
 // order is from red to green for modulo purpose
-const colorArray = [
+const colourArray = [
 '#fb000c',
 '#c92901',
 '#C05439',
@@ -38,18 +46,6 @@ const colorArray = [
 '#5B8737',
 '#92e151'
 ];
-
-// const colorArray = [
-// '#CC3333',
-// '#FF9933',
-// '#66CC33'
-// ]
-
-// const colorArray = [
-// 'red',
-// 'orange',
-// 'green'
-// ];
 
 // update and highlight functions
 $(document).ready(function() {
@@ -126,7 +122,7 @@ function updateHighlights() {
     let isNode = nodeMap.has(currentNode);
     highlightPointOnCharts(isNode);
     if (isNode) {
-        highlightNetworkLoad();
+        highlightNetworkLoadForNode(currentNode);
     } else {
         highlightOverallNetworkLoad();
     }
@@ -196,115 +192,26 @@ function highlightPointOnCharts(isNode) {
     previousIndex = pointIndex;
 }
 
-function highlightNetworkLoad() {
-    // colour nodes based on cpu load
-    // if (cpuData[currentNode][pointIndex] > 70) {
-    //     cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'red' });
-    // } else if (cpuData[currentNode][pointIndex] > 40) {
-    //     cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'orange' });
-    // } else {
-    //     cy.nodes('#' + nodes[currentNode]).style({ 'background-color':'green' });
-    // }
-
-    // colour nodes based on network load
-    let node = nodeMap.get(currentNode);
+function highlightNetworkLoadForNode(nodeName) {
+    let node = nodeMap.get(nodeName);
     let networkLoad = node.get('total')[pointIndex];
-    let nodeColorIndex = 7;
-    if (networkLoad > 2000000) {
-        nodeColorIndex = 0;
-    } else if (networkLoad > 1000000) {
-        nodeColorIndex = 1;
-    } else if (networkLoad > 600000) {
-        nodeColorIndex = 2;
-    } else if (networkLoad > 280000) {
-        nodeColorIndex = 3;
-    } else if (networkLoad > 260000) {
-        nodeColorIndex = 4;
-    } else if (networkLoad > 240000) {
-        nodeColorIndex = 5;
-    } else if (networkLoad > 220000) {
-        nodeColorIndex = 6;
-    }
-    cy.nodes('#' + currentNode).style({'background-color': colorArray[nodeColorIndex]});
+    let nodeColourIndex = utils.getNodeColourIndex(networkLoad);
+    cyNodesMap.get(nodeName).style({'background-color': colourArray[nodeColourIndex]});
 
-    cy.edges().style({ 'line-color':'gray' });
     let portsMap = node.get('ports');
     let portNum = 0;
     portsMap.forEach(function (value, key) {
-        let bandwidth = value.get('total')[pointIndex];
-        if (bandwidth > 800000) {
-            cy.elements('edge[source = "' + node.get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'red' });
-        } else if (bandwidth > 240000) {
-            cy.elements('edge[source = "' + node.get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'orange' });
-        } else {
-            cy.elements('edge[source = "' + node.get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'green' });
-        }
+        let edgeName = 'edge[source = "' + nodeName + '"][sPort = ' + portNum + ']';
+        let edge = cyEdgesMap.get(edgeName);
+        utils.colourEdge(value.get('total')[pointIndex], edge);
         portNum++;
     });
 }
 
 function highlightOverallNetworkLoad() {
-    let nodes = data_logs.getNodes();
-    for (i = 0; i < nodes.length; i++) {
-        // color nodes based on network data
-        let node = nodeMap.get(nodes[i]);
-        let networkLoad = node.get('total')[pointIndex];
-        let nodeColorIndex = 7;
-
-        if (networkLoad > 2000000) {
-            nodeColorIndex = 0;
-        } else if (networkLoad > 1000000) {
-            nodeColorIndex = 1;
-        } else if (networkLoad > 600000) {
-            nodeColorIndex = 2;
-        } else if (networkLoad > 280000) {
-            nodeColorIndex = 3;
-        } else if (networkLoad > 260000) {
-            nodeColorIndex = 4;
-        } else if (networkLoad > 240000) {
-            nodeColorIndex = 5;
-        } else if (networkLoad > 220000) {
-            nodeColorIndex = 6;
-        }
-        cy.nodes('#' + nodes[i]).style({'background-color': colorArray[nodeColorIndex]});
-
-        let portsMap = node.get('ports');
-        let portNum = 0;
-        portsMap.forEach(function (value, key) {
-            let bandwidth = value.get('total')[pointIndex];
-            if (bandwidth > 800000) {
-                cy.elements('edge[source = "' + node.get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'red' });
-            } else if (bandwidth > 240000) {
-                cy.elements('edge[source = "' + node.get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'orange' });
-            } else {
-                cy.elements('edge[source = "' + node.get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color':'green' });
-            }
-            portNum++;
-        });
-        /*
-         let edgeColorIndex = 7;
-         portsMap.forEach(function (value, key) {
-         let bandwidth = value.get('total')[pointIndex];
-         if (bandwidth > 2000000) {
-         edgeColorIndex = 0;
-         } else if (bandwidth > 1000000) {
-         edgeColorIndex = 1;
-         } else if (bandwidth > 600000) {
-         edgeColorIndex = 2;
-         } else if (bandwidth > 280000) {
-         edgeColorIndex = 3;
-         } else if (bandwidth > 260000) {
-         edgeColorIndex = 4;
-         } else if (bandwidth > 240000) {
-         edgeColorIndex = 5;
-         } else if (bandwidth > 220000) {
-         edgeColorIndex = 6;
-         }
-
-         cy.elements('edge[source = "' + nodeMap.get(node).get('name') + '"][sPort = ' + portNum + ']').style({ 'line-color': colorArray[edgeColorIndex] });
-         portNum++;
-         });
-         */
+    for (i = 0; i < numOfNodes; i++) {
+        let nodeName = nodes[i];
+        highlightNetworkLoadForNode(nodeName);
     }
 }
 
@@ -317,7 +224,7 @@ function resetNodesAndEdgesColors() {
 function showHideCharts(isNode) {
     if (isNode) {
         let numOfPorts = nodeMap.get(currentNode).get('numOfPorts');
-        for (i = 1; i <= portCharts.length; i++) {
+        for (i = 1; i <= numOfPortCharts; i++) {
             let placeHolder = portChartPlaceholders[i - 1];
             if (i <= numOfPorts) {
                 if (placeHolder.hasClass('no-visibility')) {
@@ -330,7 +237,7 @@ function showHideCharts(isNode) {
             }
         }
     } else {
-        for (i = 1; i <= portCharts.length; i++) {
+        for (i = 1; i <= numOfPortCharts; i++) {
             let placeHolder = portChartPlaceholders[i - 1];
             if (!placeHolder.hasClass('no-visibility')) {
                 placeHolder.addClass('no-visibility');
@@ -350,8 +257,6 @@ endButton.on('click', function () {
     sliderId.slider('setValue', pointIndex);
     update();
 });
-let isPlaying = false;
-let playbackSpeed = 100;
 playPauseButton.on('click', function () {
     if (isPlaying) {
         isPlaying = false;
@@ -413,6 +318,19 @@ let cy = cytoscape({
     },
     style: cyStyle
 });
+// populating cy maps
+for (i = 0; i < numOfNodes; i++) {
+    let nodeName = nodes[i];
+    cyNodesMap.set(nodeName, cy.nodes('#' + nodes[i]));
+    let node = nodeMap.get(nodeName);
+    let portsMap = node.get('ports');
+    let portNum = 0;
+    portsMap.forEach(function (value, key) {
+        let edgeName = 'edge[source = "' + nodeName + '"][sPort = ' + portNum + ']';
+        cyEdgesMap.set(edgeName, cy.elements(edgeName));
+        portNum++;
+    });
+}
 //cy.on('mouseover', 'node', function(event) {
 //    let node = event.cyTarget;
 //     node.qtip({
