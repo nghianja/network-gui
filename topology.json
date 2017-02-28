@@ -1,0 +1,429 @@
+{
+	"mainLan": {
+		"type": "switch"
+	},
+	"ispA": {
+		"type": "parent"
+	},
+	"ispB": {
+		"type": "parent"
+	},
+	"ispC": {
+		"type": "parent"
+	},
+	"lanC1": {
+		"type": "switch",
+		"parent": "ispA"
+	},
+	"lanC2": {
+		"type": "switch",
+		"parent": "ispB"
+	},
+	"lanC4": {
+		"type": "switch",
+		"parent": "ispC"
+	},
+	"anode-0": {
+		"label": "172.30.7.4",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-1": {
+		"label": "172.30.7.5",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-2": {
+		"label": "172.30.7.6",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-3": {
+		"label": "172.30.7.7",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-4": {
+		"label": "172.30.7.8",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-5": {
+		"label": "172.30.7.9",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-6": {
+		"label": "172.30.7.10",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-7": {
+		"label": "172.30.7.11",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-8": {
+		"label": "172.30.7.12, 172.30.4.2",
+		"parent": "ispA",
+		"numPorts": 2,
+		"connections": {
+			"1": {
+				"target": "dnode-9",
+				"sourcePort": 1,
+				"targetPort": 1
+			}
+		}
+	},
+	"anode-9": {
+		"label": "172.30.7.13, 172.30.5.2",
+		"parent": "ispA",
+		"numPorts": 2,
+		"connections": {
+			"1": {
+				"target": "bnode-9",
+				"sourcePort": 1,
+				"targetPort": 1
+			}
+		}
+	},
+	"anode-10": {
+		"label": "172.30.7.14",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-11": {
+		"label": "172.30.7.15",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-12": {
+		"label": "172.30.7.16",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-13": {
+		"label": "172.30.7.17",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-14": {
+		"label": "172.30.7.18",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-15": {
+		"label": "172.30.7.19",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-16": {
+		"label": "172.30.7.20",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-17": {
+		"label": "172.30.7.21",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-18": {
+		"label": "172.30.7.22",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-19": {
+		"label": "172.30.7.23",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-20": {
+		"label": "172.30.7.24",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"anode-21": {
+		"label": "172.30.7.25",
+		"parent": "ispA",
+		"numPorts": 1
+	},
+	"nodeC01": {
+		"label": "172.30.7.3, 172.30.2.5",
+		"parent": "ispA",
+		"numPorts": 2,
+		"connections": {
+			"1": {
+				"target": "mainLan",
+				"sourcePort": 1,
+				"targetPort": 0
+			}
+		}
+	},
+	"nodeC1": {
+		"label": "172.30.7.2, 172.30.2.2",
+		"parent": "ispA",
+		"numPorts": 2,
+		"connections": {
+			"1": {
+				"target": "mainLan",
+				"sourcePort": 1,
+				"targetPort": 1
+			}
+		}
+	},
+	"bnode-0": {
+		"label": "172.30.3.4",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-1": {
+		"label": "172.30.3.5",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-2": {
+		"label": "172.30.3.6",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-3": {
+		"label": "172.30.3.7",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-4": {
+		"label": "172.30.3.8",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-5": {
+		"label": "172.30.3.9",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-6": {
+		"label": "172.30.3.10",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-7": {
+		"label": "172.30.3.11",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-8": {
+		"label": "172.30.3.12, 172.30.1.2",
+		"parent": "ispB",
+		"numPorts": 2,
+		"connections": {
+			"1": {
+				"target": "dnode-8",
+				"sourcePort": 1,
+				"targetPort": 1
+			}
+		}
+	},
+	"bnode-9": {
+		"label": "172.30.3.13, 172.30.5.3",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-10": {
+		"label": "172.30.3.14",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-11": {
+		"label": "172.30.3.15",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-12": {
+		"label": "172.30.3.16",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-13": {
+		"label": "172.30.3.17",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-14": {
+		"label": "172.30.3.18",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-15": {
+		"label": "172.30.3.19",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-16": {
+		"label": "172.30.3.20",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-17": {
+		"label": "172.30.3.21",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-18": {
+		"label": "172.30.3.22",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-19": {
+		"label": "172.30.3.23",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-20": {
+		"label": "172.30.3.24",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"bnode-21": {
+		"label": "172.30.3.25",
+		"parent": "ispB",
+		"numPorts": 1
+	},
+	"nodeC02": {
+		"label": "172.30.3.3, 172.30.2.6",
+		"parent": "ispB",
+		"numPorts": 2,
+		"connections": {
+			"1": {
+				"target": "mainLan",
+				"sourcePort": 1,
+				"targetPort": 2
+			}
+		}
+	},
+	"nodeC2": {
+		"label": "172.30.3.2, 172.30.2.3",
+		"parent": "ispB",
+		"numPorts": 2,
+		"connections": {
+			"1": {
+				"target": "mainLan",
+				"sourcePort": 1,
+				"targetPort": 3
+			}
+		}
+	},
+	"dnode-3": {
+		"label": "172.30.6.4",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-4": {
+		"label": "172.30.6.5",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-5": {
+		"label": "172.30.6.6",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-6": {
+		"label": "172.30.6.7",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-7": {
+		"label": "172.30.6.8",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-8": {
+		"label": "172.30.6.9, 172.30.1.3",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-9": {
+		"label": "172.30.6.10, 172.30.4.3",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-10": {
+		"label": "172.30.6.11",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-12": {
+		"label": "172.30.6.12",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-13": {
+		"label": "172.30.6.13",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-14": {
+		"label": "172.30.6.14",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-15": {
+		"label": "172.30.6.15",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-16": {
+		"label": "172.30.6.16",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-17": {
+		"label": "172.30.6.17",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-18": {
+		"label": "172.30.6.18",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-19": {
+		"label": "172.30.6.19",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-20": {
+		"label": "172.30.6.20",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"dnode-21": {
+		"label": "172.30.6.21",
+		"parent": "ispC",
+		"numPorts": 1
+	},
+	"nodeC04": {
+		"label": "172.30.6.3, 172.30.2.7",
+		"parent": "ispC",
+		"numPorts": 2,
+		"connections": {
+			"1": {
+				"target": "mainLan",
+				"sourcePort": 1,
+				"targetPort": 4
+			}
+		}
+	},
+	"nodeC4": {
+		"label": "172.30.6.2, 172.30.2.4",
+		"parent": "ispC",
+		"numPorts": 2,
+		"connections": {
+			"1": {
+				"target": "mainLan",
+				"sourcePort": 1,
+				"targetPort": 5
+			}
+		}
+	}
+}

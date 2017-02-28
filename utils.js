@@ -15,7 +15,7 @@ module.exports.getNodeColourIndex = function(networkLoad) {
         return 4;
     } else if (networkLoad > 240000) {
         return 5;
-    } else if (networkLoad > 220000) {
+    } else if (networkLoad > 200000) {
         return 6;
     } else {
         return 7;

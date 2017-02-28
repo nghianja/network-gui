@@ -306,19 +306,21 @@ for (i = 0; i < numOfNodes; i++) {
     });
 }
 
-//cy.on('mouseover', 'node', function(event) {
-//    let node = event.cyTarget;
-//     node.qtip({
-//         content: this.data('label'),
-//         show: {
-//             event: event.type,
-//             ready: true
-//         },
-//         hide: {
-//             event: 'mouseout unfocus'
-//         }
-//     }, event);
-//});
+cy.on('mouseover', 'node', function(event) {
+    if (this.data('label')) {
+        let node = event.cyTarget;
+        node.qtip({
+            content: this.data('label'),
+            show: {
+                event: event.type,
+                ready: true
+            },
+            hide: {
+                event: 'mouseout unfocus'
+            }
+        }, event);
+    }
+});
 
 cy.on('click', function(event) {
     let node = event.cyTarget;
