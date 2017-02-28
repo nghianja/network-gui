@@ -140,15 +140,15 @@ function highlightPointOnCharts(isNode) {
     // is used. Using 0 here will do the draw immediately.
     // cpuChart.update();
 
+    networkChart.update(0);
+
     if (isNode) {
-        networkChart.update();
         for (i = 0; i < nodeMap.get(currentNode).get('numOfPorts'); i++) {
             utils.updateHighlightedPointOnChart(portCharts[i], 0, previousIndex, pointIndex);
             utils.updateHighlightedPointOnChart(portCharts[i], 1, previousIndex, pointIndex);
-            portCharts[i].update();
+            portCharts[i].update(0);
         }
     } else {
-        networkChart.update(0);
         for (i = 0; i < numOfPortCharts; i++) {
             utils.resetPointOnChart(portCharts[i], 0, previousIndex);
             utils.resetPointOnChart(portCharts[i], 1, previousIndex);
